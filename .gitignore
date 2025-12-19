@@ -81,3 +81,17 @@ crashlytics-build.properties
 
 
 .DS_Store
+
+
+# Unity project folder 내부도 확실히 무시
+idol_debut_project/[Ll]ibrary/
+idol_debut_project/[Tt]emp/
+idol_debut_project/[Oo]bj/
+idol_debut_project/[Bb]uild/
+idol_debut_project/[Bb]uilds/
+idol_debut_project/[Ll]ogs/
+idol_debut_project/[Uu]ser[Ss]ettings/
+
+
+# Unity PackageCache (대용량 원흉)
+idol_debut_project/Library/PackageCache/
