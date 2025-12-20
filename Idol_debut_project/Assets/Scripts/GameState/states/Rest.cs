@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class Rest : IGameState
 {
+    public Player player;
+    public TimeCycleManager time;
+
+    public Rest(Player player, TimeCycleManager time)
+    {
+        this.player = player;
+        this.time = time;
+    }
+
     public void Enter()
     {
         Debug.Log("휴식 상태 진입");
@@ -15,5 +24,7 @@ public class Rest : IGameState
     public void Exit()
     {
         Debug.Log("휴식 상태 종료 ");
+        
+        time.AdvanceWeek(); //한 주 지남.
     }
 }
