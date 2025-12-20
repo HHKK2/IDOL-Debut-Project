@@ -4,6 +4,7 @@ public class Dating : IGameState
 {
     private Player player;
     private TimeCycleManager time;
+    private GameFlowManager gameFlow;
     private DatingResult result;
 
     #region enum
@@ -15,10 +16,11 @@ public class Dating : IGameState
     }
     #endregion
 
-    public Dating(Player player, TimeCycleManager time)
+    public Dating(Player player, TimeCycleManager time, GameFlowManager gameFlow)
     {
         this.player = player;
         this.time = time;
+        this.gameFlow = gameFlow;
     }
 
     public void Enter()
@@ -63,9 +65,12 @@ public class Dating : IGameState
                 break;
 
             case DatingResult.MentalUp:
-            player.MentalHealth += 30;
-            break;
+                player.MentalHealth += 30;
+                break;
         }
         time.AdvanceWeek();
+
+        //엔딩 체크
+        gameFlow.CheckEnding();
     }
 }

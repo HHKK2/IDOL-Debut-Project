@@ -4,11 +4,13 @@ public class FanService : IGameState
 {
     public Player player;
     public TimeCycleManager time;
+    GameFlowManager gameFlow;
 
-    public FanService(Player player, TimeCycleManager time)
+    public FanService(Player player, TimeCycleManager time, GameFlowManager gameFlow)
     {
         this.player = player;
         this.time = time;
+        this.gameFlow = gameFlow;
     }
 
     public void Enter()
@@ -24,10 +26,19 @@ public class FanService : IGameState
 
     public void Exit()
     {
-        player.FanNumber += player.Reputation * 10; // 팬 수 증가: 평판 * 10
+        if (player.Reputation >= 0)
+        {
+            player.FanNumber += player.Reputation * 10; // 팬 수 증가: 평판 * 10
+        }
+        else
+        {
+            player.Reputation += 10;
+        }
         player.MentalHealth -= 5; // 멘탈 감소
 
         time.AdvanceWeek(); // 1주 경과
+
+        gameFlow.CheckEnding();
 
         Debug.Log("팬 서비스 상태 종료");
     }
