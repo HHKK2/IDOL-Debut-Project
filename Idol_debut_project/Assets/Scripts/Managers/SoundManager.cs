@@ -5,48 +5,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using UnityEngine.Serialization;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : AdolpSingleton<SoundManager>
 {
     [SerializeField] private AudioMixer mixer;
     [Header("each bg source have to be same as scene name")]
     [SerializeField]private AudioSource[] bgList;
     [SerializeField]private AudioSource bgSound;
+
     
-    #region 싱글톤
-    static SoundManager instance;
-
-    public static SoundManager Instance
-    {
-        get { return instance; }
-    }
-
-    void Init()
-    {
-        if(instance==null)
-        {
-            GameObject go = GameObject.Find("SoundManager");
-            if (go == null)
-            {
-                go=new GameObject("SoundManager");
-            }
-
-            if (go.GetComponent<SoundManager>() == null)
-            {
-                go.AddComponent<SoundManager>();
-            }
-            DontDestroyOnLoad(go);
-            instance = go.GetComponent<SoundManager>();
-        }
-    }
-    
-
-    #endregion
-
-    private void Start()
-    {
-        Init();
-    }
-
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
