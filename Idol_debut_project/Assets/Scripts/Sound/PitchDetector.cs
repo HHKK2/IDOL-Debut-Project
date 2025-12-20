@@ -1,3 +1,5 @@
+using System;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class PitchDetector : MonoBehaviour
@@ -33,6 +35,13 @@ public class PitchDetector : MonoBehaviour
         {
             LastMidi = HzToMidi(f0);
         }
+    }
+
+    public void Reset()
+    {
+        LastF0Hz = 0f;
+        LastMidi = 0f;
+        Confidence = 0f;
     }
 
     float HzToMidi(float hz)
