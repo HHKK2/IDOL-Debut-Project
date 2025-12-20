@@ -95,3 +95,20 @@ idol_debut_project/[Uu]ser[Ss]ettings/
 
 # Unity PackageCache (대용량 원흉)
 idol_debut_project/Library/PackageCache/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.env/
+
+# PyCharm
+.idea/
+
+# Python tools outputs
+Tools/**/outputs/
+Tools/**/.pytest_cache/
