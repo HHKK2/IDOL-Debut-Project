@@ -7,7 +7,6 @@ public static class GameConstants
     // UI 관련 상수
     public static class UI
     {
-
         public static class SortingOrder
         {
             // 게임 월드 내의 요소 (플레이어보다 뒤에 그려져야 하는 배경 오브젝트 등)
@@ -27,6 +26,16 @@ public static class GameConstants
 
             // 시스템 최상위 레이어 (로딩 화면, 네트워크 끊김 알림, 토스트 메시지 등)
             public const int System = 100;
+        }
+
+        public static class HUDName
+        {
+            public const string HomeUI = "HomeUI";
+        }
+        
+        public static class PopupName
+        {
+            public const string PopupUI = "PopupUI";
         }
     }
 
