@@ -12,7 +12,7 @@ public class Player
     {
         get { return name; }
         set { name = value; }
-    } 
+    }
 
     public Gender Gender
     {
@@ -23,18 +23,27 @@ public class Player
     public int Reputation
     {
         get { return reputation; }
-        set { reputation = value; }
+        set
+        {
+            reputation = Mathf.Clamp(value, -100, 100);
+        }
     }
 
     public int FanNumber
     {
         get { return fanNumber; }
-        set { fanNumber = value; }
+        set
+        {
+            fanNumber = Mathf.Max(0, value);
+        }
     }
 
     public int MentalHealth
     {
         get { return mentalHealth; }
-        set { mentalHealth = value; }
+        set
+        {
+            mentalHealth = Mathf.Clamp(value, 0, 100);
+        }
     }
 }
