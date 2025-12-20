@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class VocalActivityDetector : MonoBehaviour
 {
-    public float rmsThreshold = 0.02f;
+    public float rmsThreshold = 0.002f;
     public bool IsVocalActive { get; private set; }
     public float LastRms { get; private set; }
 
