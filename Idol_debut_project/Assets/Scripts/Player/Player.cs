@@ -5,10 +5,10 @@ public class Player
     private string name;
     private Gender gender;
     private int reputation; //대중 평판
-    private int stamina; // 체력
+    //private int stamina; // 체력
     private int money; // 돈
     private int fanNumber; // 팬 수
-    private int fanOpinion; // 팬 민심
+    //private int fanOpinion; //팬 민심
     private int mentalHealth; // 정신력
     private int singingAbility; // 가창력
 
@@ -16,18 +16,24 @@ public class Player
     {
         get { return name; }
         set { name = value; }
-    }
+    } 
 
     public Gender Gender
     {
         get { return gender; }
         set { gender = value; }
     }
-    
-    public int Stamina
+
+    // public int Stamina
+    // {
+    //     get { return stamina; }
+    //     set { stamina = value; }
+    // }
+
+    public int Reputation
     {
-        get { return stamina; }
-        set { stamina = value; }
+        get { return reputation; }
+        set { reputation = value; }
     }
 
     public int Money
@@ -42,11 +48,11 @@ public class Player
         set { fanNumber = value; }
     }
 
-    public int FanOpinion
-    {
-        get { return fanOpinion; }
-        set { fanOpinion = value; }
-    }
+    // public int FanOpinion
+    // {
+    //     get { return fanOpinion; }
+    //     set { fanOpinion = value; }
+    // }
 
     public int MentalHealth
     {
@@ -59,5 +65,5 @@ public class Player
         get { return singingAbility; }
         set { singingAbility = value; }
     }
-    
+
 }
