@@ -4,11 +4,13 @@ public class Training : IGameState
 {
     Player player;
     TimeCycleManager time;
+    GameFlowManager gameFlow;
 
-    public Training(Player player, TimeCycleManager time)
+    public Training(Player player, TimeCycleManager time, GameFlowManager gameFlow)
     {
         this.player = player;
         this.time = time;
+        this.gameFlow = gameFlow;
     }
 
     public void Enter()
@@ -25,5 +27,6 @@ public class Training : IGameState
     {
         Debug.Log("연습 상태 종료");
         time.AdvanceWeek(); //한 주 지나감.
+        gameFlow.CheckEnding();
     }
 }
