@@ -84,7 +84,7 @@ def write_csv(frames: List[PitchFrame], out_csv: str) -> None:
                 w.writerow([f"{fr.t:.6f}", "", "", f"{fr.confidence:.3f}"])
             else:
                 midi = hz_to_midi(fr.f0_hz)
-                w.writerow([f"{fr.t:.6f}", f"{fr.f0_hz:.3f}", f"{midi:.3f}"])
+                w.writerow([f"{fr.t:.6f}", f"{fr.f0_hz:.3f}", f"{midi:.3f}", f"{fr.confidence:.3f}"])
 
 
 def main():

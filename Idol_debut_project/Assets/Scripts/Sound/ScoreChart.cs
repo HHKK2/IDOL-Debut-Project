@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
 public class ScoreChart : MonoBehaviour
 {
+    [SerializeField] private TextAsset scoreChartJson;
+
     [Serializable]
     public class Note
     {
@@ -15,46 +17,62 @@ public class ScoreChart : MonoBehaviour
     }
 
     [Serializable]
-    public class ChartData
+    public class Chart
     {
         public int version;
         public List<Note> notes;
+        // segments도 json에 있지만 일단 여기선 notes만 쓸거라 생략 가능
     }
 
-    public TextAsset scoreChartJson;
-    public ChartData Chart { get; private set; }
+    private Chart chart;
 
-    private void Awake()
+    void Awake()
     {
-        LoadFromTextAsset();
+        LoadChart();
     }
 
-    public void LoadFromTextAsset()
+    private void LoadChart()
     {
         if (scoreChartJson == null)
         {
-            Debug.LogWarning("ScoreChart json is null");
+            Debug.LogError("[ScoreChart] scoreChartJson is null!");
             return;
         }
 
-        Chart = JsonUtility.FromJson<ChartData>(scoreChartJson.text);
-        if (Chart == null || Chart.notes == null)
+        chart = JsonUtility.FromJson<Chart>(scoreChartJson.text);
+
+        if (chart == null || chart.notes == null)
         {
-            Debug.LogError("Failed to parse score_chart,json");
+            Debug.LogError("[ScoreChart] Failed to parse chart json.");
+            return;
         }
+
+        Debug.Log("[ScoreChart] Loaded notes = " + chart.notes.Count);
     }
 
-    public Note GetActiveNote(float timeSec)
+    private int curIdx = 0;
+    // t초에 해당하는 노트가 있으면 반환, 없으면 null
+    public Note GetNoteAtTime(float t)
     {
-        if (Chart == null || Chart.notes == null) return null;
-        int i;
-        for (i = 0; i < Chart.notes.Count; i++)
+        if (chart == null || chart.notes == null || chart.notes.Count == 0) return null;
+
+        if (curIdx >= chart.notes.Count) curIdx = chart.notes.Count - 1;
+        if (curIdx < 0) curIdx = 0;
+
+        while (curIdx > 0 && t < chart.notes[curIdx].start)
         {
-            Note n = Chart.notes[i];
-            if (n.start <= timeSec && timeSec < n.end)
-            {
-                return n;
-            }
+            curIdx--;
+        }
+
+        while (curIdx < chart.notes.Count && t >= chart.notes[curIdx].end)
+        {
+            curIdx++;
+        }
+        
+        if (curIdx >= 0 && curIdx < chart.notes.Count)
+        {
+            Note n = chart.notes[curIdx];
+            if (t >= n.start && t < n.end) return n;
         }
 
         return null;
