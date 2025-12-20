@@ -30,13 +30,7 @@ public static class GameConstants
 
         public static class HUDName
         {
-            public const string HomeUI = "HomeUI";
-        }
-        
-        public static class PopupName
-        {
-            public const string PopupUI = "PopupUI";
+            public const string MainMenuUI = "MainMenuUI";
         }
     }
-
 }
