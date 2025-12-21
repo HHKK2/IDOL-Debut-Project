@@ -31,6 +31,11 @@ public static class GameConstants
         public static class HUDName
         {
             public const string MainMenuUI = "MainMenuUI";
+            public const string HomeUI = "HomeUI";
+        }
+        public static class SystemName
+        {
+            public const string FadeInSystemUI = "StageFadeInSystemUI";
         }
     }
 }
