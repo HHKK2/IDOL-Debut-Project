@@ -19,31 +19,21 @@ public class Player
         get { return gender; }
         set { gender = value; }
     }
-
     public int Reputation
     {
         get { return reputation; }
-        set
-        {
-            reputation = Mathf.Clamp(value, -100, 100);
-        }
+        set { reputation = value; }
     }
-
+    
     public int FanNumber
     {
         get { return fanNumber; }
-        set
-        {
-            fanNumber = Mathf.Max(0, value);
-        }
+        set { fanNumber = value; }
     }
 
     public int MentalHealth
     {
         get { return mentalHealth; }
-        set
-        {
-            mentalHealth = Mathf.Clamp(value, 0, 100);
-        }
+        set { mentalHealth = value; }
     }
 }
