@@ -21,6 +21,12 @@ public class UIManager: AdolpSingleton<UIManager>
 	{
 		get{ return hudList; }
 	}
+	List<UISystem> systemList = new List<UISystem>();
+
+	public List<UISystem> SystemList
+	{
+		get{ return systemList; }
+	}
 	
 	private void Start()
 	{
@@ -55,6 +61,20 @@ public class UIManager: AdolpSingleton<UIManager>
             return root;
 		}
     }
+    
+    GameObject SystemRoot
+    {
+        get
+        {
+			GameObject root = GameObject.Find("@UI_SystemRoot");
+			if (root == null){
+                root = new GameObject { name = "@UI_SystemRoot" };
+                SetCanvas(root, UITypes.UIType.System);
+            }
+				
+            return root;
+		}
+    }
 
     
     void SetCanvas(GameObject go, UITypes.UIType uiType)
@@ -77,6 +97,7 @@ public class UIManager: AdolpSingleton<UIManager>
 		//HUD 경로는 Resources/UI/HUD 이하여야 합니다.
         GameObject prefab = Resources.Load<GameObject>($"UI/HUD/{name}");
 		GameObject go = Object.Instantiate(prefab);
+		go.name = name;
 		T sceneUI = GameObjectUtils.GetOrAddComponent<T>(go);
 		T hud = GameObjectUtils.GetOrAddComponent<T>(go);
 		hudList.Add(hud);
@@ -97,6 +118,7 @@ public class UIManager: AdolpSingleton<UIManager>
         //Popup프리팹의 경로는 Resources/UI/Popup 이하여야 합니다.
         GameObject prefab = Resources.Load<GameObject>($"UI/Popup/{name}");
         GameObject go = Object.Instantiate<GameObject>(prefab);
+        go.name = name;
         T popup = GameObjectUtils.GetOrAddComponent<T>(go);
         popupStack.Push(popup);
 
@@ -107,6 +129,25 @@ public class UIManager: AdolpSingleton<UIManager>
 
 		return popup;
     }
+    
+    /// <summary>
+    /// 프리팹 이름넣기(.prefab넣지말고 이름만넣기)
+    /// </summary>
+	public T ShowSystemUI<T>(string name = null) where T : UISystem
+	{
+		if (string.IsNullOrEmpty(name))
+			name = typeof(T).Name;
+		//System 경로는 Resources/UI/System 이하여야 합니다.
+        GameObject prefab = Resources.Load<GameObject>($"UI/System/{name}");
+		GameObject go = Object.Instantiate<GameObject>(prefab);
+		go.name = name;
+		T system = GameObjectUtils.GetOrAddComponent<T>(go);
+		systemList.Add(system);
+
+		go.transform.SetParent(SystemRoot.transform,false);
+
+		return system;
+	}
     
 
     /// <summary>
@@ -174,5 +215,52 @@ public class UIManager: AdolpSingleton<UIManager>
     {
 	    while (hudList.Count > 0)
 		    CloseHUDUI();
+    }
+
+    /// <summary>
+    /// 해당 System UI를 닫음
+	/// GameConstants.UI.SystemName.으로 System이름 접근가능->이걸 인자로 넣기
+    /// </summary>
+    public void CloseSystemUI(string systemName)
+    {
+	    if (systemList.Count == 0)
+		    return;
+
+	    UISystem targetSystem = null;
+	    for (int i = 0; i < systemList.Count; i++)
+	    {
+		    if (systemList[i].gameObject.name == systemName)
+		    {
+			    targetSystem = systemList[i];
+			    break;
+		    }
+	    }
+
+	    if (targetSystem == null)
+	    {
+		    Debug.Log("Close system UI Failed!");
+		    return;
+	    }
+
+	    systemList.Remove(targetSystem);
+	    Object.Destroy(targetSystem.gameObject);
+	    targetSystem = null;
+    }
+
+    void CloseSystemUI()
+    {
+	    if (systemList.Count == 0)
+		    return;
+
+	    UISystem system = systemList[systemList.Count - 1];
+	    systemList.RemoveAt(systemList.Count - 1);
+	    Object.Destroy(system.gameObject);
+	    system = null;
+    }
+
+    public void CloseAllSystemUI()
+    {
+	    while (systemList.Count > 0)
+		    CloseSystemUI();
     }
 }
