@@ -24,7 +24,7 @@ public class ChooseActionState : IGameState
     // 할 수 있는 행동들
     private bool canComeBack;
     private bool canPractice;
-    private bool canDating;
+    //private bool canDating;
     private bool canRest;
     private bool canFanService;
 
@@ -46,7 +46,7 @@ public class ChooseActionState : IGameState
 
         // 기본값 세팅
         canPractice = true;
-        canDating = player.CanDating; // 연애 비활성화 반영
+        //canDating = player.CanDating; // 연애 비활성화 반영
         canRest = true;
         canFanService = true;
         canComeBack = true;
@@ -55,7 +55,7 @@ public class ChooseActionState : IGameState
         {
             canComeBack = true; //컴백만 가능합니다.
             canPractice = false;
-            canDating = false;
+            //canDating = false;
             canRest = false;
             canFanService = false;
         }
