@@ -57,13 +57,21 @@ public class PracticeHUD : UIHUD
         BindEvent(PracticeButton.gameObject, OnClickPracticeButton, GameEvents.UIEvent.Click);
     }
 
-    /// <param name="SongMMSS">MM:SS 형태로 음악재생시간 넘겨주기</param>
+  
     /// /// <param name="albumImagePath">Resources 폴더 내의 상대 경로 (확장자 제외)
     /// 예: "Sprites/AlbumCovers/MySong" (Assets/Resources/Sprites/AlbumCovers/MySong.png 일 경우)</param>
-    public void Init(string songTitle, string SongMMSS,string albumImagePath )
+    public void Init(string songTitle,string albumImagePath )
     {
         AlbumImage.sprite = Resources.Load<Sprite>(albumImagePath);
         SongTitle.text = songTitle;
+        
+    }
+    /// <summary>
+    /// update에서 호출하기
+    /// </summary>
+    /// <param name="SongMMSS">MM:SS 형태로 음악재생시간 넘겨주기</param>
+    public void InitSongMMSS(string SongMMSS)
+    {
         SongTimer.text = SongMMSS;
     }
 
