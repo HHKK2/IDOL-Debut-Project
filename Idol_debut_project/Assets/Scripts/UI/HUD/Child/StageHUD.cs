@@ -32,6 +32,8 @@ public class StageHUD : UIHUD
     
     private void Start()
     {
+        UIManager.Instance.ShowSystemUI<StageFadeInSystemUI>();
+        
         base.Init();
         
         Bind<Image>(typeof(Images));

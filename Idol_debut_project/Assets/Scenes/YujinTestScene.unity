@@ -264,8 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c64b840c978b8c4bb4deee8ecdfbbe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UITunner
-  uiBaseType: 2
-  uiName: StageFadeInSystemUI
+  uiBaseType: 1
+  uiName: StageResultHUD
   isClose: 0
 --- !u!1 &475302043
 GameObject:
