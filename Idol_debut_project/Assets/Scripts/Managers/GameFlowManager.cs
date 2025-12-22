@@ -1,5 +1,7 @@
 /// <summary>
 /// 게임 전체 흐름과 엔딩 조건을 관리하는 매니저.
+/// 
+/// 
 /// - 게임이 계속 가능한지 감시
 /// - 엔딩 조건 충족 시 게임 종료 처리
 /// </summary>
@@ -17,7 +19,7 @@ public enum EndingType
 }
 public class GameFlowManager
 {
-
+    private GameStateMachine gsm;
     public Player player;
     public TimeCycleManager time;
 
@@ -25,6 +27,31 @@ public class GameFlowManager
 
     public bool isGameEnded { get; private set; }
     public EndingType End { get; private set; } = EndingType.None;
+
+    //초기화 함수
+    public void Init(GameStateMachine gsm, Player player, TimeCycleManager time)
+    {
+        this.gsm = gsm;
+        this.player = player;
+        this.time = time;
+    }
+
+
+    public void OnActionFinished()
+    {
+        CheckEnding();
+
+        if (isGameEnded)
+        {
+            // EndGame 내부에서 EndingState로 전환됨
+            return;
+        }
+
+        // 엔딩이 아니면 다시 행동 선택으로
+        gsm.ChangeState(
+            new ChooseActionState(gsm, player, time)
+        );
+    }
 
     public void CheckEnding()
     {
@@ -67,7 +94,6 @@ public class GameFlowManager
         Debug.Log($"게임 종료 - 엔딩 : {ending}");
 
         //TODO : 엔딩 UI /씬 전환
-        //TODO : gamestatemachine 정지
+        gsm.ChangeState(new EndingState(ending));
     }
-
 }
