@@ -98,7 +98,8 @@ public class ComeBack : IGameState
         time.didComeBack = true;
 
         //5. 엔딩 체크
-        gameFlow.CheckEnding();
+        gameFlow.OnActionFinished();
+
     }
 
     private int GetStageBonus(int score)

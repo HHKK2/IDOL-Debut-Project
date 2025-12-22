@@ -61,7 +61,8 @@ public class Dating : IGameState
                 break;
 
             case DatingResult.Breakup:
-                player.MentalHealth -= 50; // TODO : 연애 비활성화.
+                player.MentalHealth -= 50;
+                player.DisableDating(); //이별하셨나요? 더 이상 연애를 못 합니다.
                 break;
 
             case DatingResult.MentalUp:
@@ -71,6 +72,6 @@ public class Dating : IGameState
         time.AdvanceWeek();
 
         //엔딩 체크
-        gameFlow.CheckEnding();
+        gameFlow.OnActionFinished();
     }
 }

@@ -24,7 +24,7 @@ public class ChooseActionState : IGameState
     // 할 수 있는 행동들
     private bool canComeBack;
     private bool canPractice;
-    //private bool canDating;
+    private bool canDating;
     private bool canRest;
     private bool canFanService;
 
@@ -39,14 +39,14 @@ public class ChooseActionState : IGameState
     {
         Debug.Log("행동 선택 상태 진입");
 
-        //마지막 주인데 컴백을 안 하셨다고요? 컴백을 하셔야겠네요.
+        //상/하반기가 끝날텐데 컴백을 안 하셨다고요? 컴백을 하셔야겠네요.
 
         bool isLastWeek = (time.currentWeek == 4);
         bool Comeback = time.didComeBack;
 
         // 기본값 세팅
         canPractice = true;
-        //canDating = player.CanDating; // 연애 비활성화 반영
+        canDating = player.CanDating; // 연애 비활성화 반영
         canRest = true;
         canFanService = true;
         canComeBack = true;
@@ -55,11 +55,11 @@ public class ChooseActionState : IGameState
         {
             canComeBack = true; //컴백만 가능합니다.
             canPractice = false;
-            //canDating = false;
+            canDating = false;
             canRest = false;
             canFanService = false;
         }
-        else if (Comeback) //이미 컴백을 했으면, 이번 달엔 컴백 불가.
+        else if (Comeback) //이미 컴백을 했으면, 이번 분기엔 컴백 불가.
         {
             canComeBack = false;
         }

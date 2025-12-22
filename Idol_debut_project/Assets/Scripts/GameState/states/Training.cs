@@ -27,6 +27,7 @@ public class Training : IGameState
     {
         Debug.Log("연습 상태 종료");
         time.AdvanceWeek(); //한 주 지나감.
-        gameFlow.CheckEnding();
+        
+        gameFlow.OnActionFinished();
     }
 }

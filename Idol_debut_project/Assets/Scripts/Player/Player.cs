@@ -7,6 +7,7 @@ public class Player
     private int reputation; //대중 평판
     private int fanNumber; // 팬 수
     private int mentalHealth; // 정신력
+    private bool canDating = true; //연애 가능 여부 플래그 변수
 
     public string Name
     {
@@ -24,7 +25,7 @@ public class Player
         get { return reputation; }
         set { reputation = value; }
     }
-    
+
     public int FanNumber
     {
         get { return fanNumber; }
@@ -35,5 +36,17 @@ public class Player
     {
         get { return mentalHealth; }
         set { mentalHealth = value; }
+    }
+
+    public bool CanDating
+    {
+        get { return canDating; }
+        set { canDating = value; }
+    }
+
+    //결별 시 영구적으로 연애 비활성화 
+    public void DisableDating()
+    {
+        CanDating = false;
     }
 }

@@ -31,6 +31,6 @@ public class Rest : IGameState
 
         time.AdvanceWeek(); //한 주 지남.
 
-        gameFlow.CheckEnding();
+        gameFlow.OnActionFinished();
     }
 }

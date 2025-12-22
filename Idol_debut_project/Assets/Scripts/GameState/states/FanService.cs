@@ -38,7 +38,7 @@ public class FanService : IGameState
 
         time.AdvanceWeek(); // 1주 경과
 
-        gameFlow.CheckEnding();
+        gameFlow.OnActionFinished();
 
         Debug.Log("팬 서비스 상태 종료");
     }
