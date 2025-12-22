@@ -1,16 +1,76 @@
+using System;
 using UnityEngine;
-
-public class StageHUD : MonoBehaviour
+using UnityEngine.UI;
+using TMPro;
+public class StageHUD : UIHUD
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    enum Images
     {
-        
+        AudianceImage,
     }
 
-    // Update is called once per frame
-    void Update()
+    enum Texts
     {
-        
+        LyricsText,
+        SongTimerText
     }
+
+    enum Sliders
+    {
+        SongTimerSlider,
+    }
+
+    private Image AudianceImage;
+
+    private TextMeshProUGUI LyricsText;
+    private TextMeshProUGUI SongTimerText;
+    
+
+    private Slider  SongTimerSlider;
+    
+    private void Start()
+    {
+        base.Init();
+        
+        Bind<Image>(typeof(Images));
+        AudianceImage = Get<Image>((int)Images.AudianceImage);
+        
+        Bind<TextMeshProUGUI>(typeof(Texts));
+        LyricsText = Get<TextMeshProUGUI>((int)Texts.LyricsText);
+        SongTimerText =  Get<TextMeshProUGUI>((int)Texts.SongTimerText);
+        
+        Bind<Slider>(typeof(Sliders));
+        SongTimerSlider = Get<Slider>((int)Sliders.SongTimerSlider);
+    }
+    ///<summary>
+    /// 관객이미지 바꿀 때 호출
+    /// </summary>
+    /// /// <param name="audianceImagePath">Resources 폴더 내의 상대 경로 (확장자 제외)
+    /// 예: "Sprites/AlbumCovers/MySong" (Assets/Resources/Sprites/AlbumCovers/MySong.png 일 경우)</param>
+    public void InitAudianceImage(string audianceImagePath)
+    {
+        AudianceImage.sprite = Resources.Load<Sprite>(audianceImagePath);
+    }
+
+    /// <summary>
+    /// 가사 바꿀 때마다 호출
+    /// </summary>
+    /// <param name="lyricsText">음악 가사</param>
+    public void InitLyricsText(string lyricsText)
+    {
+        LyricsText.text = lyricsText;
+    }
+
+    /// <summary>
+    /// 현 음악 재생시간을 update에서 호출
+    /// </summary>
+    /// <param name="sliderValue">현 음악 재생시간을 0-1사이 값으로 변환하여 넣기</param>
+    /// <param name="timerText">mm:ss로 현 음악 재생시간을 넣기</param>
+    public void InitSongTimerValue(float sliderValue, string timerText)
+    {
+        SongTimerSlider.value = sliderValue;
+        SongTimerText.text = timerText;
+    }
+    
 }
