@@ -26,7 +26,7 @@ public class CombackNoticeUI : UIHUD
 
     private Image AlbumImage;
 
-    private TMP_Text DialogBoxText;
+    private TextMeshProUGUI DialogBoxText;
 
     private bool isDetectedMouseClick = false;
     
@@ -41,8 +41,8 @@ public class CombackNoticeUI : UIHUD
         Bind<Image>(typeof(Images));
         AlbumImage = Get<Image>((int)Images.AlbumImage);
         
-        Bind<TMP_Text>(typeof(Texts));
-        DialogBoxText =  Get<TMP_Text>((int)Texts.DialogBoxText);
+        Bind<TextMeshProUGUI>(typeof(Texts));
+        DialogBoxText =  Get<TextMeshProUGUI>((int)Texts.DialogBoxText);
     }
 
     private void Update()

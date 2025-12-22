@@ -11,7 +11,7 @@ public class MainMenuUI : UIHUD
         FanText,
         NameText,
         GroupNameText,
-        DateText
+        DateText,
     }
 
     enum Sliders
@@ -31,6 +31,10 @@ public class MainMenuUI : UIHUD
         ExitButton
     }
 
+
+
+
+
     public Action ClickedLiveButton;
     public Action ClickedPracticeButton;
     public Action ClickedDatingButton;
@@ -49,6 +53,13 @@ public class MainMenuUI : UIHUD
 
     private Slider MentalSlider;
 
+
+    
+    private Button LiveButton;
+    private Button DatingButton;
+    private Button RestButton;
+    
+
     private void Start()
     {
         base.Init();
@@ -62,14 +73,14 @@ public class MainMenuUI : UIHUD
         MentalSlider = Get<Slider>((int)Sliders.MentalSlider);
         
         Bind<Button>(typeof(Buttons));
-        GameObject LiveButton =  Get<Button>((int)Buttons.LiveButton).gameObject;
-        BindEvent(LiveButton,OnClickedLiveButton, GameEvents.UIEvent.Click);
+        LiveButton =  Get<Button>((int)Buttons.LiveButton);
+        BindEvent(LiveButton.gameObject,OnClickedLiveButton, GameEvents.UIEvent.Click);
         GameObject PracticeButton =  Get<Button>((int)Buttons.PracticeButton).gameObject;
         BindEvent(PracticeButton,OnClickedPracticeButton, GameEvents.UIEvent.Click);
-        GameObject DatingButton =  Get<Button>((int)Buttons.DatingButton).gameObject;
-        BindEvent(DatingButton,OnClickedDatingButton, GameEvents.UIEvent.Click);
-        GameObject RestButton =  Get<Button>((int)Buttons.RestButton).gameObject;
-        BindEvent(RestButton,OnClickedRestButton, GameEvents.UIEvent.Click);
+        DatingButton =  Get<Button>((int)Buttons.DatingButton);
+        BindEvent(DatingButton.gameObject,OnClickedDatingButton, GameEvents.UIEvent.Click);
+        RestButton =  Get<Button>((int)Buttons.RestButton);
+        BindEvent(RestButton.gameObject,OnClickedRestButton, GameEvents.UIEvent.Click);
         GameObject ComebackButton =  Get<Button>((int)Buttons.ComebackButton).gameObject;
         BindEvent(ComebackButton,OnClickedComebackButton, GameEvents.UIEvent.Click);
         GameObject SaveButton =  Get<Button>((int)Buttons.SaveButton).gameObject;
@@ -78,6 +89,7 @@ public class MainMenuUI : UIHUD
         BindEvent(SettingButton,OnClickedSettingButton, GameEvents.UIEvent.Click);
         GameObject ExitButton =  Get<Button>((int)Buttons.ExitButton).gameObject;
         BindEvent(ExitButton,OnClickedExitButton, GameEvents.UIEvent.Click);
+        
     }
 
     private void OnClickedLiveButton(PointerEventData eventData)
@@ -124,6 +136,7 @@ public class MainMenuUI : UIHUD
     /// stat Visual 초기화 함수
     /// </summary>
     /// <param name="mental"> 0-1사이값으로 넣기</param>
+    /// <param name="activeCombackPrepare"> 컴백준비 상태일 경우 true로 하기</param>
     public void Init(string date, string groupName, string fanNum, float mental, string name)
     {
         FanText.text = groupName;
@@ -131,5 +144,17 @@ public class MainMenuUI : UIHUD
         GroupNameText.text = groupName;
         DateText.text = fanNum;
         MentalSlider.value = mental;
+    }
+
+
+
+    /// <summary>
+    /// 컴백준비 상태일 때 1회 호출하면 컴백, 연습 외 버튼을 비활성화하는 메서드 
+    /// </summary>
+    public void CompackPrepareStarted()
+    {
+        LiveButton.interactable = false;
+        DatingButton.interactable = false;
+        RestButton.interactable = false;
     }
 }

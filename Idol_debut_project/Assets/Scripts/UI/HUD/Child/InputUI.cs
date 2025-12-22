@@ -51,7 +51,7 @@ public class InputUI : UIHUD
     private TMP_InputField  NameInputField;
     private TMP_InputField  GroupNameInputField;
 
-    private TMP_Text GenderGroupNoticeText;
+    private TextMeshProUGUI GenderGroupNoticeText;
 
     private InputInfo inputInfo;
 
@@ -84,8 +84,8 @@ public class InputUI : UIHUD
         GroupNameInputField =    Get<TMP_InputField>((int)InputFields.GroupNameInputField);
         GroupNameInputField.onEndEdit.AddListener(OnEndEditGroupNameInputField);
 
-        Bind<TMP_Text>(typeof(Texts));
-        GenderGroupNoticeText = Get<TMP_Text>((int)Texts.GenderGroupNoticeText);
+        Bind<TextMeshProUGUI>(typeof(Texts));
+        GenderGroupNoticeText = Get<TextMeshProUGUI>((int)Texts.GenderGroupNoticeText);
 
     }
 
