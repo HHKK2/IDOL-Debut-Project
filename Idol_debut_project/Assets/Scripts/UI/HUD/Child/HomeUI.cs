@@ -10,6 +10,13 @@ public class HomeUI : UIHUD
         LoadButton,
         ExitButton
     }
+
+    enum GameObjects
+    {
+        Main,
+        InputInfo,
+        
+    }
     
     public Action ClickedNewGameButton;
     public Action ClickedLoadButton;
