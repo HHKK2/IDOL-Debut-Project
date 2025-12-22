@@ -5,7 +5,7 @@ using System;
 using Data;
 using TMPro;
 
-public class InputUI : UIHUD
+public class InputHUD : UIHUD
 {
     
     

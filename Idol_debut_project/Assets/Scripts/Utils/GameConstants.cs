@@ -30,8 +30,13 @@ public static class GameConstants
 
         public static class HUDName
         {
-            public const string MainMenuUI = "MainMenuUI";
-            public const string HomeUI = "HomeUI";
+            public const string MainMenuHUD = "MainMenuHUD";
+            public const string HomeHUD = "HomeHUD";
+            public const string TimerHUD = "TimerHUD";
+            public const string CombackNoticeHUD =  "CombackNoticeHUD";
+            public const string InputHUD =  "InputHUD";
+            public const string StageHUD =  "StageHUD";
+            
         }
         public static class SystemName
         {

@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 3828638247846044766}
   - component: {fileID: 5059002645745381587}
   m_Layer: 5
-  m_Name: CombackNoticeUI
+  m_Name: CombackNoticeHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

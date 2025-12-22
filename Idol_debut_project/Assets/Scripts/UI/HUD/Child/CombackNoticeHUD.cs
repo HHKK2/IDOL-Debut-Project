@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-public class CombackNoticeUI : UIHUD
+public class CombackNoticeHUD : UIHUD
 {
     enum Buttons
     {

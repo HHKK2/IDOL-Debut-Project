@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-public class HomeUI : UIHUD
+public class HomeHUD : UIHUD
 {
     enum Buttons
     {

@@ -1205,7 +1205,7 @@ GameObject:
   - component: {fileID: 7114137973991925699}
   - component: {fileID: 9200531334804619325}
   m_Layer: 5
-  m_Name: HomeUI
+  m_Name: HomeHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

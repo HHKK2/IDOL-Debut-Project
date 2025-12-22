@@ -28,11 +28,6 @@ public class UIManager: AdolpSingleton<UIManager>
 		get{ return systemList; }
 	}
 	
-	private void Start()
-	{
-		//테스트코드
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-	}
 	
     GameObject HUDRoot
     {
@@ -98,13 +93,19 @@ public class UIManager: AdolpSingleton<UIManager>
         GameObject prefab = Resources.Load<GameObject>($"UI/HUD/{name}");
 		GameObject go = Object.Instantiate(prefab);
 		go.name = name;
-		T sceneUI = GameObjectUtils.GetOrAddComponent<T>(go);
 		T hud = GameObjectUtils.GetOrAddComponent<T>(go);
 		hudList.Add(hud);
 
 		go.transform.SetParent(HUDRoot.transform,false);
+		
+		Transform timer = HUDRoot.transform.Find(GameConstants.UI.HUDName.TimerHUD); 
+		if (timer != null)
+		{
+			//타이머는 항상 HUD에서 가장 앞으로
+			timer.SetAsLastSibling();
+		}
 
-		return sceneUI;
+		return hud;
 	}
 
 
