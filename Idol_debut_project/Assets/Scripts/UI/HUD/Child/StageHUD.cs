@@ -1,4 +1,5 @@
 using System;
+using Data;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -46,12 +47,12 @@ public class StageHUD : UIHUD
     ///<summary>
     /// 관객이미지 바꿀 때 호출
     /// </summary>
-    /// /// <param name="audianceImagePath">Resources 폴더 내의 상대 경로 (확장자 제외)
-    /// 예: "Sprites/AlbumCovers/MySong" (Assets/Resources/Sprites/AlbumCovers/MySong.png 일 경우)</param>
-    public void InitAudianceImage(string audianceImagePath)
+    public void InitAudianceImage(AudianceData.EAudianceFeeling e)
     {
-        AudianceImage.sprite = Resources.Load<Sprite>(audianceImagePath);
+        //TODO: enum받아서, 다른 경로로 AudianceImage초기화
+        //AudianceImage.sprite = Resources.Load<Sprite>(audianceImagePath);
     }
+
 
     /// <summary>
     /// 가사 바꿀 때마다 호출

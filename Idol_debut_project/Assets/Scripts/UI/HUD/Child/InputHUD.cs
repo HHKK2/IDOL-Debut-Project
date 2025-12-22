@@ -36,7 +36,7 @@ public class InputHUD : UIHUD
         GenderGroupNoticeText
     }
 
-    public Action<InputInfo> InputActionFinished;
+    public Action<PlayerInfoData> InputActionFinished;
 
     private GameObject InputInfo;
     private GameObject InputGender; 
@@ -53,7 +53,7 @@ public class InputHUD : UIHUD
 
     private TextMeshProUGUI GenderGroupNoticeText;
 
-    private InputInfo inputInfo;
+    private PlayerInfoData playerInfoData;
 
     private void Start()
     {
@@ -91,11 +91,11 @@ public class InputHUD : UIHUD
 
     private void OnEndEditNameInputField(string text)
     {
-        inputInfo.name = text;
+        playerInfoData.name = text;
     }
     private void OnEndEditGroupNameInputField(string text)
     {
-        inputInfo.groupName = text;
+        playerInfoData.groupName = text;
     }
     
     private void OnClickedInputInfoNextButton(PointerEventData eventData)
@@ -114,18 +114,18 @@ public class InputHUD : UIHUD
     
     private void OnClickedGroupNameNextButton(PointerEventData eventData)
     {
-        InputActionFinished.Invoke(inputInfo);
+        InputActionFinished.Invoke(playerInfoData);
     }
     
     private void OnClickedGroupMaleButton(PointerEventData eventData)
     {
-        inputInfo.gender = 1;
+        playerInfoData.gender = 1;
         GenderGroupNoticeText.text = "You have to debut male group.";
     }
     
     private void OnClickedGroupFemaleButton(PointerEventData eventData)
     {
-        inputInfo.gender = 0;   
+        playerInfoData.gender = 0;   
         GenderGroupNoticeText.text = "You have to debut female group.";
     }
     

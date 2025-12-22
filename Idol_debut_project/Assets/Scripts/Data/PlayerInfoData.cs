@@ -1,6 +1,6 @@
 namespace Data
 {
-    public struct InputInfo
+    public struct PlayerInfoData
     {
         public string name;
         /// <summary>
