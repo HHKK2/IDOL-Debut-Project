@@ -20,6 +20,7 @@ public class ChooseActionState : IGameState
     GameStateMachine gsm;
     Player player;
     TimeCycleManager time;
+    MainMenuHUD hud;
 
     // 할 수 있는 행동들
     private bool canComeBack;
@@ -39,9 +40,25 @@ public class ChooseActionState : IGameState
     {
         Debug.Log("행동 선택 상태 진입");
 
+        //UImanager 참조
+        hud = UIManager.Instance.HUDList.Find(h => h is MainMenuHUD) as MainMenuHUD;
+
+        if (hud == null)
+            hud = UIManager.Instance.ShowHUDUI<MainMenuHUD>();
+
+        //상단 정보 갱신(몇 분기 몇 월 / 팬수 / 멘탈 / 이름)
+        hud.Init(
+            date: time.GetCurrentDateString(),      // TimeCycleManager가 책임
+            groupName: player.GroupName,             // InputHUD → Player에 이미 들어간 값
+            fanNum: player.FanNumber.ToString(),     // 현재 스탯
+            mental: player.GetMentalRatio(),          // 0~1로 변환된 값
+            name: player.Name                        // InputHUD에서 받은 값
+        );
+
+
         //상/하반기가 끝날텐데 컴백을 안 하셨다고요? 컴백을 하셔야겠네요.
 
-        bool isLastWeek = (time.currentWeek == 4);
+        bool isLastMonth = (time.currentActionIndex == 4);
         bool Comeback = time.didComeBack;
 
         // 기본값 세팅
@@ -51,20 +68,27 @@ public class ChooseActionState : IGameState
         canFanService = true;
         canComeBack = true;
 
-        if (isLastWeek && !Comeback)
+        if (isLastMonth && !Comeback)
         {
             canComeBack = true; //컴백만 가능합니다.
             canPractice = false;
             canDating = false;
             canRest = false;
             canFanService = false;
+
+            hud.MustComebackStarted(); //컴백 제외 UI 버튼 비활성화
         }
         else if (Comeback) //이미 컴백을 했으면, 이번 분기엔 컴백 불가.
         {
             canComeBack = false;
         }
 
-        //TODO : UI에 값들을 넘겨야 함.
+        // ===== 이벤트 연결 =====
+        hud.ClickedLiveButton += OnLive;
+        hud.ClickedPracticeButton += OnPractice;
+        hud.ClickedDatingButton += OnDating;
+        hud.ClickedRestButton += OnRest;
+        hud.ClickedComebackButton += OnComeback;
     }
 
     public void Update()
@@ -74,8 +98,44 @@ public class ChooseActionState : IGameState
 
     public void Exit()
     {
+        if (hud == null) return;
 
+        hud.ClickedLiveButton -= OnLive;
+        hud.ClickedPracticeButton -= OnPractice;
+        hud.ClickedDatingButton -= OnDating;
+        hud.ClickedRestButton -= OnRest;
+        hud.ClickedComebackButton -= OnComeback;
+
+        //UI 비활성화 버튼 초기화
+        hud.ResetActionButtons();
     }
+
+    //UI 담당 함수들
+    private void OnLive()
+    {
+        gsm.ChangeState(new FanService(gsm, player, time));
+    }
+
+    private void OnPractice()
+    {
+        gsm.ChangeState(new Training(gsm, player, time));
+    }
+
+    private void OnDating()
+    {
+        gsm.ChangeState(new Dating(gsm, player, time));
+    }
+
+    private void OnRest()
+    {
+        gsm.ChangeState(new Rest(gsm, player, time));
+    }
+
+    private void OnComeback()
+    {
+        gsm.ChangeState(new ComeBack(gsm, player, time));
+    }
+
 }
 
 

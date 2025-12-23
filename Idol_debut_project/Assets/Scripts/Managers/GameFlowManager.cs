@@ -24,6 +24,8 @@ public class GameFlowManager
     public TimeCycleManager time;
 
     public int dispatchCount = 0;
+    private const int FINAL_SEMESTER = 6;
+
 
     public bool isGameEnded { get; private set; }
     public EndingType End { get; private set; } = EndingType.None;
@@ -70,14 +72,14 @@ public class GameFlowManager
             return;
         }
         //3. 슈퍼스타엔딩 : 팬을 10만 명 달성
-        if (player.FanNumber >= 100_000 && time.currentMonth < 12)
+        if (player.FanNumber >= 100_000 && time.currentSemester < FINAL_SEMESTER)
         {
             EndGame(EndingType.Superstar);
             return;
         }
         //4. 노멀 엔딩 : 12월이 됨 + 5만이 안 됨
         //5. 해피 엔딩 : 12월이 됨 + 5만이 됨
-        if (time.currentMonth >= 12)
+        if (time.currentSemester >= FINAL_SEMESTER)
         {
             if (player.FanNumber >= 50_000)
                 EndGame(EndingType.Happy);

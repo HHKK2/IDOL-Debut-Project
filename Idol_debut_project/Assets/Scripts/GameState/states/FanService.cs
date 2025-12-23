@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class FanService : IGameState
 {
-    public Player player;
-    public TimeCycleManager time;
-    GameFlowManager gameFlow;
+    private GameStateMachine gsm;
+    private Player player;
+    private TimeCycleManager time;
 
-    public FanService(Player player, TimeCycleManager time, GameFlowManager gameFlow)
+    public FanService(GameStateMachine gsm, Player player, TimeCycleManager time)
     {
+        this.gsm = gsm;
         this.player = player;
         this.time = time;
-        this.gameFlow = gameFlow;
     }
 
     public void Enter()
@@ -36,9 +36,9 @@ public class FanService : IGameState
         }
         player.MentalHealth -= 5; // 멘탈 감소
 
-        time.AdvanceWeek(); // 1주 경과
+        time.AdvanceMonth(); // 1주 경과
 
-        gameFlow.OnActionFinished();
+        GameManager.Instance.OnActionStateFinished();
 
         Debug.Log("팬 서비스 상태 종료");
     }

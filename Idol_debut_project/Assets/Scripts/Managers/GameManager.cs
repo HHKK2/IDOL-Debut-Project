@@ -19,32 +19,34 @@ public class GameManager : MonoBehaviour
     // Sound 판정 로직 처리
     // 개별 GameState 내부 로직 관여
     public static GameManager Instance;
-    private GameStateMachine _stateMachine;
+    private GameStateMachine gsm;
+    private GameFlowManager gameFlow;
 
     [SerializeField] private Player player;
     [SerializeField] private TimeCycleManager time;
-    [SerializeField] private GameFlowManager gameFlow;
 
     void Awake()
     {
         Instance = this;
-        _stateMachine = new GameStateMachine();
+        gsm = new GameStateMachine();
+
+        gameFlow = new GameFlowManager();
+        gameFlow.Init(gsm, player, time);
     }
 
     void Start()
     {
-        _stateMachine.ChangeState(
-         new Rest(player, time, gameFlow)
-     );
+       
     }
 
     void Update()
     {
-        _stateMachine.Tick();
+        gsm.Tick();
     }
 
-    public void ChangeState(IGameState newState)
+    //하나의 행동이 끝나면 호출됨.
+    public void OnActionStateFinished()
     {
-        _stateMachine.ChangeState(newState);
+        gameFlow.OnActionFinished();
     }
 }

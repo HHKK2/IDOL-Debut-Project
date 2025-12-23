@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class Rest : IGameState
 {
-    public Player player;
-    public TimeCycleManager time;
-    GameFlowManager gameFlow;
+    private GameStateMachine gsm;
+    private Player player;
+    private TimeCycleManager time;
 
-    public Rest(Player player, TimeCycleManager time, GameFlowManager gameFlow)
+    public Rest(GameStateMachine gsm, Player player, TimeCycleManager time)
     {
+        this.gsm = gsm;
         this.player = player;
         this.time = time;
-        this.gameFlow = gameFlow;
     }
 
     public void Enter()
@@ -29,8 +29,8 @@ public class Rest : IGameState
 
         player.MentalHealth += 10;
 
-        time.AdvanceWeek(); //한 주 지남.
+        time.AdvanceMonth(); //한 주 지남.
 
-        gameFlow.OnActionFinished();
+        GameManager.Instance.OnActionStateFinished();
     }
 }

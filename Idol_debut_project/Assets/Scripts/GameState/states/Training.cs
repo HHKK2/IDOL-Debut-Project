@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class Training : IGameState
 {
-    Player player;
-    TimeCycleManager time;
-    GameFlowManager gameFlow;
+    private GameStateMachine gsm;
+    private Player player;
+    private TimeCycleManager time;
 
-    public Training(Player player, TimeCycleManager time, GameFlowManager gameFlow)
+    public Training(GameStateMachine gsm, Player player, TimeCycleManager time)
     {
+        this.gsm = gsm;
         this.player = player;
         this.time = time;
-        this.gameFlow = gameFlow;
     }
 
     public void Enter()
@@ -26,8 +26,8 @@ public class Training : IGameState
     public void Exit()
     {
         Debug.Log("연습 상태 종료");
-        time.AdvanceWeek(); //한 주 지나감.
-        
-        gameFlow.OnActionFinished();
+        time.AdvanceMonth(); //한 주 지나감.
+
+        GameManager.Instance.OnActionStateFinished();
     }
 }

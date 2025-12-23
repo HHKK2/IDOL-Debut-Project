@@ -4,16 +4,16 @@ public class ComeBack : IGameState
 {
     Player player;
     TimeCycleManager time;
-    private GameFlowManager gameFlow;
+    private GameStateMachine gsm;
 
     private int stageScore;
     private int bonus;
 
-    public ComeBack(Player player, TimeCycleManager time, GameFlowManager gameFlow)
+    public ComeBack(GameStateMachine gsm, Player player, TimeCycleManager time)
     {
+        this.gsm = gsm;
         this.player = player;
         this.time = time;
-        this.gameFlow = gameFlow;
     }
 
     //10분 동안만 연습이 가능합니다. 
@@ -94,11 +94,11 @@ public class ComeBack : IGameState
         }
 
         // 4. 주 종료 + 컴백 완료
-        time.AdvanceWeek();
+        time.AdvanceMonth();
         time.didComeBack = true;
 
         //5. 엔딩 체크
-        gameFlow.OnActionFinished();
+        GameManager.Instance.OnActionStateFinished();
 
     }
 
