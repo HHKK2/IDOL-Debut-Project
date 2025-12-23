@@ -44,7 +44,7 @@ public class MainMenuHUD : UIHUD
     public Action ClickedSettingButton;
     public Action ClickedExitButton;
 
-    
+
 
     private TextMeshProUGUI FanText;
     private TextMeshProUGUI NameText;
@@ -54,11 +54,12 @@ public class MainMenuHUD : UIHUD
     private Slider MentalSlider;
 
 
-    
+
     private Button LiveButton;
     private Button DatingButton;
     private Button RestButton;
-    
+    private Button PracticeButton;
+
 
     private void Start()
     {
@@ -68,50 +69,50 @@ public class MainMenuHUD : UIHUD
         NameText = Get<TextMeshProUGUI>((int)Texts.NameText);
         GroupNameText = Get<TextMeshProUGUI>((int)Texts.GroupNameText);
         DateText = Get<TextMeshProUGUI>((int)Texts.DateText);
-        
+
         Bind<Slider>(typeof(Sliders));
         MentalSlider = Get<Slider>((int)Sliders.MentalSlider);
-        
+
         Bind<Button>(typeof(Buttons));
-        LiveButton =  Get<Button>((int)Buttons.LiveButton);
-        BindEvent(LiveButton.gameObject,OnClickedLiveButton, GameEvents.UIEvent.Click);
-        GameObject PracticeButton =  Get<Button>((int)Buttons.PracticeButton).gameObject;
-        BindEvent(PracticeButton,OnClickedPracticeButton, GameEvents.UIEvent.Click);
-        DatingButton =  Get<Button>((int)Buttons.DatingButton);
-        BindEvent(DatingButton.gameObject,OnClickedDatingButton, GameEvents.UIEvent.Click);
-        RestButton =  Get<Button>((int)Buttons.RestButton);
-        BindEvent(RestButton.gameObject,OnClickedRestButton, GameEvents.UIEvent.Click);
-        GameObject ComebackButton =  Get<Button>((int)Buttons.ComebackButton).gameObject;
-        BindEvent(ComebackButton,OnClickedComebackButton, GameEvents.UIEvent.Click);
-        GameObject SaveButton =  Get<Button>((int)Buttons.SaveButton).gameObject;
-        BindEvent(SaveButton,OnClickedSaveButton, GameEvents.UIEvent.Click);
-        GameObject SettingButton =  Get<Button>((int)Buttons.SettingButton).gameObject;
-        BindEvent(SettingButton,OnClickedSettingButton, GameEvents.UIEvent.Click);
-        GameObject ExitButton =  Get<Button>((int)Buttons.ExitButton).gameObject;
-        BindEvent(ExitButton,OnClickedExitButton, GameEvents.UIEvent.Click);
-        
+        LiveButton = Get<Button>((int)Buttons.LiveButton);
+        BindEvent(LiveButton.gameObject, OnClickedLiveButton, GameEvents.UIEvent.Click);
+        PracticeButton = Get<Button>((int)Buttons.PracticeButton);
+        BindEvent(PracticeButton.gameObject, OnClickedPracticeButton, GameEvents.UIEvent.Click);
+        DatingButton = Get<Button>((int)Buttons.DatingButton);
+        BindEvent(DatingButton.gameObject, OnClickedDatingButton, GameEvents.UIEvent.Click);
+        RestButton = Get<Button>((int)Buttons.RestButton);
+        BindEvent(RestButton.gameObject, OnClickedRestButton, GameEvents.UIEvent.Click);
+        GameObject ComebackButton = Get<Button>((int)Buttons.ComebackButton).gameObject;
+        BindEvent(ComebackButton, OnClickedComebackButton, GameEvents.UIEvent.Click);
+        GameObject SaveButton = Get<Button>((int)Buttons.SaveButton).gameObject;
+        BindEvent(SaveButton, OnClickedSaveButton, GameEvents.UIEvent.Click);
+        GameObject SettingButton = Get<Button>((int)Buttons.SettingButton).gameObject;
+        BindEvent(SettingButton, OnClickedSettingButton, GameEvents.UIEvent.Click);
+        GameObject ExitButton = Get<Button>((int)Buttons.ExitButton).gameObject;
+        BindEvent(ExitButton, OnClickedExitButton, GameEvents.UIEvent.Click);
+
     }
 
     private void OnClickedLiveButton(PointerEventData eventData)
     {
         ClickedLiveButton?.Invoke();
     }
-    
+
     private void OnClickedPracticeButton(PointerEventData eventData)
     {
         ClickedPracticeButton?.Invoke();
     }
-    
+
     private void OnClickedDatingButton(PointerEventData eventData)
     {
         ClickedDatingButton?.Invoke();
     }
-    
+
     private void OnClickedRestButton(PointerEventData eventData)
     {
         ClickedRestButton?.Invoke();
     }
-    
+
     private void OnClickedComebackButton(PointerEventData eventData)
     {
         ClickedComebackButton?.Invoke();
@@ -126,7 +127,7 @@ public class MainMenuHUD : UIHUD
     {
         ClickedSettingButton?.Invoke();
     }
-    
+
     private void OnClickedExitButton(PointerEventData eventData)
     {
         ClickedExitButton?.Invoke();
@@ -157,4 +158,27 @@ public class MainMenuHUD : UIHUD
         DatingButton.interactable = false;
         RestButton.interactable = false;
     }
+
+    /// <summary>
+    /// 한 분기의 마지막 주간에도 컴백을 안 했으면 컴백 버튼만 활성화시키는 메서드  
+    /// </summary>
+    public void MustComebackStarted()
+    {
+        LiveButton.interactable = false;
+        DatingButton.interactable = false;
+        RestButton.interactable = false;
+        PracticeButton.interactable = false;
+    }
+
+    /// <summary>
+    //메인화면 UI 초기화 메서드 
+    /// </summary>
+    public void ResetActionButtons()
+    {
+        LiveButton.interactable = true;
+        DatingButton.interactable = true;
+        RestButton.interactable = true;
+        PracticeButton.interactable = true;
+    }
+
 }
