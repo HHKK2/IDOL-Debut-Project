@@ -30,13 +30,13 @@ public class StageResultHUD : UIHUD
         
     }
 
-    public void Init(string totalScoreText, string bakJaText, string umJungText, AudianceData.EAudianceFeeling audianceFeeling)
+    public void Init(string totalScoreText, string bakJaText, string umJungText, AudianceData.EAudianceFeeling audianceFeeling, bool isReputationPositiveNumber)
     {
         TotalScoreText.text = totalScoreText;
         BakJaText.text = bakJaText;
         UmJungText.text = umJungText;
 
         TwitterHUD twitterHUD =  UIManager.Instance.ShowHUDUI<TwitterHUD>();
-        twitterHUD.Init(audianceFeeling);
+        twitterHUD.Init(audianceFeeling,isReputationPositiveNumber);
     }
 }

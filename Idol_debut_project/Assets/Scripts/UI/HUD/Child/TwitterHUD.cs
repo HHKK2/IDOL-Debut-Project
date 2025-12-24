@@ -11,7 +11,7 @@ public class TwitterHUD : UIHUD
     
 
     /// <param name="feeling"></param>
-    public void Init(AudianceData.EAudianceFeeling audianceFeeling)
+    public void Init(AudianceData.EAudianceFeeling audianceFeeling,  bool isReputationPositiveNumber)
     {
         //TODO: 관객 반응마다 다른 트위터 반응 호출 
     }
