@@ -60,9 +60,25 @@ public class MainMenuHUD : UIHUD
     private Button RestButton;
     private Button PracticeButton;
 
+    private bool initialized = false;
 
     private void Start()
     {
+        if (initialized)
+        {
+            return;
+        }
+        
+        EnsureInitialized();
+    }
+
+    private void EnsureInitialized()
+    {
+        if (initialized)
+        {
+            return;
+        }
+
         base.Init();
         Bind<TextMeshProUGUI>(typeof(Texts));
         FanText = Get<TextMeshProUGUI>((int)Texts.FanText);
@@ -91,6 +107,7 @@ public class MainMenuHUD : UIHUD
         GameObject ExitButton = Get<Button>((int)Buttons.ExitButton).gameObject;
         BindEvent(ExitButton, OnClickedExitButton, GameEvents.UIEvent.Click);
 
+        initialized = true;
     }
 
     private void OnClickedLiveButton(PointerEventData eventData)
@@ -140,6 +157,11 @@ public class MainMenuHUD : UIHUD
     /// <param name="activeCombackPrepare"> 컴백준비 상태일 경우 true로 하기</param>
     public void Init(string date, string groupName, string fanNum, float mental, string name)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         FanText.text = groupName;
         NameText.text = name;
         GroupNameText.text = groupName;
@@ -154,6 +176,11 @@ public class MainMenuHUD : UIHUD
     /// </summary>
     public void CompackPrepareStarted()
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         LiveButton.interactable = false;
         DatingButton.interactable = false;
         RestButton.interactable = false;
@@ -164,6 +191,11 @@ public class MainMenuHUD : UIHUD
     /// </summary>
     public void MustComebackStarted()
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         LiveButton.interactable = false;
         DatingButton.interactable = false;
         RestButton.interactable = false;
@@ -175,6 +207,11 @@ public class MainMenuHUD : UIHUD
     /// </summary>
     public void ResetActionButtons()
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         LiveButton.interactable = true;
         DatingButton.interactable = true;
         RestButton.interactable = true;

@@ -37,8 +37,25 @@ public class PracticeHUD : UIHUD
     private Button LeftButton;
     private Button PracticeButton;
 
+    private bool initialized = false;
+
     private void Start()
     {
+        if (initialized)
+        {
+            return;
+        }
+        
+        EnsureInitialized();
+    }
+
+    private void EnsureInitialized()
+    {
+        if (initialized)
+        {
+            return;
+        }
+
         base.Init();
         
         Bind<Image>(typeof(Images));
@@ -55,6 +72,8 @@ public class PracticeHUD : UIHUD
         BindEvent(LeftButton.gameObject, OnClickLeftButton,GameEvents.UIEvent.Click);
         PracticeButton =  Get<Button>((int)Buttons.PracticeButton);
         BindEvent(PracticeButton.gameObject, OnClickPracticeButton, GameEvents.UIEvent.Click);
+
+        initialized = true;
     }
 
   
@@ -62,9 +81,13 @@ public class PracticeHUD : UIHUD
     /// 예: "Sprites/AlbumCovers/MySong" (Assets/Resources/Sprites/AlbumCovers/MySong.png 일 경우)</param>
     public void Init(string songTitle,string albumImagePath )
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         AlbumImage.sprite = Resources.Load<Sprite>(albumImagePath);
         SongTitle.text = songTitle;
-        
     }
     /// <summary>
     /// update에서 호출하기
@@ -72,6 +95,11 @@ public class PracticeHUD : UIHUD
     /// <param name="SongMMSS">MM:SS 형태로 음악재생시간 넘겨주기</param>
     public void InitSongMMSS(string SongMMSS)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         SongTimer.text = SongMMSS;
     }
 

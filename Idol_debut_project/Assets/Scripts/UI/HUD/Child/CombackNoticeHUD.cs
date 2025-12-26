@@ -29,9 +29,25 @@ public class CombackNoticeHUD : UIHUD
     private TextMeshProUGUI DialogBoxText;
 
     private bool isDetectedMouseClick = false;
+    private bool initialized = false;
     
     private void Start()
     {
+        if (initialized)
+        {
+            return;
+        }
+        
+        EnsureInitialized();
+    }
+
+    private void EnsureInitialized()
+    {
+        if (initialized)
+        {
+            return;
+        }
+
         base.Init();
         
         Bind<Button>(typeof(Buttons));
@@ -43,6 +59,8 @@ public class CombackNoticeHUD : UIHUD
         
         Bind<TextMeshProUGUI>(typeof(Texts));
         DialogBoxText =  Get<TextMeshProUGUI>((int)Texts.DialogBoxText);
+
+        initialized = true;
     }
 
     private void Update()
@@ -64,6 +82,11 @@ public class CombackNoticeHUD : UIHUD
     /// 예: "Sprites/AlbumCovers/MySong" (Assets/Resources/Sprites/AlbumCovers/MySong.png 일 경우)</param>
     public void Init(string albumImagePath, string songName)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         AlbumImage.sprite = Resources.Load<Sprite>(albumImagePath);
         DialogBoxText.text = "This Comback song is "+songName+"."; 
     }

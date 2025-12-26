@@ -30,8 +30,25 @@ public class StageHUD : UIHUD
 
     private Slider  SongTimerSlider;
     
+    private bool initialized = false;
+
     private void Start()
     {
+        if (initialized)
+        {
+            return;
+        }
+        
+        EnsureInitialized();
+    }
+
+    private void EnsureInitialized()
+    {
+        if (initialized)
+        {
+            return;
+        }
+
         UIManager.Instance.ShowSystemUI<StageFadeInSystemUI>();
         
         base.Init();
@@ -45,12 +62,18 @@ public class StageHUD : UIHUD
         
         Bind<Slider>(typeof(Sliders));
         SongTimerSlider = Get<Slider>((int)Sliders.SongTimerSlider);
+
+        initialized = true;
     }
     ///<summary>
     /// 관객이미지 바꿀 때 호출
     /// </summary>
     public void InitAudianceImage(AudianceData.EAudianceFeeling e)
-    {
+    { 
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
         //TODO: enum받아서, 다른 경로로 AudianceImage초기화
         //AudianceImage.sprite = Resources.Load<Sprite>(audianceImagePath);
     }
@@ -62,6 +85,10 @@ public class StageHUD : UIHUD
     /// <param name="lyricsText">음악 가사</param>
     public void InitLyricsText(string lyricsText)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
         LyricsText.text = lyricsText;
     }
 
@@ -72,6 +99,10 @@ public class StageHUD : UIHUD
     /// <param name="timerText">mm:ss로 현 음악 재생시간을 넣기</param>
     public void InitSongTimerValue(float sliderValue, string timerText)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
         SongTimerSlider.value = sliderValue;
         SongTimerText.text = timerText;
     }

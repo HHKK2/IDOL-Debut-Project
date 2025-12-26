@@ -1,19 +1,75 @@
 using System;
 using Data;
+using TMPro;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class TwitterHUD : UIHUD
 {
-    private void Start()
-    {
-        base.Init();
+    enum GameObjects{
+        TwitterContents,
     }
     
+    [SerializeField] private TwitterDatabaseSO twitterDatabase;
+    [Tooltip("트위터 랜덤으로 몇 개 띄울지")]
+    [SerializeField] private int randomTwitCount = 3;
 
-    /// <param name="feeling"></param>
+    [SerializeField] private GameObject twitterSlotPrefab;
+
+
+    private bool initialized = false;
+    private GameObject TwitterContents;
+    
+    private void Start()
+    {
+        if (initialized)
+        {
+            return;
+        }
+        
+        EnsureInitialized();
+    }
+
+    private void EnsureInitialized()
+    {
+        if (initialized)
+        {
+            return;
+        }
+
+        base.Init();
+        
+        Bind<GameObject>(typeof(GameObjects));
+        TwitterContents = Get<GameObject>((int)GameObjects.TwitterContents);
+
+        initialized = true;
+    }
+    
+    
     public void Init(AudianceData.EAudianceFeeling audianceFeeling,  bool isReputationPositiveNumber)
     {
-        //TODO: 관객 반응마다 다른 트위터 반응 호출 
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+
+        int reputationStatus;
+        if (isReputationPositiveNumber)
+        {
+            reputationStatus = 1;
+        }
+        else
+        {
+            reputationStatus = 0;
+        }
+        TwitterData[] twits = twitterDatabase.GetRandomTweets(audianceFeeling, reputationStatus, randomTwitCount);
+        
+        for (int i = 0; i < twits.Length; i++)
+        {
+            var twitterSlotGameObject = Instantiate(twitterSlotPrefab, TwitterContents.transform);
+            twitterSlotGameObject.GetComponent<TwitterSlot>().Init(twits[i].name, twits[i].userID, twits[i].profilePic, twits[i].text);
+        }
     }
+    
     
 }

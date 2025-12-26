@@ -12,26 +12,47 @@ public class StageResultHUD : UIHUD
         UmJungText
     }
 
+    private bool initialized = false;
     private TextMeshProUGUI TotalScoreText;
     private TextMeshProUGUI BakJaText;
     private TextMeshProUGUI UmJungText;
 
     private void Start()
     {
+        if (initialized)
+        {
+            return;
+        }
         
-        base.Init();
-        
-
-        Bind<TextMeshProUGUI>(typeof(Texts));
-        TotalScoreText =  Get<TextMeshProUGUI>((int)Texts.TotalScoreText);
-        BakJaText = Get<TextMeshProUGUI>((int)Texts.BakJaText);
-        UmJungText =  Get<TextMeshProUGUI>((int)Texts.UmJungText);
+        EnsureInitialized();
         
         
     }
 
+    private void EnsureInitialized()
+    {
+        if (initialized)
+        {
+            return;
+        }
+
+        base.Init();
+        
+        Bind<TextMeshProUGUI>(typeof(Texts));
+        TotalScoreText =  Get<TextMeshProUGUI>((int)Texts.TotalScoreText);
+        BakJaText = Get<TextMeshProUGUI>((int)Texts.BakJaText);
+        UmJungText =  Get<TextMeshProUGUI>((int)Texts.UmJungText);
+
+        initialized = true;
+    }
+
     public void Init(string totalScoreText, string bakJaText, string umJungText, AudianceData.EAudianceFeeling audianceFeeling, bool isReputationPositiveNumber)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         TotalScoreText.text = totalScoreText;
         BakJaText.text = bakJaText;
         UmJungText.text = umJungText;

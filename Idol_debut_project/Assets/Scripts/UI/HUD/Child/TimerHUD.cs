@@ -9,14 +9,32 @@ public class TimerHUD : UIHUD
         TimerText
     }
     
+    private bool initialized = false;
     private TextMeshProUGUI TimerText;
 
     private void Start()
     {
+        if (initialized)
+        {
+            return;
+        }
+        
+        EnsureInitialized();
+    }
+
+    private void EnsureInitialized()
+    {
+        if (initialized)
+        {
+            return;
+        }
+
         base.Init();
         
         Bind<TextMeshProUGUI>(typeof(Texts));
-        TimerText = Get<TextMeshProUGUI>((int)Texts.TimerText);    
+        TimerText = Get<TextMeshProUGUI>((int)Texts.TimerText);
+
+        initialized = true;
     }
 
     /// <summary>
@@ -24,6 +42,11 @@ public class TimerHUD : UIHUD
     /// </summary>
     public void Init(string timerText)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         TimerText.text = timerText;
     }
 }
