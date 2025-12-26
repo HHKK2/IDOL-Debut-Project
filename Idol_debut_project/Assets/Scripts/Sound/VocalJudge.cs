@@ -1,4 +1,6 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
+using Data;
 using UnityEngine;
 
 public class VocalJudge : MonoBehaviour
@@ -20,6 +22,50 @@ public class VocalJudge : MonoBehaviour
     public bool autoFinishWhenSongEnds = true;
     public float endGraceSec = 0.25f;
     private bool finished = false;
+
+    [Header("Score Normalization")] 
+    [Range(0f, 1f)] public float goodWeight = 0.70f;
+
+    [Range(0f, 1f)] public float badWeight = 0.20f;
+
+    public float missPenaltyWeight = 1.0f;
+    public float silentPenaltyWeight = 1.5f;
+    public int PitchScore100 { get; private set; }
+    public int Penalty100 { get; private set; }
+    public int FinalScore100 { get; private set; }
+    public AudianceData.EAudianceFeeling Feeling { get; private set; }
+
+    private int GetPitchTrials()
+    {
+        return PerfectCount + GoodCount + BadCount + MissCount;
+    }
+
+    private void RecalculateScores()
+    {
+        int pitchTrials = GetPitchTrials();
+        if (pitchTrials <= 0)
+        {
+            PitchScore100 = 0;
+            Penalty100 = 0;
+            FinalScore100 = 0;
+            Feeling = AudianceFeelingUtil.FromScore100(0);
+            return;
+        }
+
+        float raw = (PerfectCount * 1.0f) + (GoodCount * goodWeight) + (BadCount * badWeight);
+        float pitchAcc = (raw / pitchTrials) * 100.0f;
+        PitchScore100 = Mathf.Clamp(Mathf.RoundToInt(pitchAcc), 0, 100);
+
+        float penaltyPoints = (MissCount * missPenaltyWeight) + (SilentPenaltyCount * silentPenaltyWeight);
+        float maxPenaltyPoints = pitchTrials * silentPenaltyWeight;
+        float penaltyRate = (maxPenaltyPoints <= 0f) ? 0f : (penaltyPoints / maxPenaltyPoints) * 100f;
+        Penalty100 = Mathf.Clamp(Mathf.RoundToInt(penaltyRate), 0, 100);
+
+        float penaltyScale = 1.0f;
+        int final = Mathf.RoundToInt(PitchScore100 - Penalty100 * penaltyScale);
+        FinalScore100 = Mathf.Clamp(final, 0, 100);
+        Feeling = AudianceFeelingUtil.FromScore100(FinalScore100);
+    }
 
     [Header("Debug")]
     public bool logDebug = false;
@@ -185,11 +231,18 @@ public class VocalJudge : MonoBehaviour
 
         VocalResult result = new VocalResult();
         result.score = Score;
+        result.totalCount = TotalCount;
+        
         result.perfect = PerfectCount;
         result.good = GoodCount;
         result.bad = BadCount;
         result.miss = MissCount;
         result.silentPenalty = SilentPenaltyCount;
+
+        result.pitchScore100 = PitchScore100;
+        result.penalty100 = Penalty100;
+        result.finalScore100 = FinalScore100;
+        result.feeling = Feeling.ToString();
 
         if (OnFinished != null) OnFinished(result);
         
@@ -198,7 +251,8 @@ public class VocalJudge : MonoBehaviour
                   " good="+result.good +
                   " bad=" + result.bad +
                   " miss=" + result.miss +
-                  " silentPenalty=" + result.silentPenalty);
+                  " silentPenalty=" + result.silentPenalty + 
+                  " pitch=" + PitchScore100 + " penalty=" + Penalty100 + " final=" + FinalScore100 + " feeling=" + Feeling);
     }
 
     public void ResetResult()
@@ -216,6 +270,12 @@ public class VocalJudge : MonoBehaviour
         TotalCount = 0;
         LastJudgement = "";
 
+        TotalCount = 0;
+        PitchScore100 = 0;
+        Penalty100 = 0;
+        FinalScore100 = 0;
+        
+
     }
 }
 
@@ -229,4 +289,9 @@ public class VocalResult
     public int miss;
     public int silentPenalty;
     public int totalCount;
+
+    public int pitchScore100;
+    public int penalty100;
+    public int finalScore100;
+    public string feeling;
 }
