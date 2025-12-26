@@ -102,7 +102,7 @@ public class ComeBack : IGameState
 
     }
 
-    private int GetStageBonus(int score)
+    private int GetStageBonus(int score) //TODO : 무대평가 후 score 받아와야 함. 
     {
         if (score >= 100) return 5;
         else if (score >= 90) return 4;
