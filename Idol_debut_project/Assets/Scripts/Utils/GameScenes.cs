@@ -9,4 +9,5 @@ public static class GameScenes
     public const string HomeScene = "HomeScene";
     
     // 테스트 씬들
+    public const string YujinTestScene = "YujinTestScene"; 
 }
