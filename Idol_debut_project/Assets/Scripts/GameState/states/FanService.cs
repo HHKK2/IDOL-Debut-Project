@@ -21,19 +21,19 @@ public class FanService : IGameState
         GameSceneManager.Instance.ChangeScene(GameScenes.FanServiceScene);
 
         // 씬 종료 이벤트 구독
-        FanServiceScene.OnFinished += FinishFanService;
+        FanServiceSceneController.OnFinished += FinishFanService;
     }
 
     public void Update()
     {
         //끝나면 gamestatemachine 쪽에서 exit 호출할 거임
-        Debug.Log("팬 서비스 상태 로직 처리");
+        //Debug.Log("팬 서비스 상태 로직 처리");
     }
 
     public void Exit()
     {
         // 이벤트 해제(정리)
-        FanServiceScene.OnFinished -= FinishFanService;
+        FanServiceSceneController.OnFinished -= FinishFanService;
 
         Debug.Log("팬 서비스 상태 종료");
     }

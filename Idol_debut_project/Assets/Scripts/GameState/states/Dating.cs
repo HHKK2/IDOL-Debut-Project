@@ -43,7 +43,7 @@ public class Dating : IGameState
         }
 
         // Scene 종료 이벤트 구독
-        DatingScene.OnFinished += FinishDating;
+        DatingSceneController.OnFinished += FinishDating;
 
         // 씬 전환
         GameSceneManager.Instance.ChangeScene(GameScenes.DatingScene);
@@ -51,7 +51,7 @@ public class Dating : IGameState
 
     public void Update()
     {
-        Debug.Log("연애 상태 로직 처리중");
+        //Debug.Log("연애 상태 로직 처리중");
         //끝나면 gamestatemachine 쪽에서 exit 호출할 거임.
     }
 
@@ -59,7 +59,7 @@ public class Dating : IGameState
     {
         Debug.Log("연애 상태 종료");
 
-        DatingScene.OnFinished -= FinishDating;
+        DatingSceneController.OnFinished -= FinishDating;
     }
 
     private void FinishDating()

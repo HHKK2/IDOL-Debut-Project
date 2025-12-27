@@ -21,18 +21,18 @@ public class Rest : IGameState
         GameSceneManager.Instance.ChangeScene(GameScenes.RestScene);
 
         // 씬 종료 이벤트 구독
-        RestScene.OnFinished += FinishRest;
+        RestSceneController.OnFinished += FinishRest;
     }
 
     public void Update()
     {
-        Debug.Log("휴식상태 로직 처리중 ");
+        //Debug.Log("휴식상태 로직 처리중 ");
     }
 
     public void Exit()
     {
         // 이벤트 정리
-        RestScene.OnFinished -= FinishRest;
+        RestSceneController.OnFinished -= FinishRest;
     }
 
         // =========================

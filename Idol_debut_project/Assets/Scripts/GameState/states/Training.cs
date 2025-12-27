@@ -20,14 +20,12 @@ public class Training : IGameState
 
     public void Update()
     {
-        Debug.Log("연습 상태 로직 처리중");
+        //Debug.Log("연습 상태 로직 처리중");
     }
 
     public void Exit()
     {
         Debug.Log("연습 상태 종료");
         time.AdvanceMonth(); //한 주 지나감.
-
-        GameManager.Instance.OnActionStateFinished();
     }
 }

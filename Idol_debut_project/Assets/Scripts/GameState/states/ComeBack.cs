@@ -43,7 +43,7 @@ public class ComeBack : IGameState
 
     public void Update()
     {
-        Debug.Log("컴백 상태 로직 처리");
+        //Debug.Log("컴백 상태 로직 처리");
 
         if (phase == ComeBackPhase.Practice)
         {
@@ -97,8 +97,8 @@ public class ComeBack : IGameState
         time.AdvanceMonth();
         time.didComeBack = true;
 
-        //5. 엔딩 체크
-        GameManager.Instance.OnActionStateFinished();
+        // //5. 엔딩 체크
+        // GameManager.Instance.OnActionStateFinished();
 
     }
 
