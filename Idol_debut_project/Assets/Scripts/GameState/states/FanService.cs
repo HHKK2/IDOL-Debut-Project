@@ -4,13 +4,12 @@ public class FanService : IGameState
 {
     private GameStateMachine gsm;
     private Player player;
-    private TimeCycleManager time;
+    
 
-    public FanService(GameStateMachine gsm, Player player, TimeCycleManager time)
+    public FanService(GameStateMachine gsm, Player player)
     {
         this.gsm = gsm;
         this.player = player;
-        this.time = time;
     }
 
     public void Enter()
@@ -53,10 +52,11 @@ public class FanService : IGameState
         }
 
         player.MentalHealth -= 5;   // 멘탈 감소
-        
-        time.AdvanceMonth();        // 1개월 경과
 
-        // 흐름 복귀 + 엔딩 체크
+       // time.AdvanceMonth();        // 1개월 경과
+
+        // 흐름 복귀 + 엔딩 체크 + 메인으로 돌아오기
         GameManager.Instance.OnActionStateFinished();
+        GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }

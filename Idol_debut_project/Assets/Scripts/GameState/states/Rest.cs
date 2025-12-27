@@ -4,13 +4,12 @@ public class Rest : IGameState
 {
     private GameStateMachine gsm;
     private Player player;
-    private TimeCycleManager time;
+    
 
-    public Rest(GameStateMachine gsm, Player player, TimeCycleManager time)
+    public Rest(GameStateMachine gsm, Player player)
     {
         this.gsm = gsm;
         this.player = player;
-        this.time = time;
     }
 
     public void Enter()
@@ -35,7 +34,7 @@ public class Rest : IGameState
         RestSceneController.OnFinished -= FinishRest;
     }
 
-        // =========================
+    // =========================
     // 씬에서 호출되는 종료 지점
     // =========================
     private void FinishRest()
@@ -43,8 +42,10 @@ public class Rest : IGameState
         Debug.Log("휴식 상태 종료");
 
         player.MentalHealth += 10;
-        time.AdvanceMonth();
+       // time.AdvanceMonth();
 
+        //엔딩 검사 +메인으로 돌아오기
         GameManager.Instance.OnActionStateFinished();
+        GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }

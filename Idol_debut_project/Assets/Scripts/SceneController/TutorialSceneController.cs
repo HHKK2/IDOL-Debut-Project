@@ -11,6 +11,7 @@ public class TutorialSceneController : MonoBehaviour
 {
     public void OnClickFinishTutorial()
     {
+        GameManager.Instance.StartGame();
         GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 

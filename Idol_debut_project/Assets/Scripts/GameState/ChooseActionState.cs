@@ -61,7 +61,7 @@ public class ChooseActionState : IGameState
 
         //상/하반기가 끝날텐데 컴백을 안 하셨다고요? 컴백을 하셔야겠네요.
 
-        bool isLastMonth = (time.currentActionIndex == 4);
+        bool isLastMonth = (time.currentActionIndex == 3);
         bool Comeback = time.didComeBack;
 
         // 기본값 세팅

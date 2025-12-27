@@ -1,14 +1,16 @@
+using System;
 using UnityEngine;
+
 public class ComebackSceneController : MonoBehaviour
 {
-    
-        // 테스트용: 스페이스 누르면 컴백 종료
-    void Update()
+    public static event Action OnFinished;
+
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) // 임시 종료 트리거
         {
             Debug.Log("컴백 씬 종료 → 상태 종료 요청");
-            GameManager.Instance.OnActionStateFinished();
+            OnFinished?.Invoke();
         }
     }
 }

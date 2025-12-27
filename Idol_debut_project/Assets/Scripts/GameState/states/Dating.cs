@@ -3,7 +3,6 @@ using UnityEngine;
 public class Dating : IGameState
 {
     private Player player;
-    private TimeCycleManager time;
     private GameStateMachine gsm;
     private DatingResult result;
 
@@ -16,11 +15,10 @@ public class Dating : IGameState
     }
     #endregion
 
-    public Dating(GameStateMachine gsm, Player player, TimeCycleManager time)
+    public Dating(GameStateMachine gsm, Player player)
     {
         this.gsm = gsm;
         this.player = player;
-        this.time = time;
     }
 
     public void Enter()
@@ -63,26 +61,27 @@ public class Dating : IGameState
     }
 
     private void FinishDating()
-{
-    // === 결과 적용 ===
-    switch (result)
     {
-        case DatingResult.Dispatch:
-            player.FanNumber -= player.FanNumber / 5;
-            player.MentalHealth -= 20;
-            break;
-        case DatingResult.Breakup:
-            player.MentalHealth -= 50;
-            player.DisableDating();
-            break;
-        case DatingResult.MentalUp:
-            player.MentalHealth += 30;
-            break;
+        // === 결과 적용 ===
+        switch (result)
+        {
+            case DatingResult.Dispatch:
+                player.FanNumber -= player.FanNumber / 5;
+                player.MentalHealth -= 20;
+                break;
+            case DatingResult.Breakup:
+                player.MentalHealth -= 50;
+                player.DisableDating();
+                break;
+            case DatingResult.MentalUp:
+                player.MentalHealth += 30;
+                break;
+        }
+
+        //time.AdvanceMonth();
+
+        // 흐름 복귀, 엔딩인지 체크 + 메인으로 돌아오기
+        GameManager.Instance.OnActionStateFinished();
+        GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
-
-    time.AdvanceMonth();
-
-    // 흐름 복귀, 엔딩인지 체크
-    GameManager.Instance.OnActionStateFinished();
-}
 }
