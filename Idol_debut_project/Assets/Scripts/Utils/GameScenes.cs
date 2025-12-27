@@ -14,8 +14,13 @@ public static class GameScenes
     public const string ComebackScene = "ComebackScene";
     //1-2. 연습 화면 씬
     public const string PracticeScene = "PracticeScene";
+    //1-3. 컨텐츠 촬영 신
+    public const string FanServiceScene = "FanServiceScene";
+    //1-4. 휴식하기 씬
+    public const string RestScene = "RestScene";
+    //1-5. 연애하기 씬
+    public const string DatingScene = "DatingScene"; 
 
-    //컨텐츠 촬영 / 휴식하기 / 연애하기 >> 씬 바꾸기까지 필요없을 듯 그냥 화면 띄우고 없애는 걸로 할 생각
 
 
     //2. 엔딩 씬

@@ -113,27 +113,32 @@ public class ChooseActionState : IGameState
     //UI 담당 함수들
     private void OnLive()
     {
-        gsm.ChangeState(new FanService(gsm, player, time));
+        if (!canFanService) return;
+        GameManager.Instance.StartAction(ActivityType.FanService); //게임 매니저가 state 변경을 해줄 거임.
     }
 
     private void OnPractice()
     {
-        gsm.ChangeState(new Training(gsm, player, time));
+        if (!canPractice) return;
+        GameManager.Instance.StartAction(ActivityType.Practice); //게임 매니저가 state 변경을 해줄 거임.
     }
 
     private void OnDating()
     {
-        gsm.ChangeState(new Dating(gsm, player, time));
+        if (!canDating) return;
+        GameManager.Instance.StartAction(ActivityType.Dating); //게임 매니저가 state 변경을 해줄 거임.
     }
 
     private void OnRest()
     {
-        gsm.ChangeState(new Rest(gsm, player, time));
+        if (!canRest) return;
+        GameManager.Instance.StartAction(ActivityType.Rest); //게임 매니저가 sate 변경을 해줄 거임.
     }
 
     private void OnComeback()
     {
-        gsm.ChangeState(new ComeBack(gsm, player, time));
+        if (!canComeBack) return;
+        GameManager.Instance.StartAction(ActivityType.Comeback); //게임 매니저가 state 변경을 해줄 거임. 
     }
 
 }

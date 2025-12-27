@@ -41,6 +41,12 @@ public class Dating : IGameState
         {
             result = DatingResult.MentalUp;
         }
+
+        // Scene 종료 이벤트 구독
+        DatingScene.OnFinished += FinishDating;
+
+        // 씬 전환
+        GameSceneManager.Instance.ChangeScene(GameScenes.DatingScene);
     }
 
     public void Update()
@@ -53,26 +59,30 @@ public class Dating : IGameState
     {
         Debug.Log("연애 상태 종료");
 
-        switch (result)
-        {
-            case DatingResult.Dispatch:
-                player.FanNumber -= player.FanNumber / 5; //5분의 1이 날아갑니다. shit!
-                player.MentalHealth -= 20;
-                break;
-
-            case DatingResult.Breakup:
-                player.MentalHealth -= 50;
-                player.DisableDating(); //이별하셨나요? 더 이상 연애를 못 합니다.
-                break;
-
-            case DatingResult.MentalUp:
-                player.MentalHealth += 30;
-                break;
-        }
-        time.AdvanceMonth();
-
-        //엔딩 체크
-        GameManager.Instance.OnActionStateFinished();
-
+        DatingScene.OnFinished -= FinishDating;
     }
+
+    private void FinishDating()
+{
+    // === 결과 적용 ===
+    switch (result)
+    {
+        case DatingResult.Dispatch:
+            player.FanNumber -= player.FanNumber / 5;
+            player.MentalHealth -= 20;
+            break;
+        case DatingResult.Breakup:
+            player.MentalHealth -= 50;
+            player.DisableDating();
+            break;
+        case DatingResult.MentalUp:
+            player.MentalHealth += 30;
+            break;
+    }
+
+    time.AdvanceMonth();
+
+    // 흐름 복귀, 엔딩인지 체크
+    GameManager.Instance.OnActionStateFinished();
+}
 }
