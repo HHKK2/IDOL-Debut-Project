@@ -11,18 +11,9 @@ public class TutorialSceneController : MonoBehaviour
 {
     public void OnClickFinishTutorial()
     {
-        StartCoroutine(StartGameAfterSceneLoaded());
-    }
-
-    private IEnumerator StartGameAfterSceneLoaded()
-    {
         GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
-
-        // HomeScene의 Awake/Start가 끝날 때까지 대기
-        yield return null;
-        yield return null;
-
-        GameManager.Instance.StartGame();
     }
+
+
 
 }

@@ -23,8 +23,8 @@ public class GameManager : AdolpSingleton<GameManager>
 {
     private GameStateMachine gsm;
 
-    [SerializeField] private Player player;
-    [SerializeField] private TimeCycleManager time;
+    public Player player { get; private set; }
+    public TimeCycleManager time { get; private set; }
 
     // =========================
     // 엔딩 관련
@@ -39,6 +39,11 @@ public class GameManager : AdolpSingleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
+
+        // 게임 전역 데이터 생성
+        player = new Player();
+        time = new TimeCycleManager();
+
         gsm = new GameStateMachine();
     }
 
@@ -62,7 +67,7 @@ public class GameManager : AdolpSingleton<GameManager>
 
         // 첫 상태: 행동 선택
         gsm.ChangeState(
-            new ChooseActionState(gsm, player, time)
+            new ChooseActionState(gsm)
         );
     }
 
@@ -108,7 +113,7 @@ public class GameManager : AdolpSingleton<GameManager>
 
         // 엔딩이 아니면 다시 행동 선택
         gsm.ChangeState(
-            new ChooseActionState(gsm, player, time)
+            new ChooseActionState(gsm)
         );
     }
 

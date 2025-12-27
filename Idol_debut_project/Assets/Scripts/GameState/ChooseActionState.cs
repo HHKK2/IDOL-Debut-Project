@@ -29,16 +29,19 @@ public class ChooseActionState : IGameState
     private bool canRest;
     private bool canFanService;
 
-    public ChooseActionState(GameStateMachine gsm, Player player, TimeCycleManager time)
+    public ChooseActionState(GameStateMachine gsm)
     {
         this.gsm = gsm;
-        this.player = player;
-        this.time = time;
+        this.player = GameManager.Instance.player;
+        this.time = GameManager.Instance.time;
     }
 
     public void Enter()
     {
         Debug.Log("행동 선택 상태 진입");
+
+        Debug.Log($"player null? {player == null}");
+        Debug.Log($"time null? {time == null}");
 
         //UImanager 참조
         hud = UIManager.Instance.HUDList.Find(h => h is MainMenuHUD) as MainMenuHUD;
