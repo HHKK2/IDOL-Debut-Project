@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HomeSceneController : MonoBehaviour
+public class StartSceneController : MonoBehaviour
 {
     private HomeHUD homeHUD;
 
@@ -30,7 +30,7 @@ public class HomeSceneController : MonoBehaviour
     private void OnNewGame()
     {
         // 튜토리얼 시작
-        GameSceneManager.Instance.ChangeScene(GameScenes.TutorialScene);
+        GameSceneManager.Instance.ChangeScene(GameScenes.kjhTestScene); //TODO
     }
 
     private void OnLoad()
