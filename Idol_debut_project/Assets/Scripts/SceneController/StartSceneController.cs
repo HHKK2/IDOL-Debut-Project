@@ -30,7 +30,7 @@ public class StartSceneController : MonoBehaviour
     private void OnNewGame()
     {
         // 튜토리얼 시작
-        GameSceneManager.Instance.ChangeScene(GameScenes.kjhTestScene); //TODO
+        GameSceneManager.Instance.ChangeScene(GameScenes.TutorialScene); 
     }
 
     private void OnLoad()
