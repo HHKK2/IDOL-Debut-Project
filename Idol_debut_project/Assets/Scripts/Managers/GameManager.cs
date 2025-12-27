@@ -65,6 +65,11 @@ public class GameManager : AdolpSingleton<GameManager>
         isGameEnded = false;
         End = EndingType.None;
 
+        // Player 초기 스탯 세팅
+        player.Reputation = 10;
+        player.FanNumber = 4000;     // 예시
+        player.MentalHealth = 100;    
+
         // 첫 상태: 행동 선택
         gsm.ChangeState(
             new ChooseActionState(gsm)
@@ -81,18 +86,23 @@ public class GameManager : AdolpSingleton<GameManager>
         {
             case ActivityType.Practice:
                 gsm.ChangeState(new Training(gsm, player, time));
+                GameSceneManager.Instance.ChangeScene(GameScenes.PracticeScene);
                 break;
             case ActivityType.Comeback:
                 gsm.ChangeState(new ComeBack(gsm, player, time));
+                GameSceneManager.Instance.ChangeScene(GameScenes.ComebackScene);
                 break;
             case ActivityType.FanService:
                 gsm.ChangeState(new FanService(gsm, player, time));
+                GameSceneManager.Instance.ChangeScene(GameScenes.FanServiceScene);
                 break;
             case ActivityType.Rest:
                 gsm.ChangeState(new Rest(gsm, player, time));
+                GameSceneManager.Instance.ChangeScene(GameScenes.RestScene);
                 break;
             case ActivityType.Dating:
                 gsm.ChangeState(new Dating(gsm, player, time));
+                GameSceneManager.Instance.ChangeScene(GameScenes.DatingScene);
                 break;
         }
     }
@@ -106,6 +116,15 @@ public class GameManager : AdolpSingleton<GameManager>
     /// </summary>
     public void OnActionStateFinished()
     {
+        // 상태 종료 직전 Player 상태 로그
+        Debug.Log(
+            $"[STATE END]\n" +
+            $"Reputation: {player.Reputation}\n" +
+            $"FanNumber: {player.FanNumber}\n" +
+            $"MentalHealth: {player.MentalHealth}\n" +
+            $"Semester: {time.currentSemester}, MonthIndex: {time.currentActionIndex}"
+        );
+
         CheckEnding();
 
         if (isGameEnded)
