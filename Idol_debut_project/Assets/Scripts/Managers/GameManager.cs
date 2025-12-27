@@ -19,10 +19,8 @@ public enum EndingType
     Superstar //팬 10만 명을 달성함. 
 }
 
-public class GameManager : MonoBehaviour
+public class GameManager : AdolpSingleton<GameManager>
 {
-    public static GameManager Instance;
-
     private GameStateMachine gsm;
 
     [SerializeField] private Player player;
@@ -38,11 +36,12 @@ public class GameManager : MonoBehaviour
     public bool isGameEnded { get; private set; }
     public EndingType End { get; private set; } = EndingType.None;
 
-    private void Awake()
+    protected override void Awake()
     {
-        Instance = this;
+        base.Awake();
         gsm = new GameStateMachine();
     }
+
 
     private void Update()
     {
