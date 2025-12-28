@@ -7,126 +7,125 @@ using TMPro;
 
 public class InputHUD : UIHUD
 {
-    
-    
     enum GameObjects
     {
-        InputInfo,
-        InputGender,
-        InputGroupName
+        Page1,
+        Page2
     }
-    
+
     enum Buttons
     {
-        InputInfoNextButton,
-        InputGenderNextButton,
-        GroupNameNextButton,
-        MaleButton,
-        FemaleButton
+        DownButton,
+        UpButton,
+        SignButton,
+        GirlButton,
+        BoyButton
     }
 
     enum InputFields
     {
         NameInputField,
-        GroupNameInputField
+        GroupInputField
     }
 
     enum Texts
     {
-        GenderGroupNoticeText
+        SignText
     }
 
-    public Action<PlayerInfoData> InputActionFinished;
+    private GameObject Page1;
+    private GameObject Page2;
 
-    private GameObject InputInfo;
-    private GameObject InputGender; 
-    private GameObject InputGroupName;
-
-    private Button InputInfoNextButton;
-    private Button InputGenderNextButton;
-    private Button GroupNameNextButton;
-    private Button MaleButton;
-    private Button FemaleButton;
+    private TextMeshProUGUI SignText;
     
-    private TMP_InputField  NameInputField;
-    private TMP_InputField  GroupNameInputField;
-
-    private TextMeshProUGUI GenderGroupNoticeText;
-
+    private Image GirlButton_Image;
+    private Image BoyButton_Image;
+    
+    private Sprite GirlButton_Active_Sprite;
+    private Sprite BoyButton_Active_Sprite;
+    private Sprite GirlButton_Deactive_Sprite;
+    private Sprite BoyButton_Deactive_Sprite;
+    
     private PlayerInfoData playerInfoData;
+    public Action<PlayerInfoData> InputActionFinished;
 
     private void Start()
     {
-        base.Init();
+        //스프라이트 로드
+        GirlButton_Active_Sprite = Resources.Load<Sprite>("Sprites/InputInfo/버튼_걸_활성화");
+        BoyButton_Active_Sprite = Resources.Load<Sprite>("Sprites/InputInfo/버튼_보이_활성화");
+        GirlButton_Deactive_Sprite = Resources.Load<Sprite>("Sprites/InputInfo/버튼_걸_비활성화");
+        BoyButton_Deactive_Sprite = Resources.Load<Sprite>("Sprites/InputInfo/버튼_보이_비활성화");
         
+        base.Init();
         Bind<GameObject>(typeof(GameObjects));
-        InputInfo =  Get<GameObject>((int)GameObjects.InputGender);
-        InputGender =  Get<GameObject>((int)GameObjects.InputGroupName);
-        InputGroupName = Get<GameObject>((int)GameObjects.InputGroupName);
+        Page1 = Get<GameObject>((int)GameObjects.Page1);
+        Page2 = Get<GameObject>((int)GameObjects.Page2);
         
         Bind<Button>(typeof(Buttons));
-        InputInfoNextButton =   Get<Button>((int)Buttons.InputInfoNextButton);
-        BindEvent(InputInfoNextButton.gameObject,OnClickedInputInfoNextButton, GameEvents.UIEvent.Click);
-        InputGenderNextButton =   Get<Button>((int)Buttons.InputGenderNextButton);
-        BindEvent(InputGenderNextButton.gameObject,OnClickedInputGenderNextButton, GameEvents.UIEvent.Click);
-        GroupNameNextButton =   Get<Button>((int)Buttons.GroupNameNextButton);
-        BindEvent(GroupNameNextButton.gameObject,OnClickedGroupNameNextButton, GameEvents.UIEvent.Click);
-        MaleButton = Get<Button>((int)Buttons.MaleButton);
-        BindEvent(MaleButton.gameObject,OnClickedGroupMaleButton, GameEvents.UIEvent.Click);
-        FemaleButton = Get<Button>((int)Buttons.FemaleButton);
-        BindEvent(FemaleButton.gameObject,OnClickedGroupFemaleButton, GameEvents.UIEvent.Click);
-        
-        
+        Button DownButton = Get<Button>((int)Buttons.DownButton);
+        BindEvent(DownButton.gameObject,OnClickedDownButton, GameEvents.UIEvent.Click);
+        Button UpButton = Get<Button>((int)Buttons.UpButton);
+        BindEvent(UpButton.gameObject,OnClickedUpButton, GameEvents.UIEvent.Click);
+        Button SignButton = Get<Button>((int)Buttons.SignButton);
+        BindEvent(SignButton.gameObject,OnClickedSignButton, GameEvents.UIEvent.Click);
+        Button GirlButton = Get<Button>((int)Buttons.GirlButton);
+        GirlButton_Image =  GirlButton.GetComponent<Image>();
+        BindEvent(GirlButton.gameObject,OnClickedGirlButton, GameEvents.UIEvent.Click);
+        Button BoyButton = Get<Button>((int)Buttons.BoyButton);
+        BoyButton_Image =   BoyButton.GetComponent<Image>();
+        BindEvent(BoyButton.gameObject,OnClickedBoyButton, GameEvents.UIEvent.Click);
         
         Bind<TMP_InputField>(typeof(InputFields));
-        NameInputField =   Get<TMP_InputField>((int)InputFields.NameInputField);
-        NameInputField.onEndEdit.AddListener(OnEndEditNameInputField); 
-        GroupNameInputField =    Get<TMP_InputField>((int)InputFields.GroupNameInputField);
-        GroupNameInputField.onEndEdit.AddListener(OnEndEditGroupNameInputField);
-
+        TMP_InputField NameInputField =  Get<TMP_InputField>((int)InputFields.NameInputField);
+        NameInputField.onEndEdit.AddListener(OnEndEditNameInputField);
+        TMP_InputField GroupInputField =  Get<TMP_InputField>((int)InputFields.GroupInputField);
+        GroupInputField.onEndEdit.AddListener(OnEndEditGroupInputField);
+        
         Bind<TextMeshProUGUI>(typeof(Texts));
-        GenderGroupNoticeText = Get<TextMeshProUGUI>((int)Texts.GenderGroupNoticeText);
-
+        SignText =  Get<TextMeshProUGUI>((int)Texts.SignText);
     }
 
     private void OnEndEditNameInputField(string text)
     {
         playerInfoData.name = text;
+        SignText.text = text;
     }
-    private void OnEndEditGroupNameInputField(string text)
+    
+    private void OnEndEditGroupInputField(string text)
     {
         playerInfoData.groupName = text;
     }
     
-    private void OnClickedInputInfoNextButton(PointerEventData eventData)
+    private void OnClickedBoyButton(PointerEventData eventData)
     {
-        InputInfo.active = false;
-        InputGender.active = true;
-        InputGroupName.active = false;
+        playerInfoData.gender = Gender.MALE;
+        BoyButton_Image.sprite = BoyButton_Active_Sprite;
+        GirlButton_Image.sprite = GirlButton_Deactive_Sprite;
     }
     
-    private void OnClickedInputGenderNextButton(PointerEventData eventData)
+    private void OnClickedGirlButton(PointerEventData eventData)
     {
-        InputInfo.active = false;
-        InputGender.active = false;
-        InputGroupName.active = true;
+        playerInfoData.gender = Gender.FEMALE;
+        BoyButton_Image.sprite = BoyButton_Deactive_Sprite;
+        GirlButton_Image.sprite = GirlButton_Active_Sprite;
     }
     
-    private void OnClickedGroupNameNextButton(PointerEventData eventData)
+    
+    private void OnClickedSignButton(PointerEventData eventData)
     {
         InputActionFinished.Invoke(playerInfoData);
     }
-    
-    private void OnClickedGroupMaleButton(PointerEventData eventData)
+    private void OnClickedDownButton(PointerEventData eventData)
     {
-        playerInfoData.gender = Gender.MALE;
-        GenderGroupNoticeText.text = "You have to debut male group.";
+        Page1.SetActive(false);
+        Page2.SetActive(true);
+    }
+    private void OnClickedUpButton(PointerEventData eventData)
+    {
+        Page1.SetActive(true);
+        Page2.SetActive(false);
     }
     
-    private void OnClickedGroupFemaleButton(PointerEventData eventData)
-    {
-        playerInfoData.gender = Gender.FEMALE;   
-        GenderGroupNoticeText.text = "You have to debut female group.";
-    }
     
 }

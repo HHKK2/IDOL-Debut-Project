@@ -74,8 +74,24 @@ public class StageHUD : UIHUD
         {
             EnsureInitialized();
         }
-        //TODO: enum받아서, 다른 경로로 AudianceImage초기화
-        //AudianceImage.sprite = Resources.Load<Sprite>(audianceImagePath);
+        switch (e)
+        {
+            case AudianceData.EAudianceFeeling.Bad:
+                AudianceImage.sprite = Resources.Load<Sprite>("Sprites/AudianceImage/Bad");
+                break;
+            case AudianceData.EAudianceFeeling.Good:
+                AudianceImage.sprite = Resources.Load<Sprite>("Sprites/AudianceImage/Good");
+                break;
+            case  AudianceData.EAudianceFeeling.Huh:
+                AudianceImage.sprite = Resources.Load<Sprite>("Sprites/AudianceImage/Huh");
+                break;
+            case AudianceData.EAudianceFeeling.Perfect:
+                AudianceImage.sprite = Resources.Load<Sprite>("Sprites/AudianceImage/Perfect");
+                break;
+            case AudianceData.EAudianceFeeling.SoSo:
+                AudianceImage.sprite = Resources.Load<Sprite>("Sprites/AudianceImage/Soso");
+                break;
+        }
     }
 
 

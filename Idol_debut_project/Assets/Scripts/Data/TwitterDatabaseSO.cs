@@ -12,7 +12,11 @@ public class TwitterDatabaseSO : ScriptableObject
     {
         twitterDataArray = data;
         
-        //TODO: {플레이어이름} {그룹이룸}필드에 실제 플레이어 / 그룹 이름 넣기
+        for (int i = 0; i < twitterDataArray.Length; i++)
+        {
+            twitterDataArray[i].text = twitterDataArray[i].text.Replace("{플레이어이름}", GameManager.Instance.player.Name);
+            twitterDataArray[i].text = twitterDataArray[i].text.Replace("{그룹이름}", GameManager.Instance.player.GroupName);
+        }
     }
     
     /// <param name="reputationStatus">무대가 끝난 시점의 플레이어 평판. 양수인지, 음수인지 구별 (int).1: 양수, 0: 음수</param>
