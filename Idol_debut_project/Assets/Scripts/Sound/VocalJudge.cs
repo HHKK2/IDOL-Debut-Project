@@ -228,6 +228,8 @@ public class VocalJudge : MonoBehaviour
     {
         if(finished) return;
         finished = true;
+        
+        RecalculateScores();
 
         VocalResult result = new VocalResult();
         result.score = Score;
