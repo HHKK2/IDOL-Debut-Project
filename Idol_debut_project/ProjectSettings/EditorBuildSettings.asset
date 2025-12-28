@@ -11,5 +11,32 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/YujinTestScene.unity
     guid: 91b73a5e3dfabf94d8d70d4293e0bae4
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: ae54fc02e870e36479774bd72197705c
+  - enabled: 1
+    path: Assets/Scenes/TutorialScene.unity
+    guid: bc8b657da40b49b40b70399c1ac6f8a7
+  - enabled: 1
+    path: Assets/Scenes/EndingScene.unity
+    guid: 93ac937c4bee6724e9c0063ea49a5334
+  - enabled: 1
+    path: Assets/Scenes/HomeScene.unity
+    guid: f3b0e3ace7fa5f341b2f60c84ba4e991
+  - enabled: 1
+    path: Assets/Scenes/StateScenes/ComebackScene.unity
+    guid: 0e9025886cd76254bbcb5808ce550e2d
+  - enabled: 1
+    path: Assets/Scenes/StateScenes/DatingScene.unity
+    guid: 76aed572cdc83e842b1790688101d709
+  - enabled: 1
+    path: Assets/Scenes/StateScenes/FanServiceScene.unity
+    guid: b8e80c9d65f00f748b05c11220978ddd
+  - enabled: 1
+    path: Assets/Scenes/StateScenes/PracticeScene.unity
+    guid: 43575454336c0ce45a94427a8f1c9262
+  - enabled: 1
+    path: Assets/Scenes/StateScenes/RestScene.unity
+    guid: 7a52e39d4c0de4b4eacf16e552204481
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

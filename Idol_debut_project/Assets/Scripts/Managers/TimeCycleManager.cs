@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TimeCycleManager : MonoBehaviour
+public class TimeCycleManager : AdolpSingleton<TimeCycleManager>
 {
     public int currentSemester = 1; //분기(상반기/하반기)
     public int currentActionIndex = 1; // 학기 내 행동 인덱스 (1~4)
@@ -16,11 +16,13 @@ public class TimeCycleManager : MonoBehaviour
 
     public void AdvanceMonth()
     {
-        currentActionIndex++;
-
-        if (currentActionIndex > 4)
+        if (currentActionIndex < 4)
         {
-            EndSemester();
+            currentActionIndex++; // 다음 달
+        }
+        else
+        {
+            EndSemester(); // 4달 끝 다음 학기
         }
     }
 
@@ -78,5 +80,16 @@ public class TimeCycleManager : MonoBehaviour
     public string GetCurrentDateString()
     {
         return $"{GetHalfYearString()} {GetCurrentMonth()}월";
+    }
+
+    /// 초기화 함수
+    public void Reset()
+    {
+        currentSemester = 1;
+        currentActionIndex = 1;
+        didComeBack = false;
+        repeatedNegative = 0;
+
+        Debug.Log("[TIME RESET] Semester=1, MonthIndex=1");
     }
 }

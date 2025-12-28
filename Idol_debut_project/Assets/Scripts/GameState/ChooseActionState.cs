@@ -29,16 +29,19 @@ public class ChooseActionState : IGameState
     private bool canRest;
     private bool canFanService;
 
-    public ChooseActionState(GameStateMachine gsm, Player player, TimeCycleManager time)
+    public ChooseActionState(GameStateMachine gsm)
     {
         this.gsm = gsm;
-        this.player = player;
-        this.time = time;
+        this.player = GameManager.Instance.player;
+        this.time = GameManager.Instance.time;
     }
 
     public void Enter()
     {
         Debug.Log("행동 선택 상태 진입");
+
+        Debug.Log($"player null? {player == null}");
+        Debug.Log($"time null? {time == null}");
 
         //UImanager 참조
         hud = UIManager.Instance.HUDList.Find(h => h is MainMenuHUD) as MainMenuHUD;
@@ -58,7 +61,7 @@ public class ChooseActionState : IGameState
 
         //상/하반기가 끝날텐데 컴백을 안 하셨다고요? 컴백을 하셔야겠네요.
 
-        bool isLastMonth = (time.currentActionIndex == 4);
+        bool isLastMonth = (time.currentActionIndex == 3);
         bool Comeback = time.didComeBack;
 
         // 기본값 세팅
@@ -113,27 +116,32 @@ public class ChooseActionState : IGameState
     //UI 담당 함수들
     private void OnLive()
     {
-        gsm.ChangeState(new FanService(gsm, player, time));
+        if (!canFanService) return;
+        GameManager.Instance.StartAction(ActivityType.FanService); //게임 매니저가 state 변경을 해줄 거임.
     }
 
     private void OnPractice()
     {
-        gsm.ChangeState(new Training(gsm, player, time));
+        if (!canPractice) return;
+        GameManager.Instance.StartAction(ActivityType.Practice); //게임 매니저가 state 변경을 해줄 거임.
     }
 
     private void OnDating()
     {
-        gsm.ChangeState(new Dating(gsm, player, time));
+        if (!canDating) return;
+        GameManager.Instance.StartAction(ActivityType.Dating); //게임 매니저가 state 변경을 해줄 거임.
     }
 
     private void OnRest()
     {
-        gsm.ChangeState(new Rest(gsm, player, time));
+        if (!canRest) return;
+        GameManager.Instance.StartAction(ActivityType.Rest); //게임 매니저가 sate 변경을 해줄 거임.
     }
 
     private void OnComeback()
     {
-        gsm.ChangeState(new ComeBack(gsm, player, time));
+        if (!canComeBack) return;
+        GameManager.Instance.StartAction(ActivityType.Comeback); //게임 매니저가 state 변경을 해줄 거임. 
     }
 
 }

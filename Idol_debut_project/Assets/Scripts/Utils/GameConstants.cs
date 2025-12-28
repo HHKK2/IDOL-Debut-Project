@@ -40,11 +40,7 @@ public static class GameConstants
         }
         public static class SystemName
         {
-            public const string FadeInSystemUI = "StageFadeInSystemUI";
-        }
-        public static class SystemName
-        {
-            public const string FadeInSystemUI = "FadeInSystemUI";
+            public const string StageFadeInSystemUI = "StageFadeInSystemUI";
         }
     }
 }
