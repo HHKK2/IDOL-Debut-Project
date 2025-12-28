@@ -7,7 +7,7 @@ public class Dating : IGameState
     private DatingResult result;
 
     #region enum
-    private enum DatingResult //데이트 결과
+    public enum DatingResult //데이트 결과
     {
         MentalUp, // 멘탈 + 30
         Dispatch, // 팬수 5분의 1 소멸, 멘탈 -20 (10프로)
@@ -39,6 +39,12 @@ public class Dating : IGameState
         {
             result = DatingResult.MentalUp;
         }
+
+        // 결과 로그 (중요)
+        Debug.Log($"[Dating] Result = {result}");
+
+        // Scene에 데이터 전달 (성별 + 결과)
+        DatingSceneController.SetContext(player.Gender, result);
 
         // Scene 종료 이벤트 구독
         DatingSceneController.OnFinished += FinishDating;

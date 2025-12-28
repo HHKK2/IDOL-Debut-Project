@@ -119,13 +119,13 @@ public class InputHUD : UIHUD
     
     private void OnClickedGroupMaleButton(PointerEventData eventData)
     {
-        playerInfoData.gender = 1;
+        playerInfoData.gender = Gender.MALE;
         GenderGroupNoticeText.text = "You have to debut male group.";
     }
     
     private void OnClickedGroupFemaleButton(PointerEventData eventData)
     {
-        playerInfoData.gender = 0;   
+        playerInfoData.gender = Gender.FEMALE;   
         GenderGroupNoticeText.text = "You have to debut female group.";
     }
     

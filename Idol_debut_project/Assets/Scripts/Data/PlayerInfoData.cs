@@ -6,7 +6,7 @@ namespace Data
         /// <summary>
         /// 0: 여자, 1: 남자
         /// </summary>
-        public int gender; 
+        public Gender gender; 
         public string groupName;
     }
 }

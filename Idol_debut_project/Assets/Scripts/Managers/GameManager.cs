@@ -92,6 +92,15 @@ public class GameManager : AdolpSingleton<GameManager>
         
     }
 
+    public void EnterHome()
+    {
+        if (isGameEnded)
+            return;
+
+        gsm.ChangeState(new ChooseActionState(gsm));
+    }
+
+
     // =========================
     // 행동 시작
     // =========================
@@ -132,6 +141,9 @@ public class GameManager : AdolpSingleton<GameManager>
     /// </summary>
     public void OnActionStateFinished()
     {
+        Debug.Log($"[GM] playerRef={player.GetHashCode()} mental={player.MentalHealth}");
+
+
         time.AdvanceMonth();
 
         // 상태 종료 직전 Player 상태 로그

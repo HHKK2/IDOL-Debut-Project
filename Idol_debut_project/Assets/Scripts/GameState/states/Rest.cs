@@ -4,7 +4,7 @@ public class Rest : IGameState
 {
     private GameStateMachine gsm;
     private Player player;
-    
+
 
     public Rest(GameStateMachine gsm, Player player)
     {
@@ -16,6 +16,9 @@ public class Rest : IGameState
     {
         Debug.Log("휴식 상태 진입");
 
+        // 성별 세팅
+        RestSceneController.SetPlayerGender(player.Gender);
+        
         // 씬 전환
         GameSceneManager.Instance.ChangeScene(GameScenes.RestScene);
 
@@ -39,10 +42,12 @@ public class Rest : IGameState
     // =========================
     private void FinishRest()
     {
+        Debug.Log($"[Rest] playerRef={player.GetHashCode()} mental(before)={player.MentalHealth}");
+
         Debug.Log("휴식 상태 종료");
 
         player.MentalHealth += 10;
-       // time.AdvanceMonth();
+        // time.AdvanceMonth();
 
         //엔딩 검사 +메인으로 돌아오기
         GameManager.Instance.OnActionStateFinished();

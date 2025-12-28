@@ -4,7 +4,7 @@ public class FanService : IGameState
 {
     private GameStateMachine gsm;
     private Player player;
-    
+
 
     public FanService(GameStateMachine gsm, Player player)
     {
@@ -21,6 +21,9 @@ public class FanService : IGameState
 
         // 씬 종료 이벤트 구독
         FanServiceSceneController.OnFinished += FinishFanService;
+
+        //플레이어 성별 전달(이미지가 달라짐)
+        FanServiceSceneController.SetPlayerGender(player.Gender);
     }
 
     public void Update()
@@ -53,7 +56,7 @@ public class FanService : IGameState
 
         player.MentalHealth -= 5;   // 멘탈 감소
 
-       // time.AdvanceMonth();        // 1개월 경과
+        // time.AdvanceMonth();        // 1개월 경과
 
         // 흐름 복귀 + 엔딩 체크 + 메인으로 돌아오기
         GameManager.Instance.OnActionStateFinished();

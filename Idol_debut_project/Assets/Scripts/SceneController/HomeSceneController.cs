@@ -14,7 +14,7 @@ public class HomeSceneController : MonoBehaviour
         else
         {
             Debug.Log("HomeScene START → StartGame");
-            gm.StartGame();
+            gm.EnterHome();
         }
         
     }
