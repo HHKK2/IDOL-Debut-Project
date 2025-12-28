@@ -60,6 +60,9 @@ public class FanService : IGameState
 
         // 흐름 복귀 + 엔딩 체크 + 메인으로 돌아오기
         GameManager.Instance.OnActionStateFinished();
+
+        if (GameManager.Instance.isGameEnded)
+            return;
         GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }

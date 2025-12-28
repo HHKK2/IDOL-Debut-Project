@@ -39,10 +39,12 @@ public class Training : IGameState
         Debug.Log("[TRAINING FINISH] 결과 적용");
 
         // 1. 시간 진행
-       // time.AdvanceMonth();
+        // time.AdvanceMonth();
         // 2. 다음 상태로 복귀
         GameManager.Instance.OnActionStateFinished();
         //3. 메인으로 돌아오기
+        if (GameManager.Instance.isGameEnded)
+            return;
         GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }

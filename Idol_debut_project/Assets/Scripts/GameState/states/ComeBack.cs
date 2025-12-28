@@ -14,29 +14,12 @@ public class ComeBack : IGameState
         this.player = player;
     }
 
-    //10분 동안만 연습이 가능합니다. 
-    private float practiceTimer = 0f;
-    private const float PRACTICE_DURATION = 600f; // 10분
-
-    private enum ComeBackPhase
-    {
-        Practice,
-        Stage,
-        Done
-    }
-
-    private ComeBackPhase phase;
-
-
     public void Enter()
     {
         Debug.Log("컴백 상태 진입");
 
-        int stageScore = CalculateStageScore(); //TODO : 나중에 함수를 받아와야겠지..
+        stageScore = CalculateStageScore(); //TODO : 나중에 함수를 받아와야겠지..
         bonus = GetStageBonus(stageScore);
-
-        phase = ComeBackPhase.Practice;
-        practiceTimer = 0f;
 
         // 씬 전환
         GameSceneManager.Instance.ChangeScene(GameScenes.ComebackScene);
@@ -48,17 +31,6 @@ public class ComeBack : IGameState
     public void Update()
     {
         //Debug.Log("컴백 상태 로직 처리");
-
-        if (phase == ComeBackPhase.Practice)
-        {
-            practiceTimer += Time.deltaTime;
-
-            if (practiceTimer >= PRACTICE_DURATION)
-            {
-                phase = ComeBackPhase.Stage;
-                StartStage();
-            }
-        }
     }
 
     public void Exit()
@@ -73,7 +45,7 @@ public class ComeBack : IGameState
     private void FinishComeBack()
     {
         var time = TimeCycleManager.Instance;
-        
+
         Debug.Log("[COMEBACK FINISH] 결과 적용");
 
         // 1. 평판 변화
@@ -113,6 +85,9 @@ public class ComeBack : IGameState
 
         // 5. 엔딩 체크 + 메인메뉴로 돌아오기
         GameManager.Instance.OnActionStateFinished();
+
+        if (GameManager.Instance.isGameEnded)
+            return;
         GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 
@@ -134,15 +109,9 @@ public class ComeBack : IGameState
 
     }
 
-    private void StartStage()
-    {
-        Debug.Log("무대 시작");
-        phase = ComeBackPhase.Stage;
-    }
-
     private int CalculateStageScore()
     {
-        //컴파일 제거 용 (나중에 삭제할 것.)
+        //컴파일 제거 용 (나중에 삭제할 것.) TODO stage 결과에서 받아오기
         return 1;
     }
 
