@@ -8,7 +8,7 @@ public class HomeSceneController : MonoBehaviour
         if (gm.IsLoadedGame)
         {
             Debug.Log("HomeScene Start -> load game continue");
-            gm.IsLoadedGame = false;
+            gm.ClearLoadedGame();
             gm.ResumeFromLoad();
         }
         else
