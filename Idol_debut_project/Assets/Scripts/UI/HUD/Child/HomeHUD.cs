@@ -11,18 +11,13 @@ public class HomeHUD : UIHUD
         ExitButton
     }
 
-    enum GameObjects
-    {
-        Main,
-        InputInfo,
-        
-    }
     
     public Action ClickedNewGameButton;
     public Action ClickedLoadButton;
     public Action ClickedExitButton;
 
 
+    //TODO: 세이브조건 확인하여 팝업창 띄우기
     private void Start()
     {
         base.Init();

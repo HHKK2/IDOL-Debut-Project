@@ -162,10 +162,10 @@ public class MainMenuHUD : UIHUD
             EnsureInitialized();
         }
         
-        FanText.text = groupName;
+        FanText.text = fanNum;
         NameText.text = name;
         GroupNameText.text = groupName;
-        DateText.text = fanNum;
+        DateText.text = date;
         MentalSlider.value = mental;
     }
 
