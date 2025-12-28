@@ -473,11 +473,12 @@ MonoBehaviour:
   audioInput: {fileID: 1853416828}
   pitchDetector: {fileID: 1853416827}
   vocalDetector: {fileID: 1853416826}
-  scoreChart: {fileID: 1853416825}
-  songTimeSec: 0
+  scoreChart: {fileID: 0}
   useAudioSourceTime: 1
   songAudioSource: {fileID: 1723500418}
-  judgeIntervalSec: 0.1
+  judgeIntervalSec: 0.25
+  autoFinishWhenSongEnds: 1
+  endGraceSec: 0.25
   logDebug: 1
 --- !u!114 &1853416825
 MonoBehaviour:

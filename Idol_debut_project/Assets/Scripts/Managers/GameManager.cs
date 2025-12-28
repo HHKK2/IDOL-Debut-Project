@@ -36,6 +36,11 @@ public class GameManager : AdolpSingleton<GameManager>
     public bool isGameEnded { get; private set; }
     public EndingType End { get; private set; } = EndingType.None;
 
+    
+    //isLoad 사용 여부
+    public bool IsLoadedGame { get; private set; }
+    
+    
     protected override void Awake()
     {
         base.Awake();
@@ -68,15 +73,23 @@ public class GameManager : AdolpSingleton<GameManager>
 
         //time.Reset();   // timecycle 초기화
 
-        // Player 초기 스탯 세팅
-        player.Reputation = 10;
-        player.FanNumber = 4000;     // 예시
-        player.MentalHealth = 100;
+        
+        // 로드한 게임이 아닐시에만 (aka 첫 시작 게임) 플레이어 스탯 셋팅
+        if (!IsLoadedGame)
+        {
+            time.Reset();
+            
+            player.Reputation = 10;
+            player.FanNumber = 4000;     // 예시
+            player.MentalHealth = 100; 
+        }
 
         // 첫 상태: 행동 선택
         gsm.ChangeState(
             new ChooseActionState(gsm)
         );
+        ClearLoadedGame();
+        
     }
 
     // =========================
@@ -130,8 +143,9 @@ public class GameManager : AdolpSingleton<GameManager>
             $"Semester: {time.currentSemester}, MonthIndex: {time.currentActionIndex}"
         );
 
+        SaveManager.Instance.SaveGame();
+        
         CheckEnding();
-
         if (isGameEnded)
             return;
 
@@ -187,5 +201,26 @@ public class GameManager : AdolpSingleton<GameManager>
 
         // 엔딩 상태로 전환
         gsm.ChangeState(new EndingState(ending));
+    }
+
+    public void MarkLoadedGame()
+    {
+        IsLoadedGame = true;
+    }
+
+    public void ClearLoadedGame()
+    {
+        IsLoadedGame = false;
+        
+    }
+
+    public void ResumeFromLoad()
+    {
+        isGameEnded = false;
+        if (gsm == null)
+        {
+            gsm = new GameStateMachine();
+        }
+        gsm.ChangeState(new ChooseActionState(gsm));
     }
 }

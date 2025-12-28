@@ -29,14 +29,25 @@ public class StartSceneController : MonoBehaviour
 
     private void OnNewGame()
     {
+        GameManager.Instance.ClearLoadedGame();
         // 튜토리얼 시작
         GameSceneManager.Instance.ChangeScene(GameScenes.TutorialScene);
     }
 
     private void OnLoad()
     {
-        //TODO
-        Debug.Log("Load Game (나중에 구현)");
+        bool ok = SaveManager.Instance.LoadGame();
+        if (!ok)
+        {
+            Debug.Log("저장 데이터 없음");
+            return;
+        }
+        
+        SaveManager.Instance.Load();
+        GameManager.Instance.MarkLoadedGame();
+        
+
+        GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 
     private void OnExit()
