@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd3b27cfa3e14adc809a94ec90bf676, type: 3}
+  m_Name: test_dialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueText
+  speakers:
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 11400000, guid: 7444398b06b974c8781ef43f76e3a4da, type: 2}
+  - {fileID: 11400000, guid: f69eb6d9e217a4b1c85511a1b392dd95, type: 2}
+  - {fileID: 11400000, guid: 7444398b06b974c8781ef43f76e3a4da, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: f69eb6d9e217a4b1c85511a1b392dd95, type: 2}
+  - {fileID: 11400000, guid: 7444398b06b974c8781ef43f76e3a4da, type: 2}
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  paragraphs:
+  - "\u2026\uC5B4, \uC654\uB0D0."
+  - "\uC624\uB298 \uC65C \uBD88\uB800\uB294\uC9C0\uB294 \uC54C\uACE0 \uC788\uC9C0?"
+  - "\uB370\uBDD4 \uACC4\uC57D\uC11C\uB2E4. \uB0B4\uC6A9\uC740 \uD615\uC2DD\uC801\uC774\uB2C8\uAE4C
+    \uAF3C\uAF3C\uD788 \uBCFC \uD544\uC694\uB294 \uC5C6\uACE0\u2026"
+  - "\uAC1C\uC778\uC815\uBCF4\uB9CC \uC81C\uB300\uB85C \uC801\uB3C4\uB85D \uD574.
+    \uC5EC\uAE30 \uC2F8\uC778\uD558\uBA74,"
+  - "\uB10C \uC815\uC2DD\uC73C\uB85C KING.ENT\uC640 \uC544\uD2F0\uC2A4\uD2B8 \uACC4\uC57D\uC744
+    \uB9FA\uACE0 \uB370\uBDD4\uD558\uB294 \uAC70\uB2E4."
+  - "\uD5C9 \uB135!!"
+  - "\uC774\uAC70 \uD14C\uC2A4\uD2B8 \uB300\uC0AC 1"
+  - "\uC774\uAC70 \uD14C\uC2B4\u3134\u3147\u3139\u3139\u3139\u3147\u3139\u3141\u3134\u3147"
+  - "\uB300\uC911\uB3C4 \uC758\uACAC\uC774 \uC788\uB2E4\uACE0\uC694"
+  - "\uD760 \uB09C \uC5F0\uC778\uC778\uAC00"
+  - "\uC6B0\uD788\uD788"
+  - "\uB0A8\uD50C\uB808\uC774\uC5B4\uB85C \uC798 \uB418\uB098\uBCF4\uB124"
+  - "\uC5F0\uC778\uC785\uB2C8\uB2E4"
+  - "\uB300\uC911\uC785\uB2C8\uB2E4"
+  - "\uC74C\uB0D0\uC74C\uB0D0"
