@@ -17,7 +17,6 @@ public class HomeHUD : UIHUD
     public Action ClickedExitButton;
 
 
-    //TODO: 세이브조건 확인하여 팝업창 띄우기
     private void Start()
     {
         base.Init();
