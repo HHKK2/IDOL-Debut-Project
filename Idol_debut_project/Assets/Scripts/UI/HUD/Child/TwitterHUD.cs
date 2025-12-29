@@ -12,7 +12,7 @@ public class TwitterHUD : UIHUD
     
     [SerializeField] private TwitterDatabaseSO twitterDatabase;
     [Tooltip("트위터 랜덤으로 몇 개 띄울지")]
-    [SerializeField] private int randomTwitCount = 3;
+    [SerializeField] private int randomTwitCount = 2;
 
     [SerializeField] private GameObject twitterSlotPrefab;
 

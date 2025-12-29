@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UITunner
   uiBaseType: 1
-  uiName: InputHUD
+  uiName: StageResultHUD
   isClose: 0
 --- !u!1 &475302043
 GameObject:

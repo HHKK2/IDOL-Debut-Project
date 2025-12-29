@@ -19,6 +19,8 @@ public class TSVReader : AdolpSingleton<TSVReader>
     private async void Start()
     {
         await ReadJsonAsync();
+        //test code
+        SceneManager.LoadScene(GameScenes.YujinTestScene);
         Debug.Log("트위터 데이터 로드를 완료하여 데이터로더 객체를 파괴합니다.");
         Destroy(gameObject);
     }

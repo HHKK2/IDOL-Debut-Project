@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TwitterHUD
   twitterDatabase: {fileID: 11400000, guid: ea265f87a5520bd4489d86a4bb2ec123, type: 2}
-  randomTwitCount: 4
+  randomTwitCount: 2
   twitterSlotPrefab: {fileID: 7303778146015968353, guid: 152fdefb90fc6fd4595b3e9433e02bda, type: 3}
 --- !u!1 &8182687234161802404
 GameObject:

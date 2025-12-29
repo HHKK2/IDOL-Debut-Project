@@ -14,28 +14,40 @@ public class PracticeHUD : UIHUD
     enum Texts
     {
         SongTitle,
-        SongTimer
+        SongTimer,
+        LyricsText
     }
 
     enum Buttons
     {
         RightButton,
         LeftButton,
-        PracticeButton
+        PracticeButton,
+        ExitButton
+    }
+
+    enum Sliders
+    {
+        SongTimerSlider
     }
 
     public Action onClickedRightSongButton;
     public Action onClickedLeftSongButton;
     public Action onClickedPracticeButton;
+    public Action onClickedExitButton;
     
     private Image AlbumImage;
 
     private TextMeshProUGUI SongTitle;
     private TextMeshProUGUI SongTimer;
+    private  TextMeshProUGUI LyricsText;
     
     private Button RightButton;
     private Button LeftButton;
     private Button PracticeButton;
+    private Button ExitButton;
+
+    private Slider SongTimerSlider;
 
     private bool initialized = false;
 
@@ -64,6 +76,7 @@ public class PracticeHUD : UIHUD
         Bind<TextMeshProUGUI>(typeof(Texts));
         SongTitle = Get<TextMeshProUGUI>((int)Texts.SongTitle);
         SongTimer =  Get<TextMeshProUGUI>((int)Texts.SongTimer);
+        LyricsText = Get<TextMeshProUGUI>((int)Texts.LyricsText);
         
         Bind<Button>(typeof(Buttons));
         RightButton = Get<Button>((int)Buttons.RightButton);
@@ -72,7 +85,12 @@ public class PracticeHUD : UIHUD
         BindEvent(LeftButton.gameObject, OnClickLeftButton,GameEvents.UIEvent.Click);
         PracticeButton =  Get<Button>((int)Buttons.PracticeButton);
         BindEvent(PracticeButton.gameObject, OnClickPracticeButton, GameEvents.UIEvent.Click);
+        ExitButton =   Get<Button>((int)Buttons.ExitButton);
+        BindEvent(ExitButton.gameObject, OnClickExitButton,GameEvents.UIEvent.Click);
 
+        Bind<Slider>(typeof(Sliders));
+        SongTimerSlider = Get<Slider>((int)Sliders.SongTimerSlider);
+        
         initialized = true;
     }
 
@@ -103,6 +121,28 @@ public class PracticeHUD : UIHUD
         SongTimer.text = SongMMSS;
     }
 
+    /// <summary>
+    /// 가사가 한줄한줄 바뀔 때마다 호출하기
+    /// </summary>
+    public void InitLyricsText(string value)
+    {
+         LyricsText.text = value;
+    }
+
+    /// <summary>
+    /// update에서 호출하기
+    /// </summary>
+    ///<param name="value">MM:SS 형태의 값을 float로 변환하여 넘겨주기(max:1)</param>
+    public void InitSongSlider(float value)
+    {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
+        SongTimerSlider.value = value;
+    }
+
 
     private void OnClickRightButton(PointerEventData eventData)
     {
@@ -116,5 +156,10 @@ public class PracticeHUD : UIHUD
     {
         onClickedPracticeButton.Invoke();
     }
+    private void OnClickExitButton(PointerEventData eventData)
+    {
+        onClickedExitButton.Invoke();
+    }
+    
     
 }

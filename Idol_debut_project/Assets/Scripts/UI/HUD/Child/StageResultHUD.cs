@@ -44,6 +44,9 @@ public class StageResultHUD : UIHUD
         UmJungText =  Get<TextMeshProUGUI>((int)Texts.UmJungText);
 
         initialized = true;
+        
+        //test code
+        Init("100", "99", "99", AudianceData.EAudianceFeeling.Perfect, true);
     }
 
     public void Init(string totalScoreText, string bakJaText, string umJungText, AudianceData.EAudianceFeeling audianceFeeling, bool isReputationPositiveNumber)
