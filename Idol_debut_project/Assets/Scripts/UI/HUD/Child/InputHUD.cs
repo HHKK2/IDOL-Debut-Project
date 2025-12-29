@@ -112,7 +112,7 @@ public class InputHUD : UIHUD
     }
     
     
-    private void OnClickedSignButton(PointerEventData eventData)
+    public void OnClickedSignButton(PointerEventData eventData)
     {
         InputActionFinished.Invoke(playerInfoData);
     }
