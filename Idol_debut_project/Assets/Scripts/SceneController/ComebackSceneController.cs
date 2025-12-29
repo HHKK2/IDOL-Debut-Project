@@ -29,6 +29,8 @@ public class ComebackSceneController : MonoBehaviour
     private TimerHUD timerHUD;
     private PracticeHUD practiceHUD;
     private StageHUD stageHUD;
+    private StageResultHUD resultHUD;
+    
 
     //무대 관련
     private AudioSource audioSource;
@@ -38,7 +40,6 @@ public class ComebackSceneController : MonoBehaviour
     private bool isWaitingForCountdown = true; // 카운트다운 대기 중
     private VocalJudge vocalJudge;
     private VocalResult vocalResult;
-    private StageResultHUD resultHUD;
     private Coroutine countdownCoroutine;
 
     //연습 관련
@@ -104,13 +105,13 @@ public class ComebackSceneController : MonoBehaviour
         if (noticeHUD != null)
         {
             noticeHUD.OnCombackPrepareStart -= OnPrepareSignal;
-            
+
             if (noticeHUD.gameObject != null)
             {
                 UIManager.Instance.HUDList.Remove(noticeHUD);
                 UnityEngine.Object.Destroy(noticeHUD.gameObject);
             }
-            
+
             noticeHUD = null;
         }
 
@@ -156,6 +157,11 @@ public class ComebackSceneController : MonoBehaviour
                 EnterStage();
             }
         }
+
+        if (phase == Phase.Practice && isPracticePlaying)
+        {
+            UpdatePractice();
+        }
         else if (phase == Phase.Stage && isStagePlaying)
         {
             UpdateStage();
@@ -177,13 +183,15 @@ public class ComebackSceneController : MonoBehaviour
             $"Sprites/AlbumCovers/{currentSong.albumCover.name}");
 
         practiceHUD.onClickedPracticeButton += StartPractice;
+        practiceHUD.onClickedExitButton += ExitPractice;
     }
 
     private void StartPractice()
     {
         Debug.Log("[ComebackScene] Practice Started");
-        
-        if (currentSong == null || currentSong.audioClip == null)
+
+        AudioClip practiceClip = currentSong?.GetPracticeClip();
+        if (currentSong == null || practiceClip == null)
         {
             Debug.LogError("[ComebackScene] currentSong 또는 audioClip이 null입니다.");
             return;
@@ -200,7 +208,7 @@ public class ComebackSceneController : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        audioSource.clip = currentSong.audioClip;
+        audioSource.clip = practiceClip;
         audioSource.playOnAwake = false;
         audioSource.loop = false;
 
@@ -210,6 +218,33 @@ public class ComebackSceneController : MonoBehaviour
 
         // 음악 재생 시작
         audioSource.Play();
+    }
+
+    private void ExitPractice()
+    {
+        Debug.Log("[ComebackScene] Practice Exit");
+
+        // 연습 중이면 정지
+        if (isPracticePlaying)
+        {
+            isPracticePlaying = false;
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+        }
+
+        // PracticeHUD 닫기
+        if (practiceHUD != null)
+        {
+            practiceHUD.onClickedPracticeButton -= StartPractice;
+            practiceHUD.onClickedExitButton -= ExitPractice;
+            CloseHUDIfExists(practiceHUD);
+            practiceHUD = null;
+        }
+
+        // Prepare 단계로 돌아가기
+        phase = Phase.Prepare;
     }
 
     //stage 무대
@@ -231,6 +266,17 @@ public class ComebackSceneController : MonoBehaviour
         if (practiceHUD != null)
         {
             practiceHUD.onClickedPracticeButton -= StartPractice;
+            practiceHUD.onClickedExitButton -= ExitPractice;
+        }
+
+        // 연습 중이면 정지
+        if (isPracticePlaying)
+        {
+            isPracticePlaying = false;
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
         }
 
         // 필요한 HUD만 선택적으로 닫기
@@ -249,7 +295,8 @@ public class ComebackSceneController : MonoBehaviour
 
     private void StartStagePerformance()
     {
-        if (currentSong == null || currentSong.audioClip == null)
+        AudioClip comebackClip = currentSong?.GetComebackClip();
+        if (currentSong == null || comebackClip == null)
         {
             Debug.LogError("[ComebackScene] currentSong 또는 audioClip이 null입니다.");
             FinishStage();
@@ -274,7 +321,7 @@ public class ComebackSceneController : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        audioSource.clip = currentSong.audioClip;
+        audioSource.clip = comebackClip;
         audioSource.playOnAwake = false;
         audioSource.loop = false;
 
@@ -293,7 +340,7 @@ public class ComebackSceneController : MonoBehaviour
             // audioSource 연결
             vocalJudge.songAudioSource = audioSource;
             vocalJudge.useAudioSourceTime = true;
-            
+
             // OnFinished 이벤트 구독
             vocalJudge.OnFinished += OnVocalJudgeFinished;
         }
@@ -322,13 +369,17 @@ public class ComebackSceneController : MonoBehaviour
                 return;
             }
         }
-        else if (currentSong != null && currentSong.audioClip != null)
+        else if (currentSong != null)
         {
-            // AudioSource가 없어도 timestamp로 체크
-            if (songTimestamp >= currentSong.audioClip.length)
+            AudioClip comebackClip = currentSong.GetComebackClip();
+            if (comebackClip != null)
             {
-                OnStageFinished();
-                return;
+                // AudioSource가 없어도 timestamp로 체크
+                if (songTimestamp >= comebackClip.length)
+                {
+                    OnStageFinished();
+                    return;
+                }
             }
         }
 
@@ -336,7 +387,8 @@ public class ComebackSceneController : MonoBehaviour
         if (stageHUD != null)
         {
             // 타이머 업데이트
-            float songLength = currentSong.audioClip.length;
+            AudioClip comebackClip = currentSong?.GetComebackClip();
+            float songLength = comebackClip != null ? comebackClip.length : 0f;
             float sliderValue = songLength > 0 ? Mathf.Clamp01(songTimestamp / songLength) : 0f;
             string timerText = FormatSongTime(songTimestamp, songLength);
             stageHUD.InitSongTimerValue(sliderValue, timerText);
@@ -392,7 +444,7 @@ public class ComebackSceneController : MonoBehaviour
 
         // StageResultHUD 표시
         resultHUD = UIManager.Instance.ShowHUDUI<StageResultHUD>();
-        
+
         // 클릭 이벤트 구독 (클릭하면 메인 화면으로 이동)
         resultHUD.OnClickGoHomeButton += FinishStage;
 
@@ -407,7 +459,7 @@ public class ComebackSceneController : MonoBehaviour
 
             // feeling 문자열을 EAudianceFeeling enum으로 변환
             AudianceData.EAudianceFeeling feeling = AudianceFeelingUtil.FromScore100(result.finalScore100);
-            
+
             // 평판이 양수인지 여부 (점수가 50 이상이면 양수)
             bool isReputationPositive = result.finalScore100 >= 50;
 
@@ -437,7 +489,7 @@ public class ComebackSceneController : MonoBehaviour
         {
             audioSource.Play();
         }
-        
+
         countdownCoroutine = null;
     }
 
@@ -476,6 +528,53 @@ public class ComebackSceneController : MonoBehaviour
         OnFinished?.Invoke();
     }
 
+    private void UpdatePractice()
+    {
+        AudioClip practiceClip = currentSong?.GetPracticeClip();
+        if (audioSource == null || currentSong == null || practiceClip == null)
+            return;
+
+        // timestamp 업데이트
+        practiceSongTimestamp += Time.deltaTime;
+
+        // 음악 종료 체크
+        if (!audioSource.isPlaying || practiceSongTimestamp >= practiceClip.length)
+        {
+            // 음악이 끝나면 정지
+            if (audioSource.isPlaying)
+                audioSource.Stop();
+            isPracticePlaying = false;
+            practiceSongTimestamp = 0f;
+        }
+
+        // PracticeHUD 업데이트
+        if (practiceHUD != null)
+        {
+            float songLength = practiceClip.length;
+
+            // InitSongSlider: 0-1 사이 값으로 변환
+            float sliderValue = songLength > 0 ? Mathf.Clamp01(practiceSongTimestamp / songLength) : 0f;
+            practiceHUD.InitSongSlider(sliderValue);
+
+            // InitSongMMSS: MM:SS 형태로 변환
+            string mmss = FormatPracticeTime(practiceSongTimestamp);
+            practiceHUD.InitSongMMSS(mmss);
+
+            // TODO: InitLyricsText - 가사가 한줄한줄 바뀔 때마다 호출
+            // 현재 timestamp에 맞는 가사를 찾아서 표시해야 합니다.
+            // 예시: practiceHUD.InitLyricsText(GetLyricsAtTime(practiceSongTimestamp));
+            // 일단 제목으로 표시
+            practiceHUD.InitLyricsText(currentSong.title);
+        }
+    }
+
+    private string FormatPracticeTime(float time)
+    {
+        int min = Mathf.FloorToInt(time / 60f);
+        int sec = Mathf.FloorToInt(time % 60f);
+        return $"{min:D2}:{sec:D2}";
+    }
+
     private string FormatTime()
     {
         int remain = Mathf.Max(0, (int)(PRACTICE_DURATION - timer));
@@ -494,7 +593,10 @@ public class ComebackSceneController : MonoBehaviour
         }
 
         if (practiceHUD != null)
+        {
             practiceHUD.onClickedPracticeButton -= StartPractice;
+            practiceHUD.onClickedExitButton -= ExitPractice;
+        }
 
         // 코루틴 정지
         if (countdownCoroutine != null)
@@ -508,7 +610,7 @@ public class ComebackSceneController : MonoBehaviour
         {
             if (audioSource.isPlaying)
                 audioSource.Stop();
-            
+
             // AudioSource 컴포넌트 제거
             UnityEngine.Object.Destroy(audioSource);
             audioSource = null;

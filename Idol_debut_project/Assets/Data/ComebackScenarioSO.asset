@@ -19,88 +19,130 @@ MonoBehaviour:
       title: SongSOngSONg
       concept: "\uCCAD\uB7C9"
       albumCover: {fileID: 21300000, guid: 458dd46b7b8279545a9dff5a909f26ee, type: 3}
-      audioClip: {fileID: 8300000, guid: bb10ba8483baa460baa08c3f8c827e93, type: 3}
+      audio:
+        original: {fileID: 8300000, guid: bb10ba8483baa460baa08c3f8c827e93, type: 3}
+        inst: {fileID: 8300000, guid: adc586b97aaed914ba6174e6d439b206, type: 3}
+      usedInComeback: 0
     femaleSong:
       songId: debut01female
       title: SongSOngOSNg
       concept: "\uCCAD\uB7C9"
       albumCover: {fileID: 21300000, guid: 458dd46b7b8279545a9dff5a909f26ee, type: 3}
-      audioClip: {fileID: 8300000, guid: bb10ba8483baa460baa08c3f8c827e93, type: 3}
+      audio:
+        original: {fileID: 8300000, guid: bb10ba8483baa460baa08c3f8c827e93, type: 3}
+        inst: {fileID: 8300000, guid: adc586b97aaed914ba6174e6d439b206, type: 3}
+      usedInComeback: 0
   - order: 0
     maleSong:
       songId: 
       title: 
       concept: 
       albumCover: {fileID: 0}
-      audioClip: {fileID: 0}
+      audio:
+        original: {fileID: 0}
+        inst: {fileID: 0}
+      usedInComeback: 0
     femaleSong:
       songId: 
       title: 
       concept: 
       albumCover: {fileID: 0}
-      audioClip: {fileID: 0}
+      audio:
+        original: {fileID: 0}
+        inst: {fileID: 0}
+      usedInComeback: 0
   - order: 0
     maleSong:
       songId: 
       title: 
       concept: 
       albumCover: {fileID: 0}
-      audioClip: {fileID: 0}
+      audio:
+        original: {fileID: 0}
+        inst: {fileID: 0}
+      usedInComeback: 0
     femaleSong:
       songId: 
       title: 
       concept: 
       albumCover: {fileID: 0}
-      audioClip: {fileID: 0}
+      audio:
+        original: {fileID: 0}
+        inst: {fileID: 0}
+      usedInComeback: 0
   - order: 0
     maleSong:
       songId: 
       title: 
       concept: 
       albumCover: {fileID: 0}
-      audioClip: {fileID: 0}
+      audio:
+        original: {fileID: 0}
+        inst: {fileID: 0}
+      usedInComeback: 0
     femaleSong:
       songId: 
       title: 
       concept: 
       albumCover: {fileID: 0}
-      audioClip: {fileID: 0}
+      audio:
+        original: {fileID: 0}
+        inst: {fileID: 0}
+      usedInComeback: 0
   - order: 0
     maleSong:
       songId: 
       title: 
       concept: 
       albumCover: {fileID: 0}
-      audioClip: {fileID: 0}
+      audio:
+        original: {fileID: 0}
+        inst: {fileID: 0}
+      usedInComeback: 0
     femaleSong:
       songId: 
       title: 
       concept: 
       albumCover: {fileID: 0}
-      audioClip: {fileID: 0}
+      audio:
+        original: {fileID: 0}
+        inst: {fileID: 0}
+      usedInComeback: 0
   - order: 0
     maleSong:
       songId: 
       title: 
       concept: 
       albumCover: {fileID: 0}
-      audioClip: {fileID: 0}
+      audio:
+        original: {fileID: 0}
+        inst: {fileID: 0}
+      usedInComeback: 0
     femaleSong:
       songId: 
       title: 
       concept: 
       albumCover: {fileID: 0}
-      audioClip: {fileID: 0}
+      audio:
+        original: {fileID: 0}
+        inst: {fileID: 0}
+      usedInComeback: 0
   - order: 0
     maleSong:
       songId: 
       title: 
       concept: 
       albumCover: {fileID: 0}
-      audioClip: {fileID: 0}
+      audio:
+        original: {fileID: 0}
+        inst: {fileID: 0}
+      usedInComeback: 0
     femaleSong:
       songId: 
       title: 
       concept: 
       albumCover: {fileID: 0}
-      audioClip: {fileID: 0}
+      audio:
+        original: {fileID: 0}
+        inst: {fileID: 0}
+      usedInComeback: 0
