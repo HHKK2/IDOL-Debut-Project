@@ -20,9 +20,15 @@ public enum ActivityType
 
 public class GameSceneManager : AdolpSingleton<GameSceneManager>
 {
+    public string CurrentScene { get; private set; }
+
     //기본 씬 전환 함수
     public void ChangeScene(string sceneName)
     {
+        if (CurrentScene == sceneName)
+            return; // 같은 씬 재로드 방지
+
+        CurrentScene = sceneName;
         SceneManager.LoadScene(sceneName);
     }
 

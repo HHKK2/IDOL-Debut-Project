@@ -412,7 +412,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RestSceneController
   restImage: {fileID: 1578564994}
   maleRestImages:
-  - {fileID: 21300000, guid: 543359ebc33cde94eb075f1cfcf74392, type: 3}
+  - {fileID: 21300000, guid: 47693f1f3e5c34c49af5d6d3d8caaafa, type: 3}
+  - {fileID: 21300000, guid: 12a8d67491b5d7340b555526a1228848, type: 3}
   femaleRestImages:
   - {fileID: 21300000, guid: 543359ebc33cde94eb075f1cfcf74392, type: 3}
   - {fileID: 21300000, guid: 49d91be90488c0349b78d5f2cbde9163, type: 3}

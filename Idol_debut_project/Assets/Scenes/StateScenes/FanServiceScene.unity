@@ -549,10 +549,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FanServiceSceneController
   liveImage: {fileID: 1046793841}
   maleLiveImages:
-  - {fileID: 21300000, guid: 37286e006077bad45bcbc5420dffc609, type: 3}
-  - {fileID: 21300000, guid: 37286e006077bad45bcbc5420dffc609, type: 3}
+  - {fileID: 21300000, guid: 683dacf1263e7de43a3f032fbbe6d83c, type: 3}
+  - {fileID: 21300000, guid: 2633523fe7ddf0342b3b517b58511dc7, type: 3}
   femaleLiveImages:
-  - {fileID: 21300000, guid: 1f3ceeff7433eb34498c7666e852df56, type: 3}
+  - {fileID: 21300000, guid: 37286e006077bad45bcbc5420dffc609, type: 3}
   - {fileID: 21300000, guid: 1f3ceeff7433eb34498c7666e852df56, type: 3}
 --- !u!4 &1384848609
 Transform:

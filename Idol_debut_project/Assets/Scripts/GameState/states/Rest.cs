@@ -18,7 +18,7 @@ public class Rest : IGameState
 
         // 성별 세팅
         RestSceneController.SetPlayerGender(player.Gender);
-        
+
         // 씬 전환
         GameSceneManager.Instance.ChangeScene(GameScenes.RestScene);
 
@@ -50,7 +50,12 @@ public class Rest : IGameState
         // time.AdvanceMonth();
 
         //엔딩 검사 +메인으로 돌아오기
+        GameManager.Instance.CheckImmediateEnding();
+
+        if (GameManager.Instance.isGameEnded)
+            return;
+
         GameManager.Instance.OnActionStateFinished();
-        GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
+        //GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }

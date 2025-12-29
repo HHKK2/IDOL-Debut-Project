@@ -12,7 +12,9 @@ public class EndingState : IGameState
     public void Enter()
     {
         Debug.Log($"엔딩 진입 : {endingType}");
-        // TODO: 엔딩 UI 표시
+
+        GameSceneManager.Instance.ChangeScene(GameScenes.EndingScene);
+        
         // TODO: 입력 막기
     }
 
