@@ -21,6 +21,7 @@ public class TSVReader : AdolpSingleton<TSVReader>
         await ReadJsonAsync();
         
         Debug.Log("트위터 데이터 로드를 완료하여 데이터로더 객체를 파괴합니다.");
+        
         Destroy(gameObject);
     }
 

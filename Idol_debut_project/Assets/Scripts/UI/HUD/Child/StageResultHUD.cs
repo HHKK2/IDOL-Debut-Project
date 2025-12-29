@@ -65,8 +65,8 @@ public class StageResultHUD : UIHUD
         BindEvent(GoHomeButton.gameObject, OnClicked_GoHomeButton, GameEvents.UIEvent.Click);
 
     
-        initialized = true;
         
+        initialized = true;
     }
 
     /// <param name="rankImagePath">Resources 폴더 내의 상대 경로 (확장자 제외). Assets/Resources/Sprites/Rank에 있습니다.
