@@ -12,6 +12,7 @@ public class MainMenuHUD : UIHUD
         NameText,
         GroupNameText,
         DateText,
+        MentalSliderText
     }
 
     enum Sliders
@@ -28,9 +29,15 @@ public class MainMenuHUD : UIHUD
         ComebackButton,
         SaveButton,
         SettingButton,
-        ExitButton
+        ExitButton,
+        KingButton
     }
 
+    enum GameObjects
+    {
+        ProfileBG, 
+        BG
+    }
 
 
 
@@ -50,6 +57,7 @@ public class MainMenuHUD : UIHUD
     private TextMeshProUGUI NameText;
     private TextMeshProUGUI GroupNameText;
     private TextMeshProUGUI DateText;
+    private TextMeshProUGUI MentalSliderText;
 
     private Slider MentalSlider;
 
@@ -59,6 +67,7 @@ public class MainMenuHUD : UIHUD
     private Button DatingButton;
     private Button RestButton;
     private Button PracticeButton;
+    private Button KingButton;
 
     private bool initialized = false;
 
@@ -85,6 +94,7 @@ public class MainMenuHUD : UIHUD
         NameText = Get<TextMeshProUGUI>((int)Texts.NameText);
         GroupNameText = Get<TextMeshProUGUI>((int)Texts.GroupNameText);
         DateText = Get<TextMeshProUGUI>((int)Texts.DateText);
+        MentalSliderText = Get<TextMeshProUGUI>((int)Texts.MentalSliderText);
 
         Bind<Slider>(typeof(Sliders));
         MentalSlider = Get<Slider>((int)Sliders.MentalSlider);
@@ -99,6 +109,18 @@ public class MainMenuHUD : UIHUD
         RestButton = Get<Button>((int)Buttons.RestButton);
         BindEvent(RestButton.gameObject, OnClickedRestButton, GameEvents.UIEvent.Click);
         GameObject ComebackButton = Get<Button>((int)Buttons.ComebackButton).gameObject;
+        if (GameManager.Instance.player.Gender == Gender.FEMALE)
+        {
+            ComebackButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/버튼_컴백_여");
+        }
+        else
+        {
+            ComebackButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/버튼_컴백_남");
+        }
+        KingButton = Get<Button>((int)Buttons.KingButton);
+        BindEvent(KingButton.gameObject,OnClickedKingButton ,GameEvents.UIEvent.Click);
+        
+        
         BindEvent(ComebackButton, OnClickedComebackButton, GameEvents.UIEvent.Click);
         GameObject SaveButton = Get<Button>((int)Buttons.SaveButton).gameObject;
         BindEvent(SaveButton, OnClickedSaveButton, GameEvents.UIEvent.Click);
@@ -107,7 +129,26 @@ public class MainMenuHUD : UIHUD
         GameObject ExitButton = Get<Button>((int)Buttons.ExitButton).gameObject;
         BindEvent(ExitButton, OnClickedExitButton, GameEvents.UIEvent.Click);
 
+        Bind<GameObject>(typeof(GameObjects));
+        GameObject ProfileBG = Get<GameObject>((int)GameObjects.ProfileBG);
+        GameObject BG = Get<GameObject>((int)GameObjects.BG);
+        if (GameManager.Instance.player.Gender == Gender.FEMALE)
+        {
+            ProfileBG.GetComponent<Image>().sprite=Resources.Load<Sprite>("Sprites/MainScreen/UI_스탯 표시_여");
+            BG.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/배경_메인화면_여");
+        }
+        else
+        {
+            ProfileBG.GetComponent<Image>().sprite=Resources.Load<Sprite>("Sprites/MainScreen/UI_스탯 표시_남");
+            BG.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/배경_메인화면_남");
+        }
+        
         initialized = true;
+    }
+    
+    private void OnClickedKingButton(PointerEventData eventData)
+    {
+        //TODO: 킹 팝업 띄우기
     }
 
     private void OnClickedLiveButton(PointerEventData eventData)
@@ -167,6 +208,7 @@ public class MainMenuHUD : UIHUD
         GroupNameText.text = groupName;
         DateText.text = date;
         MentalSlider.value = mental;
+        MentalSliderText.text = $"{mental}/100";
     }
 
 
