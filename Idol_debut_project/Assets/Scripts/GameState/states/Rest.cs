@@ -50,10 +50,12 @@ public class Rest : IGameState
         // time.AdvanceMonth();
 
         //엔딩 검사 +메인으로 돌아오기
-        GameManager.Instance.OnActionStateFinished();
+        GameManager.Instance.CheckImmediateEnding();
 
         if (GameManager.Instance.isGameEnded)
             return;
+
+        GameManager.Instance.OnActionStateFinished();
         GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }

@@ -84,10 +84,13 @@ public class ComeBack : IGameState
         time.didComeBack = true;
 
         // 5. 엔딩 체크 + 메인메뉴로 돌아오기
-        GameManager.Instance.OnActionStateFinished();
+
+        GameManager.Instance.CheckImmediateEnding();
 
         if (GameManager.Instance.isGameEnded)
             return;
+
+        GameManager.Instance.OnActionStateFinished();
         GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 

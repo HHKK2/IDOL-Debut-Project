@@ -36,11 +36,11 @@ public class GameManager : AdolpSingleton<GameManager>
     public bool isGameEnded { get; private set; }
     public EndingType End { get; private set; } = EndingType.None;
 
-    
+
     //isLoad 사용 여부
     public bool IsLoadedGame { get; private set; }
-    
-    
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -73,15 +73,15 @@ public class GameManager : AdolpSingleton<GameManager>
 
         //time.Reset();   // timecycle 초기화
 
-        
+
         // 로드한 게임이 아닐시에만 (aka 첫 시작 게임) 플레이어 스탯 셋팅
         if (!IsLoadedGame)
         {
             time.Reset();
-            
+
             player.Reputation = 10;
             player.FanNumber = 4000;     // 예시
-            player.MentalHealth = 100; 
+            player.MentalHealth = 100;
         }
 
         // 첫 상태: 행동 선택
@@ -89,7 +89,7 @@ public class GameManager : AdolpSingleton<GameManager>
             new ChooseActionState(gsm)
         );
         ClearLoadedGame();
-        
+
     }
 
     public void EnterHome()
@@ -156,7 +156,7 @@ public class GameManager : AdolpSingleton<GameManager>
         );
 
         SaveManager.Instance.SaveGame();
-        
+
         CheckEnding();
         if (isGameEnded)
             return;
@@ -168,39 +168,65 @@ public class GameManager : AdolpSingleton<GameManager>
     }
 
     // =========================
-    // 엔딩 판정
+    // 엔딩 판정 - 끝날 때
     // =========================
 
     public void CheckEnding()
     {
         if (isGameEnded) return;
 
-        //1. 배드 엔딩 : 멘탈이 0
-        if (player.MentalHealth <= 0)
-        {
-            EndGame(EndingType.Bad);
-            return;
-        }
-        //2. 웨딩 엔딩 : 디스패치에 3번
-        if (dispatchCount >= 3)
-        {
-            EndGame(EndingType.Wedding);
-            return;
-        }
-        //3. 슈퍼스타엔딩 : 팬을 10만 명 달성
-        if (player.FanNumber >= 100_000 && time.currentSemester < FINAL_SEMESTER)
-        {
-            EndGame(EndingType.Superstar);
-            return;
-        }
+        // //1. 배드 엔딩 : 멘탈이 0
+        // if (player.MentalHealth <= 0)
+        // {
+        //     EndGame(EndingType.Bad);
+        //     return;
+        // }
+        // //2. 웨딩 엔딩 : 디스패치에 3번
+        // if (dispatchCount >= 3)
+        // {
+        //     EndGame(EndingType.Wedding);
+        //     return;
+        // }
+        // //3. 슈퍼스타엔딩 : 팬을 10만 명 달성
+        // if (player.FanNumber >= 100_000)
+        // {
+        //     EndGame(EndingType.Superstar);
+        //     return;
+        // }
         //4. 노멀 엔딩 : 12월이 됨 + 5만이 안 됨
         //5. 해피 엔딩 : 12월이 됨 + 5만이 됨
-        if (time.currentSemester >= FINAL_SEMESTER)
+        bool isFinalSemester = time.currentSemester == FINAL_SEMESTER;
+        bool isEndOfSemester = time.currentActionIndex == 4;
+
+        if (isFinalSemester && isEndOfSemester)
         {
             if (player.FanNumber >= 50_000)
                 EndGame(EndingType.Happy);
             else
                 EndGame(EndingType.Normal);
+        }
+    }
+
+    //엔딩 판정 - 바로.
+    public void CheckImmediateEnding()
+    {
+        if (isGameEnded) return;
+
+        if (player.MentalHealth <= 0)
+        {
+            EndGame(EndingType.Bad);
+            return;
+        }
+
+        if (dispatchCount >= 3)
+        {
+            EndGame(EndingType.Wedding);
+            return;
+        }
+
+        if (player.FanNumber >= 100_000)
+        {
+            EndGame(EndingType.Superstar);
         }
     }
 
@@ -223,7 +249,7 @@ public class GameManager : AdolpSingleton<GameManager>
     public void ClearLoadedGame()
     {
         IsLoadedGame = false;
-        
+
     }
 
     public void ResumeFromLoad()

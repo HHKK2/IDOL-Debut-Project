@@ -59,10 +59,14 @@ public class FanService : IGameState
         // time.AdvanceMonth();        // 1개월 경과
 
         // 흐름 복귀 + 엔딩 체크 + 메인으로 돌아오기
-        GameManager.Instance.OnActionStateFinished();
+        // 결과 적용
+
+        GameManager.Instance.CheckImmediateEnding();
 
         if (GameManager.Instance.isGameEnded)
             return;
+
+        GameManager.Instance.OnActionStateFinished();
         GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }

@@ -72,6 +72,7 @@ public class Dating : IGameState
         switch (result)
         {
             case DatingResult.Dispatch:
+                GameManager.Instance.dispatchCount++;
                 player.FanNumber -= player.FanNumber / 5;
                 player.MentalHealth -= 20;
                 break;
@@ -87,11 +88,13 @@ public class Dating : IGameState
         //time.AdvanceMonth();
 
         // 흐름 복귀, 엔딩인지 체크 + 메인으로 돌아오기
-        GameManager.Instance.OnActionStateFinished();
+
+        GameManager.Instance.CheckImmediateEnding();
 
         if (GameManager.Instance.isGameEnded)
             return;
 
+        GameManager.Instance.OnActionStateFinished();
         GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }

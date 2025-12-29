@@ -40,11 +40,14 @@ public class Training : IGameState
 
         // 1. 시간 진행
         // time.AdvanceMonth();
-        // 2. 다음 상태로 복귀
-        GameManager.Instance.OnActionStateFinished();
-        //3. 메인으로 돌아오기
+
+        //즉각 엔딩 검사. 
+        GameManager.Instance.CheckImmediateEnding();
         if (GameManager.Instance.isGameEnded)
             return;
+        //다음 상태로 복귀
+        GameManager.Instance.OnActionStateFinished();
+        //메인으로 돌아오기
         GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }
