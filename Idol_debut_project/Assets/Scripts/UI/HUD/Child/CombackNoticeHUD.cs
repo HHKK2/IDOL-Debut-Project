@@ -5,10 +5,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 public class CombackNoticeHUD : UIHUD
 {
-    enum Buttons
-    {
-        NextButton
-    }
+
 
     enum Images
     {
@@ -50,9 +47,6 @@ public class CombackNoticeHUD : UIHUD
 
         base.Init();
         
-        Bind<Button>(typeof(Buttons));
-        NextButton = Get<Button>((int)Buttons.NextButton);
-        BindEvent(NextButton.gameObject,OnClickedNextButton, GameEvents.UIEvent.Click);
         
         Bind<Image>(typeof(Images));
         AlbumImage = Get<Image>((int)Images.AlbumImage);
@@ -73,14 +67,13 @@ public class CombackNoticeHUD : UIHUD
         if (isDetectedMouseClick)
         {
             OnCombackPrepareStart.Invoke();
-            isDetectedMouseClick = false;
         }
     }
 
 
     /// <param name="albumImagePath">Resources 폴더 내의 상대 경로 (확장자 제외)
     /// 예: "Sprites/AlbumCovers/MySong" (Assets/Resources/Sprites/AlbumCovers/MySong.png 일 경우)</param>
-    public void Init(string albumImagePath, string songName)
+    public void Init(string albumImagePath,string conceptName ,string songName)
     {
         if (!initialized)
         {
@@ -88,12 +81,7 @@ public class CombackNoticeHUD : UIHUD
         }
         
         AlbumImage.sprite = Resources.Load<Sprite>(albumImagePath);
-        DialogBoxText.text = "This Comback song is "+songName+"."; 
+        DialogBoxText.text = "이번 컴백 곡은 "+conceptName+" 컨셉의 '"+songName+"'이다."; 
     }
     
-
-    private void OnClickedNextButton(PointerEventData eventData)
-    {
-        isDetectedMouseClick = true;
-    }
 }
