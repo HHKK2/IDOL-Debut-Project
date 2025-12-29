@@ -69,7 +69,7 @@ public class StageResultHUD : UIHUD
         
     }
 
-    /// <param name="rankImagePath">Resources 폴더 내의 상대 경로 (확장자 제외)
+    /// <param name="rankImagePath">Resources 폴더 내의 상대 경로 (확장자 제외). Assets/Resources/Sprites/Rank에 있습니다.
     /// 예: "Sprites/AlbumCovers/MySong" (Assets/Resources/Sprites/AlbumCovers/MySong.png 일 경우)</param>
     /// <param name="scoreText">예시: 78</param>
     /// <param name="albumNth">예시: 2</param>

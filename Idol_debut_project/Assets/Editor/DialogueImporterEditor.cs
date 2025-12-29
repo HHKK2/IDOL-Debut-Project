@@ -59,10 +59,16 @@ public class DialogueImporterEditor : EditorWindow
 
             string speakerNameFromText = parts[0].Trim();
             string dialogue = parts[1].Trim();
+
+            if (speakerNameFromText == "BG")
+            {
+                targetDialogue.speakers.Add(null);
+                targetDialogue.paragraphs.Add($"[BG]{dialogue}");
+            }
           
             Speaker matchedSpeaker = null;
 
-// "주인공"이거나 "플레이어"면 null 넣기 → 런타임에서 플레이어 이름 사용
+            // "주인공"이거나 "플레이어"면 null 넣기 → 런타임에서 플레이어 이름 사용
             if (speakerNameFromText.Contains("플레이어") || speakerNameFromText.Contains("주인공"))
             {
                 matchedSpeaker = null; // 런타임에서 플레이어 이름 넣는 처리 있음
