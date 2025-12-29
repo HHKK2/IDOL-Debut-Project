@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Data;
 
 public class ComebackSceneController : MonoBehaviour
 {
@@ -29,8 +30,41 @@ public class ComebackSceneController : MonoBehaviour
     private PracticeHUD practiceHUD;
     private StageHUD stageHUD;
 
+    //무대 관련
+    private AudioSource audioSource;
+    // 읽기 전용 timestamp - UpdateStage()에서만 Time.deltaTime으로 증가시킴 (외부에서 직접 수정 불가)
+    private float songTimestamp;
+    private bool isStagePlaying = false;
+    private bool isWaitingForCountdown = true; // 카운트다운 대기 중
+    private VocalJudge vocalJudge;
+    private VocalResult vocalResult;
+    private StageResultHUD resultHUD;
+    private Coroutine countdownCoroutine;
+
     private void Start()
     {
+        // 씬 시작 시 AudioSource 정리 (이전 씬에서 남아있을 수 있음)
+        if (audioSource != null)
+        {
+            if (audioSource.isPlaying)
+                audioSource.Stop();
+            UnityEngine.Object.Destroy(audioSource);
+            audioSource = null;
+        }
+
+        // PersistentScene을 포함한 모든 씬의 AudioSource 정지
+        // (PersistentScene은 DontDestroyOnLoad라서 FindObjectsByType으로 찾을 수 있음)
+        AudioSource[] allAudioSources = FindObjectsByType<AudioSource>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (AudioSource source in allAudioSources)
+        {
+            // 자기 자신의 AudioSource는 제외 (아직 생성 안 됨)
+            if (source != audioSource && source.isPlaying)
+            {
+                source.Stop();
+                Debug.Log($"[ComebackScene] AudioSource 정지: {source.name}, clip: {(source.clip != null ? source.clip.name : "null")}");
+            }
+        }
+
         currentSong = GameManager.Instance.CurrentComebackSong;
         if (currentSong == null)
         {
@@ -49,11 +83,10 @@ public class ComebackSceneController : MonoBehaviour
 
         noticeHUD = UIManager.Instance.ShowHUDUI<CombackNoticeHUD>();
         noticeHUD.Init(
-    $"Sprites/AlbumCovers/{currentSong.albumCover.name}",
-    currentSong.title);
+            $"Sprites/AlbumCovers/{currentSong.albumCover.name}",
+            currentSong.title);
 
         noticeHUD.OnCombackPrepareStart += OnPrepareSignal;
-        //TODO : 실장님 대화 표시  + 앨범 코드 하드코딩 바꾸기ㅣ,,,, 
     }
 
     private void OnPrepareSignal()
@@ -63,17 +96,21 @@ public class ComebackSceneController : MonoBehaviour
 
         isClicked = true;
 
-        // 🔴 UIManager 건드리지 말고
         if (noticeHUD != null)
         {
             noticeHUD.OnCombackPrepareStart -= OnPrepareSignal;
-            Destroy(noticeHUD.gameObject);   // ← 직접 파괴
+            
+            if (noticeHUD.gameObject != null)
+            {
+                UIManager.Instance.HUDList.Remove(noticeHUD);
+                UnityEngine.Object.Destroy(noticeHUD.gameObject);
+            }
+            
             noticeHUD = null;
         }
 
         EnterPrepare();
     }
-
 
     //Prepare 컴백 준비 : 이제부터 타이머를 띄움 + 여기서 메인메뉴 화면을 다시 보여줌. 
     private void EnterPrepare()
@@ -114,6 +151,18 @@ public class ComebackSceneController : MonoBehaviour
                 EnterStage();
             }
         }
+        else if (phase == Phase.Stage && isStagePlaying)
+        {
+            UpdateStage();
+        }
+        else if (phase == Phase.Stage && resultHUD != null)
+        {
+            // 결과 화면에서 클릭하면 메인 화면으로 이동
+            if (Input.GetMouseButtonDown(0))
+            {
+                FinishStage();
+            }
+        }
     }
 
     //practice 컴백 연습. 
@@ -127,19 +176,15 @@ public class ComebackSceneController : MonoBehaviour
 
         practiceHUD = UIManager.Instance.ShowHUDUI<PracticeHUD>();
         practiceHUD.Init(
-    currentSong.title,
-    $"Sprites/AlbumCovers/{currentSong.albumCover.name}");
+            currentSong.title,
+            $"Sprites/AlbumCovers/{currentSong.albumCover.name}");
 
-        //TODO : 지금은 테스트용 더미 데이터.. comeback 쪽에서 이번 컴백 곡 정보 추가해서 controller가 참조해서 들고 와야 함!! 샤갈 할 거 존니 많긔
         practiceHUD.onClickedPracticeButton += StartPractice;
-
-        stageHUD = UIManager.Instance.ShowHUDUI<StageHUD>();
     }
 
     private void StartPractice()
     {
         Debug.Log("[ComebackScene] Practice Started");
-        // 실제 연습 로직은 이후
     }
 
     //stage 무대
@@ -151,10 +196,241 @@ public class ComebackSceneController : MonoBehaviour
         phase = Phase.Stage;
         Debug.Log("[컴백씬] 무대");
 
-        UIManager.Instance.CloseAllHUD();
+        // 이벤트 구독 해제
+        if (mainMenuHUD != null)
+        {
+            mainMenuHUD.ClickedPracticeButton -= EnterPractice;
+            mainMenuHUD.ClickedComebackButton -= EnterStage;
+        }
 
-        // TODO: 무대 연출 시작
-        // 무대 끝나면 FinishStage() 호출
+        if (practiceHUD != null)
+        {
+            practiceHUD.onClickedPracticeButton -= StartPractice;
+        }
+
+        // 필요한 HUD만 선택적으로 닫기
+        CloseHUDIfExists(mainMenuHUD);
+        CloseHUDIfExists(practiceHUD);
+        CloseHUDIfExists(timerHUD);
+
+        mainMenuHUD = null;
+        practiceHUD = null;
+        timerHUD = null;
+
+        stageHUD = UIManager.Instance.ShowHUDUI<StageHUD>();
+
+        StartStagePerformance();
+    }
+
+    private void StartStagePerformance()
+    {
+        if (currentSong == null || currentSong.audioClip == null)
+        {
+            Debug.LogError("[ComebackScene] currentSong 또는 audioClip이 null입니다.");
+            FinishStage();
+            return;
+        }
+
+        // 기존 코루틴 정지
+        if (countdownCoroutine != null)
+        {
+            StopCoroutine(countdownCoroutine);
+            countdownCoroutine = null;
+        }
+
+        // AudioSource 초기화 및 정리
+        if (audioSource != null)
+        {
+            if (audioSource.isPlaying)
+                audioSource.Stop();
+        }
+        else
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        audioSource.clip = currentSong.audioClip;
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+
+        // timestamp 초기화 (읽기 전용 - Time.deltaTime으로만 증가)
+        songTimestamp = 0f;
+        isStagePlaying = true;
+        isWaitingForCountdown = true;
+
+        // 카운트다운이 끝날 때까지 기다린 후 음악 재생 (StageFadeInSystemUI의 delayTime은 3초)
+        countdownCoroutine = StartCoroutine(WaitForCountdownAndStartMusic());
+
+        // VocalJudge 관련 초기화
+        vocalJudge = FindFirstObjectByType<VocalJudge>();
+        if (vocalJudge != null)
+        {
+            // audioSource 연결
+            vocalJudge.songAudioSource = audioSource;
+            vocalJudge.useAudioSourceTime = true;
+            
+            // OnFinished 이벤트 구독
+            vocalJudge.OnFinished += OnVocalJudgeFinished;
+        }
+        else
+        {
+            Debug.LogWarning("[ComebackScene] VocalJudge를 찾을 수 없습니다. 결과 없이 진행합니다.");
+        }
+    }
+
+    private void UpdateStage()
+    {
+        // 카운트다운 중이면 timestamp 업데이트 안 함
+        if (isWaitingForCountdown)
+            return;
+
+        // timestamp 업데이트 (읽기 전용 - Time.deltaTime으로만 증가, 외부에서 직접 수정 불가)
+        songTimestamp += Time.deltaTime;
+
+        // 음악 종료 체크
+        if (audioSource != null && audioSource.clip != null)
+        {
+            // AudioSource가 재생 중이 아니거나 timestamp가 음악 길이를 넘었으면 종료
+            if (!audioSource.isPlaying || songTimestamp >= audioSource.clip.length)
+            {
+                OnStageFinished();
+                return;
+            }
+        }
+        else if (currentSong != null && currentSong.audioClip != null)
+        {
+            // AudioSource가 없어도 timestamp로 체크
+            if (songTimestamp >= currentSong.audioClip.length)
+            {
+                OnStageFinished();
+                return;
+            }
+        }
+
+        // StageHUD 업데이트
+        if (stageHUD != null)
+        {
+            // 타이머 업데이트
+            float songLength = currentSong.audioClip.length;
+            float sliderValue = songLength > 0 ? Mathf.Clamp01(songTimestamp / songLength) : 0f;
+            string timerText = FormatSongTime(songTimestamp, songLength);
+            stageHUD.InitSongTimerValue(sliderValue, timerText);
+
+            // TODO: 가사 업데이트
+            // 현재 timestamp에 맞는 가사를 찾아서 표시해야 합니다.
+            // 예시: stageHUD.InitLyricsText(GetLyricsAtTime(songTimestamp));
+            // 일단 제목으로 표시
+            stageHUD.InitLyricsText(currentSong.title);
+
+            // 관객 반응 업데이트 (VocalJudge 결과 기반)
+            if (vocalJudge != null)
+            {
+                stageHUD.InitAudianceImage(vocalJudge.Feeling);
+            }
+        }
+    }
+
+    private void OnStageFinished()
+    {
+        isStagePlaying = false;
+        isWaitingForCountdown = false;
+
+        // 노래 정지
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
+        // VocalJudge가 있으면 결과를 기다림 (OnVocalJudgeFinished에서 처리)
+        // VocalJudge가 없으면 바로 결과 화면 표시
+        if (vocalJudge == null)
+        {
+            ShowStageResult(null);
+        }
+        // VocalJudge가 있으면 OnVocalJudgeFinished에서 처리됨
+    }
+
+    private void OnVocalJudgeFinished(VocalResult result)
+    {
+        vocalResult = result;
+        ShowStageResult(result);
+    }
+
+    private void ShowStageResult(VocalResult result)
+    {
+        // StageHUD 닫기
+        if (stageHUD != null)
+        {
+            CloseHUDIfExists(stageHUD);
+            stageHUD = null;
+        }
+
+        // StageResultHUD 표시
+        resultHUD = UIManager.Instance.ShowHUDUI<StageResultHUD>();
+        
+        // 클릭 이벤트 구독 (클릭하면 메인 화면으로 이동)
+        // StageResultHUD에 클릭 이벤트가 없으므로 Update에서 처리
+
+        if (result != null)
+        {
+            // VocalJudge 결과가 있는 경우
+            string totalScoreText = result.finalScore100.ToString();
+            string bakJaText = $"{result.perfect + result.good + result.bad + result.miss}";
+            string umJungText = $"{result.perfect} / {result.good} / {result.bad} / {result.miss}";
+
+            // feeling 문자열을 EAudianceFeeling enum으로 변환
+            AudianceData.EAudianceFeeling feeling = AudianceFeelingUtil.FromScore100(result.finalScore100);
+            
+            // 평판이 양수인지 여부 (점수가 50 이상이면 양수)
+            bool isReputationPositive = result.finalScore100 >= 50;
+
+            resultHUD.Init(totalScoreText, bakJaText, umJungText, feeling, isReputationPositive);
+        }
+        else
+        {
+            // VocalJudge 결과가 없는 경우 (기본값)
+            string totalScoreText = "0";
+            string bakJaText = "0";
+            string umJungText = "0 / 0 / 0 / 0";
+            AudianceData.EAudianceFeeling feeling = AudianceData.EAudianceFeeling.Bad;
+            bool isReputationPositive = false;
+
+            resultHUD.Init(totalScoreText, bakJaText, umJungText, feeling, isReputationPositive);
+        }
+    }
+
+    private System.Collections.IEnumerator WaitForCountdownAndStartMusic()
+    {
+        // StageFadeInSystemUI의 delayTime (3초) 동안 대기
+        const float countdownTime = 3f;
+        yield return new WaitForSeconds(countdownTime);
+
+        // 카운트다운 종료 후 음악 재생 시작
+        isWaitingForCountdown = false;
+        if (audioSource != null && audioSource.clip != null && !audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+        
+        countdownCoroutine = null;
+    }
+
+    private string FormatSongTime(float currentTime, float totalTime)
+    {
+        int currentMin = Mathf.FloorToInt(currentTime / 60f);
+        int currentSec = Mathf.FloorToInt(currentTime % 60f);
+        int totalMin = Mathf.FloorToInt(totalTime / 60f);
+        int totalSec = Mathf.FloorToInt(totalTime % 60f);
+        return $"{currentMin:D2}:{currentSec:D2} / {totalMin:D2}:{totalSec:D2}";
+    }
+
+    private void CloseHUDIfExists(UIHUD hud)
+    {
+        if (hud != null && hud.gameObject != null)
+        {
+            UIManager.Instance.HUDList.Remove(hud);
+            UnityEngine.Object.Destroy(hud.gameObject);
+        }
     }
 
     public void FinishStage()
@@ -182,23 +458,30 @@ public class ComebackSceneController : MonoBehaviour
 
         if (practiceHUD != null)
             practiceHUD.onClickedPracticeButton -= StartPractice;
+
+        // 코루틴 정지
+        if (countdownCoroutine != null)
+        {
+            StopCoroutine(countdownCoroutine);
+            countdownCoroutine = null;
+        }
+
+        // AudioSource 정리
+        if (audioSource != null)
+        {
+            if (audioSource.isPlaying)
+                audioSource.Stop();
+            
+            // AudioSource 컴포넌트 제거
+            UnityEngine.Object.Destroy(audioSource);
+            audioSource = null;
+        }
+
+        // VocalJudge 이벤트 구독 해제
+        if (vocalJudge != null)
+        {
+            vocalJudge.OnFinished -= OnVocalJudgeFinished;
+            vocalJudge = null;
+        }
     }
 }
-
-
-// using System;
-// using UnityEngine;
-
-// public class ComebackSceneController : MonoBehaviour
-// {
-//     public static event Action OnFinished;
-
-//     private void Update()
-//     {
-//         if (Input.GetKeyDown(KeyCode.Space)) // 임시 종료 트리거
-//         {
-//             Debug.Log("컴백 씬 종료 → 상태 종료 요청");
-//             OnFinished?.Invoke();
-//         }
-//     }
-// }

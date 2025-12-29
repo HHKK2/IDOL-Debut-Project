@@ -27,6 +27,7 @@ public class CombackNoticeHUD : UIHUD
 
     private bool isDetectedMouseClick = false;
     private bool initialized = false;
+    private bool hasInvoked = false;
     
     private void Start()
     {
@@ -59,6 +60,9 @@ public class CombackNoticeHUD : UIHUD
 
     private void Update()
     {
+        if (hasInvoked)
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             isDetectedMouseClick = true;
@@ -66,7 +70,9 @@ public class CombackNoticeHUD : UIHUD
 
         if (isDetectedMouseClick)
         {
-            OnCombackPrepareStart.Invoke();
+            hasInvoked = true;
+            OnCombackPrepareStart?.Invoke();
+            isDetectedMouseClick = false;
         }
     }
 
