@@ -9,6 +9,9 @@ public class IntroFlowController : MonoBehaviour
     public DialogueText dialogueBeforeInput;
     public DialogueText dialogueAfterInput;
 
+    [Header("배경 컨트롤러")] 
+    public DialogueBackgroundController backgroundController;
+    public string introBgKey = "intro_image";
     
     private InputHUD inputHUD;
 
@@ -19,6 +22,10 @@ public class IntroFlowController : MonoBehaviour
 
     void Start()
     {
+        if (backgroundController != null)
+        {
+            backgroundController.SetBackground(introBgKey);
+        }
         currentDialogue = dialogueBeforeInput;
         ShowNextLine();
     }
@@ -35,17 +42,24 @@ public class IntroFlowController : MonoBehaviour
     void ShowNextLine()
     {
         if (currentDialogue == null)return;
-        if (index >= currentDialogue.paragraphs.Count)
+        while (index <currentDialogue.paragraphs.Count)
         {
-            OnDialogueBlockFinished();
+            var speaker = currentDialogue.speakers[index];
+            var text = currentDialogue.paragraphs[index];
+            index++;
+            if (speaker == null && text.StartsWith("[BG]"))
+            {
+                if (backgroundController != null)
+                {
+                    string key = text.Substring(4).Trim();
+                    backgroundController.SetBackground(key);
+                }
+                continue;
+            }
+            dialogueController.ShowDialogue(speaker,text);
             return;
         }
-
-        var speaker = currentDialogue.speakers[index];
-        var text = currentDialogue.paragraphs[index];
-        
-        dialogueController.ShowDialogue(speaker, text);
-        index++;
+        OnDialogueBlockFinished();
     }
 
     void OnDialogueBlockFinished()
@@ -88,6 +102,11 @@ public class IntroFlowController : MonoBehaviour
         waitingInput = false;
         
         GameManager.Instance.player.ApplyPlayerInfo(data);
+
+        if (backgroundController != null)
+        {
+            backgroundController.SetBackground(introBgKey);
+        }
 
         currentDialogue = dialogueAfterInput;
         index = 0;
