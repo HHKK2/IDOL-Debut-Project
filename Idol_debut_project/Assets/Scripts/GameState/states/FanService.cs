@@ -67,6 +67,6 @@ public class FanService : IGameState
             return;
 
         GameManager.Instance.OnActionStateFinished();
-        GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
+        //GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }

@@ -91,7 +91,7 @@ public class ComeBack : IGameState
             return;
 
         GameManager.Instance.OnActionStateFinished();
-        GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
+        //GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 
     private int GetStageBonus(int score) //TODO : 무대평가 후 score 받아와야 함. 

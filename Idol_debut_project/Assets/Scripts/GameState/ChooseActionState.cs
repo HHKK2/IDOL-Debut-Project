@@ -40,6 +40,9 @@ public class ChooseActionState : IGameState
     {
         Debug.Log("행동 선택 상태 진입");
 
+// 여기서만 HomeScene으로 이동
+    GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
+
         Debug.Log($"player null? {player == null}");
         Debug.Log($"time null? {time == null}");
 
