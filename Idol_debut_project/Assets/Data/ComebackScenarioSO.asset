@@ -18,13 +18,13 @@ MonoBehaviour:
       songId: debut01male
       title: SongSOngSONg
       concept: "\uCCAD\uB7C9"
-      albumCover: {fileID: 21300000, guid: f782bc1849d1c4445b3ece6676f8385b, type: 3}
+      albumCover: {fileID: 21300000, guid: 458dd46b7b8279545a9dff5a909f26ee, type: 3}
       audioClip: {fileID: 8300000, guid: bb10ba8483baa460baa08c3f8c827e93, type: 3}
     femaleSong:
       songId: debut01female
       title: SongSOngOSNg
       concept: "\uCCAD\uB7C9"
-      albumCover: {fileID: 21300000, guid: f782bc1849d1c4445b3ece6676f8385b, type: 3}
+      albumCover: {fileID: 21300000, guid: 458dd46b7b8279545a9dff5a909f26ee, type: 3}
       audioClip: {fileID: 8300000, guid: bb10ba8483baa460baa08c3f8c827e93, type: 3}
   - order: 0
     maleSong:

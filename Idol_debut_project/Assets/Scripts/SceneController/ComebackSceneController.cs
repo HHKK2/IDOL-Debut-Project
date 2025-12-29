@@ -41,6 +41,10 @@ public class ComebackSceneController : MonoBehaviour
     private StageResultHUD resultHUD;
     private Coroutine countdownCoroutine;
 
+    //연습 관련
+    private bool isPracticePlaying = false;
+    private float practiceSongTimestamp;
+
     private void Start()
     {
         // 씬 시작 시 AudioSource 정리 (이전 씬에서 남아있을 수 있음)
@@ -84,6 +88,7 @@ public class ComebackSceneController : MonoBehaviour
         noticeHUD = UIManager.Instance.ShowHUDUI<CombackNoticeHUD>();
         noticeHUD.Init(
             $"Sprites/AlbumCovers/{currentSong.albumCover.name}",
+            currentSong.concept,
             currentSong.title);
 
         noticeHUD.OnCombackPrepareStart += OnPrepareSignal;
@@ -155,14 +160,6 @@ public class ComebackSceneController : MonoBehaviour
         {
             UpdateStage();
         }
-        else if (phase == Phase.Stage && resultHUD != null)
-        {
-            // 결과 화면에서 클릭하면 메인 화면으로 이동
-            if (Input.GetMouseButtonDown(0))
-            {
-                FinishStage();
-            }
-        }
     }
 
     //practice 컴백 연습. 
@@ -185,6 +182,34 @@ public class ComebackSceneController : MonoBehaviour
     private void StartPractice()
     {
         Debug.Log("[ComebackScene] Practice Started");
+        
+        if (currentSong == null || currentSong.audioClip == null)
+        {
+            Debug.LogError("[ComebackScene] currentSong 또는 audioClip이 null입니다.");
+            return;
+        }
+
+        // AudioSource 초기화 및 정리
+        if (audioSource != null)
+        {
+            if (audioSource.isPlaying)
+                audioSource.Stop();
+        }
+        else
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        audioSource.clip = currentSong.audioClip;
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+
+        // timestamp 초기화
+        practiceSongTimestamp = 0f;
+        isPracticePlaying = true;
+
+        // 음악 재생 시작
+        audioSource.Play();
     }
 
     //stage 무대
@@ -369,14 +394,16 @@ public class ComebackSceneController : MonoBehaviour
         resultHUD = UIManager.Instance.ShowHUDUI<StageResultHUD>();
         
         // 클릭 이벤트 구독 (클릭하면 메인 화면으로 이동)
-        // StageResultHUD에 클릭 이벤트가 없으므로 Update에서 처리
+        resultHUD.OnClickGoHomeButton += FinishStage;
+
+        // 앨범 번호 (comebackCount는 0-base이므로 +1)
+        int albumNth = TimeCycleManager.Instance.comebackCount + 1;
 
         if (result != null)
         {
             // VocalJudge 결과가 있는 경우
-            string totalScoreText = result.finalScore100.ToString();
-            string bakJaText = $"{result.perfect + result.good + result.bad + result.miss}";
-            string umJungText = $"{result.perfect} / {result.good} / {result.bad} / {result.miss}";
+            string scoreText = result.finalScore100.ToString();
+            string rankImagePath = GetRankImagePath(result.finalScore100);
 
             // feeling 문자열을 EAudianceFeeling enum으로 변환
             AudianceData.EAudianceFeeling feeling = AudianceFeelingUtil.FromScore100(result.finalScore100);
@@ -384,18 +411,17 @@ public class ComebackSceneController : MonoBehaviour
             // 평판이 양수인지 여부 (점수가 50 이상이면 양수)
             bool isReputationPositive = result.finalScore100 >= 50;
 
-            resultHUD.Init(totalScoreText, bakJaText, umJungText, feeling, isReputationPositive);
+            resultHUD.Init(rankImagePath, scoreText, albumNth.ToString(), currentSong.title, feeling, isReputationPositive);
         }
         else
         {
             // VocalJudge 결과가 없는 경우 (기본값)
-            string totalScoreText = "0";
-            string bakJaText = "0";
-            string umJungText = "0 / 0 / 0 / 0";
+            string scoreText = "0";
+            string rankImagePath = GetRankImagePath(0);
             AudianceData.EAudianceFeeling feeling = AudianceData.EAudianceFeeling.Bad;
             bool isReputationPositive = false;
 
-            resultHUD.Init(totalScoreText, bakJaText, umJungText, feeling, isReputationPositive);
+            resultHUD.Init(rankImagePath, scoreText, albumNth.ToString(), currentSong.title, feeling, isReputationPositive);
         }
     }
 
@@ -413,6 +439,17 @@ public class ComebackSceneController : MonoBehaviour
         }
         
         countdownCoroutine = null;
+    }
+
+    private string GetRankImagePath(int score)
+    {
+        // 점수에 따라 랭크 이미지 경로 반환
+        // TODO: 실제 랭크 이미지 경로 규칙에 맞게 수정 필요
+        if (score >= 90) return "Sprites/Rank/S";
+        else if (score >= 80) return "Sprites/Rank/A";
+        else if (score >= 70) return "Sprites/Rank/B";
+        else if (score >= 60) return "Sprites/Rank/C";
+        else return "Sprites/Rank/D";
     }
 
     private string FormatSongTime(float currentTime, float totalTime)
