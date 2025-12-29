@@ -66,6 +66,7 @@ public class StageHUD : UIHUD
         initialized = true;
     }
     ///<summary>
+    /// !!!!레거시임 민경 코드로 쓰기!!!!
     /// 관객이미지 바꿀 때 호출
     /// </summary>
     public void InitAudianceImage(AudianceData.EAudianceFeeling e)

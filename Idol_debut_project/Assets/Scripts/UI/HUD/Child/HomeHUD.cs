@@ -16,9 +16,25 @@ public class HomeHUD : UIHUD
     public Action ClickedLoadButton;
     public Action ClickedExitButton;
 
+    private bool initialized = false;
 
     private void Start()
     {
+        if (initialized)
+        {
+            return;
+        }
+        
+        EnsureInitialized();
+    }
+
+    private void EnsureInitialized()
+    {
+        if (initialized)
+        {
+            return;
+        }
+
         base.Init();
         
         Bind<Button>(typeof(Buttons));
@@ -28,6 +44,8 @@ public class HomeHUD : UIHUD
         BindEvent(ClickedLoadButton,OnClickedLoadButton, GameEvents.UIEvent.Click);
         GameObject ClickedExitButton =  Get<Button>((int)Buttons.ExitButton).gameObject;
         BindEvent(ClickedExitButton,OnClickedExitButton, GameEvents.UIEvent.Click);
+
+        initialized = true;
     }
     private void OnClickedNewGameButton(PointerEventData eventData)
     {

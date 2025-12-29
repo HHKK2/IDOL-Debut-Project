@@ -126,6 +126,10 @@ public class PracticeHUD : UIHUD
     /// </summary>
     public void InitLyricsText(string value)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
          LyricsText.text = value;
     }
 

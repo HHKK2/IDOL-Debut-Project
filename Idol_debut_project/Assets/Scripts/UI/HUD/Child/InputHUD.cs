@@ -49,8 +49,25 @@ public class InputHUD : UIHUD
     private PlayerInfoData playerInfoData;
     public Action<PlayerInfoData> InputActionFinished;
 
+    private bool initialized = false;
+
     private void Start()
     {
+        if (initialized)
+        {
+            return;
+        }
+        
+        EnsureInitialized();
+    }
+
+    private void EnsureInitialized()
+    {
+        if (initialized)
+        {
+            return;
+        }
+
         //스프라이트 로드
         GirlButton_Active_Sprite = Resources.Load<Sprite>("Sprites/InputInfo/버튼_걸_활성화");
         BoyButton_Active_Sprite = Resources.Load<Sprite>("Sprites/InputInfo/버튼_보이_활성화");
@@ -84,21 +101,38 @@ public class InputHUD : UIHUD
         
         Bind<TextMeshProUGUI>(typeof(Texts));
         SignText =  Get<TextMeshProUGUI>((int)Texts.SignText);
+
+        initialized = true;
     }
 
     private void OnEndEditNameInputField(string text)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         playerInfoData.name = text;
         SignText.text = text;
     }
     
     private void OnEndEditGroupInputField(string text)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         playerInfoData.groupName = text;
     }
     
     private void OnClickedBoyButton(PointerEventData eventData)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         playerInfoData.gender = Gender.MALE;
         BoyButton_Image.sprite = BoyButton_Active_Sprite;
         GirlButton_Image.sprite = GirlButton_Deactive_Sprite;
@@ -106,6 +140,11 @@ public class InputHUD : UIHUD
     
     private void OnClickedGirlButton(PointerEventData eventData)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         playerInfoData.gender = Gender.FEMALE;
         BoyButton_Image.sprite = BoyButton_Deactive_Sprite;
         GirlButton_Image.sprite = GirlButton_Active_Sprite;
@@ -114,18 +153,31 @@ public class InputHUD : UIHUD
     
     private void OnClickedSignButton(PointerEventData eventData)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         InputActionFinished.Invoke(playerInfoData);
     }
     private void OnClickedDownButton(PointerEventData eventData)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         Page1.SetActive(false);
         Page2.SetActive(true);
     }
     private void OnClickedUpButton(PointerEventData eventData)
     {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
         Page1.SetActive(true);
         Page2.SetActive(false);
     }
-    
-    
 }
