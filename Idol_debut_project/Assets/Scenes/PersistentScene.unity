@@ -676,6 +676,7 @@ MonoBehaviour:
   currentSemester: 1
   currentActionIndex: 0
   didComeBack: 0
+  comebackCount: 0
   repeatedNegative: 0
 --- !u!4 &1179692616
 Transform:
@@ -722,6 +723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   dispatchCount: 0
+  comebackScenario: {fileID: 11400000, guid: 53f3f9281a49f5f4182aea79d6c57561, type: 2}
 --- !u!4 &1551202496
 Transform:
   m_ObjectHideFlags: 0
@@ -729,6 +731,51 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1551202494}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.10722, y: 8.07694, z: -2.08145}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1989314544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1989314546}
+  - component: {fileID: 1989314545}
+  m_Layer: 0
+  m_Name: PersistentSceneController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1989314545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989314544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2556bd8253aa2724fa9251baae21002f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PersistentSceneController
+  startSceneName: StartScene
+--- !u!4 &1989314546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989314544}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 15.10722, y: 8.07694, z: -2.08145}
@@ -748,3 +795,4 @@ SceneRoots:
   - {fileID: 922352092}
   - {fileID: 1551202496}
   - {fileID: 1179692616}
+  - {fileID: 1989314546}
