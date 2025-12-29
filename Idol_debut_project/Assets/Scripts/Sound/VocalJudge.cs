@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Security.Cryptography.X509Certificates;
 using Data;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class VocalJudge : MonoBehaviour
 {
@@ -88,6 +90,7 @@ public class VocalJudge : MonoBehaviour
     void Start()
     {
         ResetResult();
+        maxSamplesPerWindow = Mathf.Max(1, Mathf.RoundToInt(audienceWindowSec / judgeIntervalSec));
     }
 
     void Update()
@@ -143,6 +146,14 @@ public class VocalJudge : MonoBehaviour
         // 판정
         Judge(note);
 
+        audienceTimer += judgeIntervalSec;
+        if (audienceTimer >= audienceUpdateIntervalSec)
+        {
+            audienceTimer = 0f;
+            var feeling = CalculateWindowFeeling();
+            OnAudienceFeelingUpdated?.Invoke(feeling);
+        }
+
         // note가 null이든 아니든 디버그 출력
         if (logDebug)
         {
@@ -171,6 +182,7 @@ public class VocalJudge : MonoBehaviour
                 LastJudgement = "ShouldBeSilent";
                 Score -= 6;
                 SilentPenaltyCount++;
+                AddWindowSample(JudgeKind.SilentPenalty);
             }
             else
             {
@@ -185,6 +197,7 @@ public class VocalJudge : MonoBehaviour
             LastJudgement = "Miss(Silent)";
             Score -= 4;
             MissCount++;
+            AddWindowSample(JudgeKind.Miss);
             return;
         }
 
@@ -209,18 +222,21 @@ public class VocalJudge : MonoBehaviour
             LastJudgement = "Perfect";
             Score += 20;
             PerfectCount++;
+            AddWindowSample(JudgeKind.Perfect);
         }
         else if (cents <= tol)
         {
             LastJudgement = "Good";
             Score += 10;
             GoodCount++;
+            AddWindowSample(JudgeKind.Good);
         }
         else
         {
             LastJudgement = "Bad";
             Score -= 10;
             BadCount++;
+            AddWindowSample(JudgeKind.Bad);
         }
     }
 
@@ -276,9 +292,71 @@ public class VocalJudge : MonoBehaviour
         PitchScore100 = 0;
         Penalty100 = 0;
         FinalScore100 = 0;
-        
-
     }
+
+    public event Action<AudianceData.EAudianceFeeling> OnAudienceFeelingUpdated;
+    [Header("Audience Window")] 
+    public float audienceWindowSec = 5f;
+    public float audienceUpdateIntervalSec = 5f;
+
+    private int maxSamplesPerWindow;
+    private float audienceTimer = 0f;
+    
+    private enum JudgeKind
+    {
+        Perfect,
+        Good,
+        Bad,
+        Miss,
+        SilentPenalty
+    }
+
+    private readonly Queue<JudgeKind> windowSamples = new Queue<JudgeKind>();
+
+    void AddWindowSample(JudgeKind kind)
+    {
+        windowSamples.Enqueue(kind);
+        while (windowSamples.Count > maxSamplesPerWindow)
+        {
+            windowSamples.Dequeue();
+        }
+        
+    }
+
+    AudianceData.EAudianceFeeling CalculateWindowFeeling()
+    {
+        int wPerfect = 0, wGood = 0, wBad = 0, wMiss = 0, wSilent = 0;
+        foreach (var s in windowSamples)
+        {
+            switch (s)
+            {
+                case JudgeKind.Perfect: wPerfect++; break;
+                case JudgeKind.Good: wGood++; break;
+                case JudgeKind.Bad: wBad++; break;
+                case JudgeKind.Miss: wMiss++; break;
+                case JudgeKind.SilentPenalty: wSilent++; break;
+            }
+        }
+
+        int trials = wPerfect + wGood + wBad + wMiss;
+        if (trials <= 0)
+        {
+            return AudianceFeelingUtil.FromScore100(0);
+        }
+
+        float raw = (wPerfect * 1.0f) + (wGood * goodWeight) + (wBad * badWeight);
+        float pitchAcc = (raw / trials) * 100.0f;
+
+        float penaltyPoints = (wMiss * missPenaltyWeight) + (wSilent * silentPenaltyWeight);
+        float maxPenaltyPoints = trials * silentPenaltyWeight;
+        float penaltyRate = (maxPenaltyPoints <= 0f) ? 0f : (penaltyPoints / maxPenaltyPoints) * 100f;
+
+        float final = pitchAcc - penaltyRate;
+        int final100 = Mathf.Clamp(Mathf.RoundToInt(final), 0, 100);
+
+        return AudianceFeelingUtil.FromScore100(final100);
+    }
+
 }
 
 [Serializable]
