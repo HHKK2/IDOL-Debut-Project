@@ -27,9 +27,9 @@ public class UIManager: AdolpSingleton<UIManager>
 	{
 		get{ return systemList; }
 	}
-	
-	
-    GameObject HUDRoot
+
+
+	GameObject HUDRoot
     {
         get
         {
