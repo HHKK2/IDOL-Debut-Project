@@ -6,6 +6,17 @@ public class StartSceneController : MonoBehaviour
 
     void Start()
     {
+        // 게임 시작 시 모든 AudioSource 정지 (PersistentScene 포함)
+        AudioSource[] allAudioSources = FindObjectsByType<AudioSource>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (AudioSource source in allAudioSources)
+        {
+            if (source.isPlaying)
+            {
+                source.Stop();
+                Debug.Log($"[StartScene] AudioSource 정지: {source.name}, clip: {(source.clip != null ? source.clip.name : "null")}");
+            }
+        }
+
         // HUD 찾기
         homeHUD = UIManager.Instance.HUDList.Find(h => h is HomeHUD) as HomeHUD;
 

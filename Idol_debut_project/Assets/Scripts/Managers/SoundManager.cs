@@ -88,4 +88,23 @@ public class SoundManager : AdolpSingleton<SoundManager>
         bgSound.volume = 0.1f;
         bgSound.Play();     
     }
+
+    /// <summary>
+    /// BGM 정지 (컴백 씬 등에서 사용)
+    /// </summary>
+    public void StopBGM()
+    {
+        if (bgSound != null && bgSound.isPlaying)
+        {
+            bgSound.Stop();
+        }
+        
+        foreach (var sound in bgList)
+        {
+            if (sound != null && sound.isPlaying)
+            {
+                sound.Stop();
+            }
+        }
+    }
 }
