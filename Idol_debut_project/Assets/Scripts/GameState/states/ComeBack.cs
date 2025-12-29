@@ -7,6 +7,7 @@ public class ComeBack : IGameState
 
     private int stageScore;
     private int bonus;
+    private ComebackSongData currentSong; //이번 컴백 노래.
 
     public ComeBack(GameStateMachine gsm, Player player)
     {
@@ -17,6 +18,34 @@ public class ComeBack : IGameState
     public void Enter()
     {
         Debug.Log("컴백 상태 진입");
+
+        var time = TimeCycleManager.Instance;
+
+        // 1) 이번 컴백 인덱스(0-base).
+        int comebackIndex = time.comebackCount;
+
+        // 2) 성별에 맞는 곡 선택
+        var scenario = GameManager.Instance.comebackScenario;
+        if (scenario == null)
+        {
+            Debug.LogError("[ComeBack] comebackScenario가 GameManager에 연결되지 않음");
+            return;
+        }
+
+        currentSong = scenario.GetSong(comebackIndex, player.Gender);
+        if (currentSong == null)
+        {
+            Debug.LogError($"[ComeBack] 곡 선택 실패 index={comebackIndex} gender={player.Gender}");
+            return;
+        }
+
+        // 3) GameManager에 캐시 (SceneController가 이걸 읽는다)
+        GameManager.Instance.SetCurrentComebackSong(currentSong);
+
+        // 4) 로그 
+        Debug.Log($"[ComeBack] SelectedSong order={comebackIndex} id={currentSong.songId} title={currentSong.title} concept={currentSong.concept} gender={player.Gender}");
+
+
 
         stageScore = CalculateStageScore(); //TODO : 나중에 함수를 받아와야겠지..
         bonus = GetStageBonus(stageScore);
@@ -82,6 +111,7 @@ public class ComeBack : IGameState
 
         // 4. 주 종료 + 컴백 완료
         time.didComeBack = true;
+        time.CompleteComeback();
 
         // 5. 엔딩 체크 + 메인메뉴로 돌아오기
 

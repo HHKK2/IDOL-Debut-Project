@@ -36,6 +36,10 @@ public class GameManager : AdolpSingleton<GameManager>
     public bool isGameEnded { get; private set; }
     public EndingType End { get; private set; } = EndingType.None;
 
+    //컴백 곡 캐시 관련
+    public ComebackScenarioSO comebackScenario;   // 인스펙터에서 연결
+    public ComebackSongData CurrentComebackSong { get; private set; }  // 현재 컴백곡 캐시
+
 
     //isLoad 사용 여부
     public bool IsLoadedGame { get; private set; }
@@ -261,4 +265,11 @@ public class GameManager : AdolpSingleton<GameManager>
         }
         gsm.ChangeState(new ChooseActionState(gsm));
     }
+
+    //현재 컴백 곡 저장할 곳 만들기
+    public void SetCurrentComebackSong(ComebackSongData song)
+    {
+        CurrentComebackSong = song;
+    }
+
 }

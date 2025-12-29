@@ -10,6 +10,8 @@ public class TimeCycleManager : AdolpSingleton<TimeCycleManager>
     private static readonly int[] SecondHalfMonths = { 7, 9, 10, 12 };
 
     public bool didComeBack;
+    public int comebackCount = 0; // 지금까지 완료한 컴백 횟수 (0-base) _ 몇 번재 컴백인지 알아야 해서 필요함!
+
 
     public GameStateMachine gameStateMachine;
     public Player player;
@@ -89,7 +91,20 @@ public class TimeCycleManager : AdolpSingleton<TimeCycleManager>
         currentActionIndex = 1;
         didComeBack = false;
         repeatedNegative = 0;
+        comebackCount = 0;
 
         Debug.Log("[TIME RESET] Semester=1, MonthIndex=1");
     }
+
+    /// <summary>
+    /// 컴백 1회 완료 처리
+    /// </summary>
+    public void CompleteComeback()
+    {
+        didComeBack = true;
+        comebackCount++;
+
+        Debug.Log($"[TIME] Comeback Completed. comebackCount={comebackCount}");
+    }
+
 }
