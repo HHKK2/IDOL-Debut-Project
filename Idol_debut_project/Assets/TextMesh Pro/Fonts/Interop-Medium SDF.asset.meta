@@ -1,8 +1,13 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Idol_debut_project/Assets/TextMesh Pro/Fonts/Interop-Medium SDF.asset.meta
 guid: a80e8f37285e8dc458f761c59087fe77
 NativeFormatImporter:
+========
+guid: ef635fc14ea7bce4089ab82ddc8655fa
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> Stashed changes:Idol_debut_project/Assets/Resources/Sprites/AlbumCovers.meta
   externalObjects: {}
-  mainObjectFileID: 11400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

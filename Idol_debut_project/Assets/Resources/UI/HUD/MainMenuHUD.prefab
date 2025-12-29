@@ -189,8 +189,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '{fanNum}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 322574d012d39cb4aaaf72117e828826, type: 2}
-  m_sharedMaterial: {fileID: 2614849135717270000, guid: 322574d012d39cb4aaaf72117e828826, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
+  m_sharedMaterial: {fileID: -4509101268053843708, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -452,8 +452,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uBA58\uD0C8"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 322574d012d39cb4aaaf72117e828826, type: 2}
-  m_sharedMaterial: {fileID: 2614849135717270000, guid: 322574d012d39cb4aaaf72117e828826, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4cd5678fd89eff14fad11affa911b1fe, type: 2}
+  m_sharedMaterial: {fileID: -8854591155617870494, guid: 4cd5678fd89eff14fad11affa911b1fe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -724,8 +724,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Live
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
+  m_sharedMaterial: {fileID: -4509101268053843708, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1293,8 +1293,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "1\uB144\uCC28 3\uC6D4"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1d6c2bad86fe6274ba3b52b22c6187e3, type: 2}
-  m_sharedMaterial: {fileID: 1058670303179477861, guid: 1d6c2bad86fe6274ba3b52b22c6187e3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
+  m_sharedMaterial: {fileID: -4509101268053843708, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1565,8 +1565,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Dating
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
+  m_sharedMaterial: {fileID: -4509101268053843708, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1973,8 +1973,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Practice
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
+  m_sharedMaterial: {fileID: -4509101268053843708, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2595,8 +2595,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Pink Gun
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4cd5678fd89eff14fad11affa911b1fe, type: 2}
+  m_sharedMaterial: {fileID: -8854591155617870494, guid: 4cd5678fd89eff14fad11affa911b1fe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3126,8 +3126,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uD32C \uC218"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 322574d012d39cb4aaaf72117e828826, type: 2}
-  m_sharedMaterial: {fileID: 2614849135717270000, guid: 322574d012d39cb4aaaf72117e828826, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4cd5678fd89eff14fad11affa911b1fe, type: 2}
+  m_sharedMaterial: {fileID: -8854591155617870494, guid: 4cd5678fd89eff14fad11affa911b1fe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3750,8 +3750,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PinkGun
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1d6c2bad86fe6274ba3b52b22c6187e3, type: 2}
-  m_sharedMaterial: {fileID: 1058670303179477861, guid: 1d6c2bad86fe6274ba3b52b22c6187e3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
+  m_sharedMaterial: {fileID: -4509101268053843708, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
