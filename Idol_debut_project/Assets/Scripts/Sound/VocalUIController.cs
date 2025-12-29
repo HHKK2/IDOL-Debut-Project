@@ -23,6 +23,9 @@ public class VocalUIController : MonoBehaviour
 
     // 버튼에서 호출할 함수들 ----------------
 
+
+    public KaraokeLyricsController lyricsController;
+    
     public void StartSong()
     {
         // 곡 시작 전에 초기화 + 오디오 재생
@@ -32,6 +35,14 @@ public class VocalUIController : MonoBehaviour
         {
             vocalJudge.songAudioSource.time = 0f;
             vocalJudge.songAudioSource.Play();
+        }
+
+        if (lyricsController != null)
+        {
+            lyricsController.ResetLyrics();
+        }
+        {
+            
         }
     }
 
