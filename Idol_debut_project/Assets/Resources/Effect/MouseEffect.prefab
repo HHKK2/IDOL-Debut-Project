@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731768f4bf5b7ba4f84bbdf384bd7d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseEffect
-  starEffectPrefab: {fileID: 8558850226163439553, guid: 022b5e0fb503e5a4c90439d8304d83cf, type: 3}
+  starEffectPrefab: {fileID: 8868767784670338099, guid: dbb0414779fd39a4ca40b000cf9173cd, type: 3}
+  targetCanvas: {fileID: 0}
   defaultTime: 0.05
