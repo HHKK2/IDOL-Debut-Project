@@ -5,6 +5,20 @@ using TMPro;
 
 public class EndingSceneController : MonoBehaviour
 {
+    [Header("Refs")] 
+    public DialogueSequencePlayer SequencePlayer;
+    public DialogueBackgroundController bg;
+
+    [Header("Dialogues")] 
+    public DialogueText happyDialogue;
+    public DialogueText normalDialouge;
+    public DialogueText badDialogue;
+    public DialogueText hiddenDialouge;
+    public DialogueText superDialogue;
+
+    public string defaultBgKey = "intro_image";
+    
+    
     [Header("UI")]
     [SerializeField] private Image endingImage;
     [SerializeField] private TextMeshProUGUI narrationText;
@@ -76,9 +90,26 @@ public class EndingSceneController : MonoBehaviour
 
         // 2. 페이드 인 (유틸 사용)
         yield return StartCoroutine(FadeEffect.Fade(fadePanel, 1f, 0f, 1.7f));
-
+        
         //3. 대사는 지우기
         narrationText.gameObject.SetActive(false);
+
+        var dialogue = GetEndingDialogue(ending);
+        if (SequencePlayer == null)
+        {
+            Debug.LogError("[EndingScene] SequencePlayer가 연결 안됨");
+            yield break;
+        }
+
+        if (dialogue == null)
+        {
+            Debug.LogWarning($"[EndingScene] Ending dialogue가 비어있음: {ending}");
+            yield break;
+        }
+        SequencePlayer.Play(dialogue, () =>
+        {
+            Debug.Log("[EndingScene] 엔딩 대사 끝!");
+        });
     }
 
     // =========================
@@ -196,4 +227,16 @@ public class EndingSceneController : MonoBehaviour
     }
 
 
+    private DialogueText GetEndingDialogue(EndingType ending)
+    {
+        switch (ending)
+        {
+            case EndingType.Happy: return happyDialogue;
+            case EndingType.Superstar: return superDialogue;
+            case EndingType.Bad: return badDialogue;
+            case EndingType.Normal: return normalDialouge;
+            case EndingType.Wedding: return hiddenDialouge;
+            default: return null;
+        }
+    }
 }

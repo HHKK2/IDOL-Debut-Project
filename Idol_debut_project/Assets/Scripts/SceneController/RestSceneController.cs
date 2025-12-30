@@ -16,6 +16,15 @@ public class RestSceneController : MonoBehaviour
     [SerializeField] private Sprite[] maleRestImages;
     [SerializeField] private Sprite[] femaleRestImages;
 
+    [Header("Dialouge")] 
+    [SerializeField] private DialogueSequencePlayer dialoguePlayer;
+    [SerializeField] private DialogueText restDialogue;
+
+    private int dialogueIndex = 0;
+
+    private bool dialogueFinished = false;
+    
+    
     // Rest.Enter()에서 호출
     public static void SetPlayerGender(Gender gender)
     {
@@ -25,6 +34,10 @@ public class RestSceneController : MonoBehaviour
     private void Start()
     {
         SetRandomRestImage();
+        if (dialoguePlayer != null && restDialogue != null)
+        {
+            dialoguePlayer.Play(restDialogue, ()=>{});
+        }
     }
 
     private void SetRandomRestImage()
