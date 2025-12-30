@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Data;
+using System.Reflection;
+
 
 public class DialogueControllerMulti : MonoBehaviour
 {
@@ -26,15 +29,24 @@ public class DialogueControllerMulti : MonoBehaviour
     [Header("타이핑 속도")]
     public float typeSpeed = 0.03f;
 
-    [Header("플레이어 초상화")] 
+    [Header("플레이어 초상화")]
     public Sprite femalePlayerSprite;
     public Sprite malePlayerSprite;
 
     private Coroutine typingRoutine;
-    
-    
+
+    private Action onTypingComplete;
+    public bool IsTyping { get; private set; }
+
+
+    private void Awake()
+    {
+        HideAll();
+    }
+
+
     // ✅ 이름 오버라이드 매개변수 추가 (기본값 null)
-    public void ShowDialogue(Speaker speaker, string text, string speakerNameOverride = null)
+    public void ShowDialogue(Speaker speaker, string text, string speakerNameOverride = null, Action onComplete = null)
     {
         // 모두 끄기 (널가드)
         HideAll();
@@ -45,9 +57,9 @@ public class DialogueControllerMulti : MonoBehaviour
             StopCoroutine(typingRoutine);
             typingRoutine = null;
         }
-
+        onTypingComplete = onComplete;
         text = DialogueTextFormatter.ResolvePlayerTokens(text);
-        
+
         var player = GameManager.Instance.player;
         bool isPlayer = (speaker == null);
 
@@ -75,7 +87,7 @@ public class DialogueControllerMulti : MonoBehaviour
             portrait = speaker.characterImage;
             pos = speaker.position;
         }
-        
+
 
         switch (pos)
         {
@@ -110,7 +122,14 @@ public class DialogueControllerMulti : MonoBehaviour
 
     public void HideAll()
     {
-        if (leftBubble)  leftBubble.SetActive(false);
+        if (leftBubble) leftBubble.SetActive(false);
+        if (rightBubble) rightBubble.SetActive(false);
+        if (centerBubble) centerBubble.SetActive(false);
+    }
+
+    public void HideRightCenter()
+    {
+        if (leftBubble) leftBubble.SetActive(true);
         if (rightBubble) rightBubble.SetActive(false);
         if (centerBubble) centerBubble.SetActive(false);
     }
@@ -118,15 +137,25 @@ public class DialogueControllerMulti : MonoBehaviour
     private IEnumerator TypeText(TextMeshProUGUI target, string text)
     {
         if (!target) yield break;
+        IsTyping = true;
 
+        text = text.Replace("\\n", "\n");
         target.text = "";
         foreach (char c in text)
         {
+            if (c == '\n')
+            {
+                target.text += c;
+                continue;
+            }
             target.text += c;
             yield return new WaitForSeconds(typeSpeed);
         }
+        IsTyping = false;
+        onTypingComplete?.Invoke();
+        onTypingComplete = null;
     }
-    
+
     public void EndDialogueAndGoNext(string nextSceneName)
     {
         HideAll();
@@ -135,5 +164,5 @@ public class DialogueControllerMulti : MonoBehaviour
             SceneManager.LoadScene(nextSceneName);
         }
     }
-    
+
 }

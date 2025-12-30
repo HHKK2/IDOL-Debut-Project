@@ -55,6 +55,8 @@ public class GameManager : AdolpSingleton<GameManager>
 
 
         gsm = new GameStateMachine();
+
+        EndingSceneController.OnFinished += OnEndingSceneFinished;
     }
 
 
@@ -149,6 +151,9 @@ public class GameManager : AdolpSingleton<GameManager>
     {
         Debug.Log($"[GM] playerRef={player.GetHashCode()} mental={player.MentalHealth}");
 
+        CheckEnding();
+        if (isGameEnded)
+            return;
 
         time.AdvanceMonth();
 
@@ -162,10 +167,6 @@ public class GameManager : AdolpSingleton<GameManager>
         );
 
         SaveManager.Instance.SaveGame();
-
-        CheckEnding();
-        if (isGameEnded)
-            return;
 
         // 엔딩이 아니면 다시 행동 선택
         gsm.ChangeState(
@@ -297,6 +298,13 @@ public class GameManager : AdolpSingleton<GameManager>
         }
 
         Debug.Log("[GameManager] Comeback songs reset (except tutorial)");
+    }
+
+    private void OnEndingSceneFinished()
+    {
+        Debug.Log("[GameManager] EndingScene finished → Go to StartScene");
+
+        GameSceneManager.Instance.ChangeScene(GameScenes.StartScene);
     }
 
 

@@ -27,6 +27,7 @@ public class StartSceneController : MonoBehaviour
         homeHUD.ClickedNewGameButton += OnNewGame;
         homeHUD.ClickedLoadButton += OnLoad;
         homeHUD.ClickedExitButton += OnExit;
+        
     }
 
     private void OnDestroy()
@@ -40,9 +41,26 @@ public class StartSceneController : MonoBehaviour
 
     private void OnNewGame()
     {
-        GameManager.Instance.ClearLoadedGame();
-        // 튜토리얼 시작
-        GameSceneManager.Instance.ChangeScene(GameScenes.TutorialScene);
+        if (GameManager.Instance.IsLoadedGame)
+        {
+            Popup_NewGame popupNewGame = UIManager.Instance.ShowPopupUI<Popup_NewGame>();
+            popupNewGame.OnClick_Popup_NewGame_No_Button += () => UIManager.Instance.ClosePopupUI();
+            popupNewGame.OnClick_Popup_NewGame_Yes_Button += () =>
+            {
+                GameManager.Instance.ClearLoadedGame();
+                // 튜토리얼 시작
+                GameSceneManager.Instance.ChangeScene(GameScenes.IntroScene);
+                GameManager.Instance.StartGame();
+            };
+        }
+        
+        else
+        {
+            GameManager.Instance.ClearLoadedGame();
+            // 튜토리얼 시작
+            GameSceneManager.Instance.ChangeScene(GameScenes.IntroScene);
+            GameManager.Instance.StartGame();
+        }
     }
 
     private void OnLoad()

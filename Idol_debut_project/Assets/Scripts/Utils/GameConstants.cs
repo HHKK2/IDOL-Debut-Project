@@ -35,12 +35,15 @@ public static class GameConstants
             public const string TimerHUD = "TimerHUD";
             public const string CombackNoticeHUD =  "CombackNoticeHUD";
             public const string InputHUD =  "InputHUD";
-            public const string StageHUD =  "StageHUD";
+            public const string StageHUD = "StageHUD";
+            public const string ConfirmHUD = "ConfirmHUD";
+            public const string PracticeHUD = "PracticeHUD";
             
         }
         public static class SystemName
         {
             public const string StageFadeInSystemUI = "StageFadeInSystemUI";
+            public const string FadeInEffectSystemUI = "FadeInEffectSystemUI";
         }
     }
 }

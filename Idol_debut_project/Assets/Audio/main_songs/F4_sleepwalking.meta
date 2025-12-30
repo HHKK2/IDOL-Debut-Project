@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Idol_debut_project/Assets/Audio/main_songs/F4_sleepwalking.meta
 guid: d7d60debfb3404b379cd4e0e3c86c543
+========
+guid: 3ea77a1db5bf2994aa4c91af72edf3df
+>>>>>>>> main:Idol_debut_project/Assets/Audio/main_songs/음악/F2_Pink Gun.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

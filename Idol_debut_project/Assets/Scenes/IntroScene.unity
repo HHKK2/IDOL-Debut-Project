@@ -151,6 +151,8 @@ MonoBehaviour:
   dialogueController: {fileID: 1816613777}
   dialogueBeforeInput: {fileID: 11400000, guid: 5f03944ad421845c08c5874f41c70903, type: 2}
   dialogueAfterInput: {fileID: 11400000, guid: 8396e16f45a394b6e934c484163bf939, type: 2}
+  dialogueRetryInput: {fileID: 11400000, guid: 501b144478782a7459e333f2c9733aca, type: 2}
+  dialogueAfterConfirm: {fileID: 11400000, guid: 87e9917413cc30a4db96d84c3a6d9265, type: 2}
   backgroundController: {fileID: 1524873352}
   introBgKey: intro_image
 --- !u!4 &1030565120
@@ -499,6 +501,78 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2602397392012251590, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602397392012251590, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602397392012251590, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602397392012251590, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602397392012251590, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602397392012251590, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602397392012251590, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602397392012251590, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602397392012251590, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089274742261073647, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089274742261073647, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089274742261073647, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089274742261073647, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089274742261073647, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089274742261073647, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089274742261073647, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089274742261073647, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089274742261073647, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3142711297477588581, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -583,6 +657,94 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4479894241951509394, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4479894241951509394, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4479894241951509394, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4479894241951509394, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4479894241951509394, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4479894241951509394, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4479894241951509394, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4479894241951509394, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4479894241951509394, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502657570003808240, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -594,7 +756,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1387449122}
   - {fileID: 1808732651}
-  - {fileID: 4356334303948139925}
   - {fileID: 1445722737}
   - {fileID: 1030565120}
   - {fileID: 1630722424}
+  - {fileID: 4356334303948139925}
