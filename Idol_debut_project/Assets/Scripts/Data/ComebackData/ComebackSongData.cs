@@ -18,6 +18,8 @@ public class ComebackSongData
     [Header("State")]
     [SerializeField] private bool usedInComeback;
 
+    public TextAsset karaokeJsonAsset;
+
     // ───── 외부 접근용 ─────
     public bool UsedInComeback => usedInComeback;
 

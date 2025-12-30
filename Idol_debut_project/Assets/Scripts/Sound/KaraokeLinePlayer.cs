@@ -19,14 +19,29 @@ public class KaraokeLinePlayer : MonoBehaviour
     [SerializeField] private Color aiColor      = new Color32(0x7B, 0x7F, 0x83, 0xFF); // 7B7F83
     [SerializeField] private Color chorusColor  = new Color32(0x00, 0x59, 0xFF, 0xFF); // 0059FF
     [SerializeField] private Color baseWhite    = Color.white;
-    private void Awake()
-    {
-        if (lyricsText != null)
-        {
-            data = JsonUtility.FromJson<KaraokeSongData>(jsonAsset.text);
-        }
-    }
+    // private void Awake()
+    // {
+    //     if (lyricsText != null)
+    //     {
+    //         data = JsonUtility.FromJson<KaraokeSongData>(jsonAsset.text);
+    //     }
+    // }
 
+    public void Init(AudioSource src, TextAsset json)
+    {
+        songAudioSource = src;
+        jsonAsset = json;
+        if (jsonAsset == null)
+        {
+            Debug.LogError("[KaraokeLinePlayer] json Asset is null");
+            data = null;
+            
+            return;
+        }
+
+        data = JsonUtility.FromJson<KaraokeSongData>(jsonAsset.text);
+        if (lyricsText != null) lyricsText.text = "";
+    }
     private void Update()
     {
         if (data == null || songAudioSource == null || lyricsText == null)
