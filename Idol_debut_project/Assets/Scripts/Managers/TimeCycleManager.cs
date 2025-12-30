@@ -81,8 +81,14 @@ public class TimeCycleManager : AdolpSingleton<TimeCycleManager>
     /// </summary>
     public string GetCurrentDateString()
     {
+        if (isTutorial)
+        {
+            return "튜토리얼";
+        }
+
         return $"{GetHalfYearString()} {GetCurrentMonth()}월";
     }
+
 
     /// 초기화 함수
     public void Reset()
@@ -106,5 +112,19 @@ public class TimeCycleManager : AdolpSingleton<TimeCycleManager>
 
         Debug.Log($"[TIME] Comeback Completed. comebackCount={comebackCount}");
     }
+
+    //튜토리얼 상태인가?
+    private bool isTutorial = false;
+
+    public void SetTutorial(bool value)
+    {
+        isTutorial = value;
+    }
+
+    public bool IsTutorial()
+    {
+        return isTutorial;
+    }
+
 
 }

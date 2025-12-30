@@ -40,7 +40,7 @@ public class TutorialSceneController : MonoBehaviour
 
     private Player player;
     private TimeCycleManager time;
-    
+
     private DialogueText currentDialogue;
     private int dialogueIndex = 0;
     private TutorialSteps currentStep;
@@ -51,13 +51,14 @@ public class TutorialSceneController : MonoBehaviour
     {
         player = GameManager.Instance.player;
         time = GameManager.Instance.time;
-        
+        time.SetTutorial(true); //튜토리얼 시작
+
         mainMenuHUD = UIManager.Instance.HUDList.Find(h => h is MainMenuHUD) as MainMenuHUD;
         if (mainMenuHUD == null)
         {
             mainMenuHUD = UIManager.Instance.ShowHUDUI<MainMenuHUD>();
         }
-        
+
         mainMenuHUD.Init(
             date: time.GetCurrentDateString(),
             groupName: player.GroupName,
@@ -70,7 +71,7 @@ public class TutorialSceneController : MonoBehaviour
         {
             dialogueController.HideAll();
         }
-        
+
         var fadeUI = UIManager.Instance.ShowSystemUI<FadeInEffectSystemUI>(GameConstants.UI.SystemName.FadeInEffectSystemUI);
         fadeUI.FadeIn(1f, () => { StartComebackIntro(); });
     }
@@ -78,7 +79,7 @@ public class TutorialSceneController : MonoBehaviour
     void Update()
     {
         if (waitingForButton) return;
-        
+
         if (waitingForClick && Input.GetMouseButtonDown(0))
         {
             ShowNextLine();
@@ -121,6 +122,7 @@ public class TutorialSceneController : MonoBehaviour
                 mainMenuHUD.ClickedPracticeButton += OnPracticeClicked;
                 break;
             case TutorialSteps.Debut:
+                time.SetTutorial(false); //튜토리얼이 끝났습니다. TODO : 나중에 실제로 튜토리얼이 끝나는 부분으로 옮겨주시면 됨.
                 // 연습 진행...
                 // 이후 단계 구현 필요
                 break;
@@ -149,7 +151,7 @@ public class TutorialSceneController : MonoBehaviour
             albumImagePath: "Sprites/AlbumCovers/AlbumImage",
             conceptName: "몽환",
             songName: "SLEEPWALKING"
-            // 이 부분 확인 필요. 튜토리얼 곡과 연결했다고는 하는데....
+        // 이 부분 확인 필요. 튜토리얼 곡과 연결했다고는 하는데....
         );
 
         combackNoticeHUD.OnCombackPrepareStart += OnComebackNoticeClicked;
@@ -188,7 +190,7 @@ public class TutorialSceneController : MonoBehaviour
         practiceHUD.Init(
             songTitle: "SLEEPWALKING",
             albumImagePath: "Sprites/AlbumCovers/AlbumImage"
-            // 이것도 확인 필요. 연결은 해뒀다는데....
+        // 이것도 확인 필요. 연결은 해뒀다는데....
         );
         practiceHUD.SetSelectingMode();
 
