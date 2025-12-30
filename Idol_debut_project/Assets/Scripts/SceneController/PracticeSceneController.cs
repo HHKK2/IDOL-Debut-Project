@@ -43,6 +43,9 @@ public class PracticeSceneController : MonoBehaviour
         // 이벤트 바인딩
         BindHUDEvents();
 
+        //연습씬에서는 그냥 exit button을 꺼둡니다.
+        practiceHUD.SetExitButtonActive(false);
+
         practiceAudioSource = gameObject.AddComponent<AudioSource>();
         practiceAudioSource.loop = false;
 
@@ -189,8 +192,6 @@ public class PracticeSceneController : MonoBehaviour
         {
             practiceAudioSource.Stop();
         }
-
-        UIManager.Instance.CloseHUDUI(nameof(PracticeHUD));
 
         ShowResultHUD();
     }

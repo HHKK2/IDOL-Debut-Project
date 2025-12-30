@@ -30,7 +30,7 @@ public class ComebackSceneController : MonoBehaviour
     private PracticeHUD practiceHUD;
     private StageHUD stageHUD;
     private StageResultHUD resultHUD;
-    
+
 
     //무대 관련
     private AudioSource audioSource;
@@ -182,6 +182,8 @@ public class ComebackSceneController : MonoBehaviour
             currentSong.title,
             $"Sprites/AlbumCovers/{currentSong.albumCover.name}");
 
+        //practiceHUD.SetSelectingMode();
+
         practiceHUD.onClickedPracticeButton += StartPractice;
         practiceHUD.onClickedExitButton += ExitPractice;
     }
@@ -189,6 +191,8 @@ public class ComebackSceneController : MonoBehaviour
     private void StartPractice()
     {
         Debug.Log("[ComebackScene] Practice Started");
+
+        practiceHUD.SetPlayingMode();
 
         AudioClip practiceClip = currentSong?.GetPracticeClip();
         if (currentSong == null || practiceClip == null)

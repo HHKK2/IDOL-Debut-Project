@@ -176,6 +176,17 @@ public class PracticeHUD : UIHUD
         Selected.SetActive(true);
     }
 
+    //exitbutton 비활성화 함수
+    public void SetExitButtonActive(bool active)
+    {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+
+        ExitButton.gameObject.SetActive(active);
+    }
+
 
 
     private void OnClickRightButton(PointerEventData eventData)
