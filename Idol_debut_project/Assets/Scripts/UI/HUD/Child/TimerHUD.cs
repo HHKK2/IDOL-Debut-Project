@@ -12,6 +12,10 @@ public class TimerHUD : UIHUD
     private bool initialized = false;
     private TextMeshProUGUI TimerText;
 
+    private float remainingTime;
+    private bool isRunning = false;
+    public event Action OnTimerFinished;
+
     private void Start()
     {
         if (initialized)
@@ -46,7 +50,68 @@ public class TimerHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+
         TimerText.text = timerText;
+    }
+
+    private void Update()
+    {
+        if (!isRunning) return;
+        
+        remainingTime -= Time.deltaTime;
+        
+        if (remainingTime <= 0)
+        {
+            remainingTime = 0;
+            isRunning = false;
+            UpdateTimerDisplay();
+            OnTimerFinished?.Invoke();
+            return;
+        }
+        
+        UpdateTimerDisplay();
+    }
+
+    public void StartCountdown(float seconds)
+    {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        remainingTime = seconds;
+        isRunning = true;
+        UpdateTimerDisplay();
+    }
+
+    public void Pause()
+    {
+        isRunning = false;
+    }
+
+    public void Resume()
+    {
+        if (remainingTime > 0)
+        {
+            isRunning = true;
+        }
+    }
+
+    public void Stop()
+    {
+        isRunning = false;
+        remainingTime = 0;
+        UpdateTimerDisplay();
+    }
+
+    public float GetRemainingTime()
+    {
+        return remainingTime;
+    }
+    
+    private void UpdateTimerDisplay()
+    {
+        int minutes = Mathf.FloorToInt(remainingTime / 60);
+        int seconds = Mathf.FloorToInt(remainingTime % 60);
+        TimerText.text = $"{minutes:00}:{seconds:00}";
     }
 }

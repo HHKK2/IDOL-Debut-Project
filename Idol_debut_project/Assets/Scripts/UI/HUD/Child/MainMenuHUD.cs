@@ -82,7 +82,7 @@ public class MainMenuHUD : UIHUD
         {
             return;
         }
-        
+
         EnsureInitialized();
     }
 
@@ -139,12 +139,12 @@ public class MainMenuHUD : UIHUD
         GameObject BG = Get<GameObject>((int)GameObjects.BG);
         if (GameManager.Instance.player.Gender == Gender.FEMALE)
         {
-            ProfileBG.GetComponent<Image>().sprite=Resources.Load<Sprite>("Sprites/MainScreen/UI_스탯 표시_여");
+            ProfileBG.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/UI_스탯 표시_여");
             BG.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/배경_메인화면_여");
         }
         else
         {
-            ProfileBG.GetComponent<Image>().sprite=Resources.Load<Sprite>("Sprites/MainScreen/UI_스탯 표시_남");
+            ProfileBG.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/UI_스탯 표시_남");
             BG.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/배경_메인화면_남");
         }
         KingPopupGameObject=Get<GameObject>((int)GameObjects.KingPopupGameObject);
@@ -213,7 +213,7 @@ public class MainMenuHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+
         FanText.text = fanNum;
         NameText.text = name;
         GroupNameText.text = groupName;
@@ -235,7 +235,7 @@ public class MainMenuHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+
         LiveButton.interactable = false;
         DatingButton.interactable = false;
         RestButton.interactable = false;
@@ -250,7 +250,7 @@ public class MainMenuHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+
         LiveButton.interactable = false;
         DatingButton.interactable = false;
         RestButton.interactable = false;
@@ -266,11 +266,24 @@ public class MainMenuHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+
         LiveButton.interactable = true;
         DatingButton.interactable = true;
         RestButton.interactable = true;
         PracticeButton.interactable = true;
     }
 
+    // 튜토리얼 용도: 연습 버튼 이외 버튼 비활성화
+    public void MustPracticeStarted()
+    {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+
+        LiveButton.interactable = false;
+        DatingButton.interactable = false;
+        RestButton.interactable = false;
+        Get<Button>((int)Buttons.ComebackButton).interactable = false;
+    }
 }

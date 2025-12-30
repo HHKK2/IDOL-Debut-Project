@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bd3b27cfa3e14adc809a94ec90bf676, type: 3}
-  m_Name: player_info_after
+  m_Name: player_info_retry
   m_EditorClassIdentifier: Assembly-CSharp::DialogueText
   speakers:
   - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
   paragraphs:
-  - "\u2026\uC74C. \uC798 \uC801\uC5C8\uAD70. 4\uC778\uC870 {\uD50C\uB808\uC774\uC5B4
-    \uC131\uBCC4}\uADF8\uB8F9 {\uD50C\uB808\uC774\uC5B4 \uADF8\uB8F9\uC774\uB984}
-    \uC18C\uC18D {\uD50C\uB808\uC774\uC5B4 \uC774\uB984}."
-  - "\uB370\uBDD4 \uBB34\uB300\uAC00 \uACE7\uC774\uB2C8\uAE4C, \uC798 \uC900\uBE44\uD558\uB3C4\uB85D
-    \uD574."
+  - "...\uBB50? \uC798\uBABB \uC801\uC5C8\uB2E4\uACE0?\\n\uB108 \uC774\uAC70, \uC6D0\uB798\uB294
+    \uC218\uC815 \uBABB \uD558\uB294 \uAC70\uC57C."
+  - '[BG]debut_contract_image'
+  - "(\uC2E4\uC7A5\uC774 \uC885\uC774\uB97C \uB2E4\uC2DC \uB3CC\uB824\uC92C\uB2E4.)"

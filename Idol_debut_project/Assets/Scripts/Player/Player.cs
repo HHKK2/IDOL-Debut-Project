@@ -67,7 +67,7 @@ public class Player
     {
         Name = data.name;
         groupName = data.groupName;
-        //Gender = data.gender; gender를 enum 대로 통일해야 할듯... TODO
+        Gender = data.gender;
 
         // 초기값 세팅 (기획에 맞게 조정)
         FanNumber = 0;
