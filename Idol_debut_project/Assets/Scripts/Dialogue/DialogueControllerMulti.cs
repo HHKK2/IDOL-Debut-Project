@@ -46,7 +46,7 @@ public class DialogueControllerMulti : MonoBehaviour
             typingRoutine = null;
         }
 
-        //text = DialogueTextFormatter.ResolvePlayerTokens(text);
+        text = DialogueTextFormatter.ResolvePlayerTokens(text);
         
         var player = GameManager.Instance.player;
         bool isPlayer = (speaker == null);

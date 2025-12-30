@@ -12,6 +12,10 @@ public class FanServiceSceneController : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image liveImage;
 
+    [Header("Dialogue")]
+    [SerializeField] private DialogueSequencePlayer dialoguePlayer;
+    [SerializeField] private DialogueText fanServiceDialogue;
+    
     [Header("Live Images")]
     [SerializeField] private Sprite[] maleLiveImages;
     [SerializeField] private Sprite[] femaleLiveImages;
@@ -25,6 +29,10 @@ public class FanServiceSceneController : MonoBehaviour
     private void Start()
     {
         SetRandomLiveImage();
+        if (dialoguePlayer != null && fanServiceDialogue != null)
+        {
+            dialoguePlayer.Play(fanServiceDialogue);
+        }
     }
 
     private void SetRandomLiveImage()
@@ -45,6 +53,10 @@ public class FanServiceSceneController : MonoBehaviour
     // Image(Button)의 OnClick에 연결
     public void OnClickLiveImage()
     {
+        if (dialoguePlayer != null && dialoguePlayer.IsPlaying)
+        {
+            return;
+        }
         Debug.Log("팬 서비스 씬 종료");
         OnFinished?.Invoke();
     }

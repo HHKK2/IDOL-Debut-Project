@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd3b27cfa3e14adc809a94ec90bf676, type: 3}
+  m_Name: happy_ending
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueText
+  speakers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 7444398b06b974c8781ef43f76e3a4da, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  paragraphs:
+  - "\u2026 \uC800\uD76C {\uD50C\uB808\uC774\uC5B4 \uADF8\uB8F9\uC774\uB984}\uC774
+    \uADF8\uB79C\uB4DC\uC2AC\uB7A8\uC744 \uB2EC\uC131\uD588\uB294\uB370\uC694,"
+  - "\uC774 \uC790\uB9AC\uC5D0 \uC624\uAE30\uAE4C\uC9C0 \uD32C \uC5EC\uB7EC\uBD84\uB4E4\uAED8
+    \uC815\uB9D0 \uB108\uBB34 \uAC10\uC0AC\uD558\uB2E4\uB294 \uB9D0\uC500 \uB4DC\uB9AC\uACE0
+    \uC2F6\uC2B5\uB2C8\uB2E4."
+  - "\uC55E\uC73C\uB85C\uB3C4 {\uD50C\uB808\uC774\uC5B4 \uADF8\uB8F9\uC774\uB984}
+    \uC5F4\uC2EC\uD788 \uD560 \uD14C\uB2C8\uAE4C\uC694,"
+  - "\uC815\uB9D0 \uAC10\uC0AC\uD569\uB2C8\uB2E4!!"
+  - "\uAE84\uC544\uC544\uC544\uC545!! {\uD50C\uB808\uC774\uC5B4 \uC774\uB984} \uC0AC\uB791\uD574!!!"
+  - "(\uC6B0\uB9AC\uB294 \uC74C\uC545\uBC29\uC1A1 1\uC704\uB97C \uBC25\uBA39\uB4EF\uC774
+    \uD558\uB294 \uAD6D\uBBFC \uC544\uC774\uB3CC\uC774 \uB418\uC5C8\uACE0, \uC7AC\uACC4\uC57D\uB3C4
+    \uC131\uACF5\uC801\uC73C\uB85C \uB530\uB0BC \uC218 \uC788\uC5C8\uB2E4.)"
+  - "(\uC815\uB9D0 \uD589\uBCF5\uD574!)"

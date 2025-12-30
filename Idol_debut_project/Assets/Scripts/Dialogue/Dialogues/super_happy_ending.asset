@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd3b27cfa3e14adc809a94ec90bf676, type: 3}
+  m_Name: super_happy_ending
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueText
+  speakers:
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 7444398b06b974c8781ef43f76e3a4da, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  paragraphs:
+  - "{\uD50C\uB808\uC774\uC5B4 \uC774\uB984}. \uC815\uB9D0 \uB180\uB77C\uC6B4 \uC18C\uC2DD\uC744
+    \uB4E4\uB824\uC8FC\uC9C0."
+  - "\uAC11\uC790\uAE30 \uC65C\u2026 \uBB54\uAC00\uC694?"
+  - "\u2026\u2026\u2026\u2026\u2026"
+  - "\uC0C8\uB85C\uC6B4 \uACF5\uC5F0 \uC12D\uC678\uAC00 \uC654\uC5B4. \uADF8\uB7F0\uB370\u2026
+    \uACF5\uC5F0\uC7A5\uC774 \uC5B4\uB514\uC778 \uC9C0 \uC54C\uC544?"
+  - "\u2026?! \uD639\uC2DC \uACE0\uCC29\uB3D4\u2026?"
+  - "\uC544\uB2C8\uC57C. \uBB34\uB824 \uCFE0\uCCBC\uB77C\uB77C\uACE0!!!!"
+  - "\uD574\uC678 \uC720\uBA85 \uC2A4\uD0C0\uB4E4\uC758 \uC131\uC9C0, \uBE4C\uBE0C\uB3C4
+    10\uC704 \uC548\uC5D0 \uB4E4\uC5B4\uC57C\uB9CC \uAC08 \uC218 \uC788\uB2E4\uB294
+    \uADF8 \uCFE0\uCCBC\uB77C\uC694??"
+  - "\uADF8\uB798 \uB9DE\uC544!!! \uB108, \uC544\uB2C8, {\uD50C\uB808\uC774\uC5B4
+    \uADF8\uB8F9\uC774\uB984}\uC774 \uC774\uB807\uAC8C\uAE4C\uC9C0 \uB418\uB2E4\uB2C8.
+    \uC804\uBD80 \uB124 \uB355\uC774\uB2E4, {\uD50C\uB808\uC774\uC5B4 \uC774\uB984}."
+  - Thank you for inviting us, CooChella!!
+  - "Let\u2019s rock this place!!!!!"
+  - "Let\u2019s gooooo!!!! {\uD50C\uB808\uC774\uC5B4 \uADF8\uB8F9\uC774\uB984}!!
+    {\uD50C\uB808\uC774\uC5B4 \uADF8\uB8F9\uC774\uB984}!!!!"
+  - "(\uC774\uB807\uAC8C \uB9CE\uC740 \uC804\uC138\uACC4 \uC0AC\uB78C\uB4E4\uC774
+    \uC6B0\uB9AC \uB178\uB798\uB97C \uB530\uB77C \uBD80\uB974\uBA70 \uAE30\uBED0\uD558\uACE0
+    \uC788\uB2E4.)"
+  - "(\uAFC8\uC778\uC9C0, \uD604\uC2E4\uC778\uC9C0 \uC798\uC740 \uBAA8\uB974\uACA0\uC9C0\uB9CC\u2026)"
+  - "(\uB354 \uBA4B\uC9C4 \uBB34\uB300\uB97C \uD3BC\uCCD0 \uBCF4\uC774\uACA0\uC5B4!!!)"
