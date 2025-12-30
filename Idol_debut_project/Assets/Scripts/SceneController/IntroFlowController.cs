@@ -32,12 +32,20 @@ public class IntroFlowController : MonoBehaviour
 
     void Start()
     {
+        if (dialogueController != null)
+        {
+            dialogueController.HideAll();
+        }
         if (backgroundController != null)
         {
             backgroundController.SetBackground(introBgKey);
         }
-        currentDialogue = dialogueBeforeInput;
-        ShowNextLine();
+        var fadeUI = UIManager.Instance.ShowSystemUI<FadeInEffectSystemUI>(GameConstants.UI.SystemName.FadeInEffectSystemUI);
+
+        fadeUI.FadeIn(1.5f, () => {
+            currentDialogue = dialogueBeforeInput;
+            ShowNextLine();
+        });
     }
 
     private void Update()
@@ -66,10 +74,13 @@ public class IntroFlowController : MonoBehaviour
                 }
                 continue;
             }
-            dialogueController.ShowDialogue(speaker, text);
             if (currentDialogue == dialogueAfterInput && index >= currentDialogue.paragraphs.Count)
             {
-                ShowConfirmHUD(); 
+                dialogueController.ShowDialogue(speaker, text, null, () => { ShowConfirmHUD(); });
+            }
+            else
+            {
+                dialogueController.ShowDialogue(speaker, text);
             }
             return;
         }
