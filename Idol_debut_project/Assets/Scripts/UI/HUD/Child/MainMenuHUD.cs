@@ -207,8 +207,10 @@ public class MainMenuHUD : UIHUD
         NameText.text = name;
         GroupNameText.text = groupName;
         DateText.text = date;
+
         MentalSlider.value = mental;
-        MentalSliderText.text = $"{mental}/100";
+        MentalSlider.interactable = false;
+        MentalSliderText.text = $"{Mathf.RoundToInt(mental * 100)}/100";
     }
 
 

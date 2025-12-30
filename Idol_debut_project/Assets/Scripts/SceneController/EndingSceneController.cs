@@ -85,7 +85,7 @@ public class EndingSceneController : MonoBehaviour
         foreach (string line in lines)
         {
             yield return StartCoroutine(TypeLine(line, typingSpeed));
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.5f);
         }
 
         // 2. 페이드 인 (유틸 사용)
