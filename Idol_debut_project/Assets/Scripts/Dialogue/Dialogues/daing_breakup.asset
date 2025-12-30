@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd3b27cfa3e14adc809a94ec90bf676, type: 3}
+  m_Name: daing_breakup
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueText
+  speakers:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: f69eb6d9e217a4b1c85511a1b392dd95, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  paragraphs:
+  - "\uBC29\uAE08 \uD55C \uB9D0 \uC9C4\uC2EC\uC774\uC57C?"
+  - "\uC5B4. \uADF8\uB9CC \uB9CC\uB098\uC790\u2026 \uC774\uB807\uAC8C \uC228\uAE30\uACE0
+    \uB9CC\uB098\uB294 \uC5F0\uC560\uB294 \uC774\uC81C \uC9C0\uAE0B\uC9C0\uAE0B\uD574."
+  - "\uB108\uAC00 \uC5B4\uB5BB\uAC8C \uB098\uD55C\uD14C \uADF8\uB798\u2026"
+  - "(\uB208\uBB3C\uC774 \uBA4E\uC9C0\uB97C \uC54A\uB294\uB2E4. \uC7A1\uC544\uBCF4\uC558\uC9C0\uB9CC
+    \uC5F0\uC778\uC758 \uB9C8\uC74C\uC740 \uC774\uBBF8 \uCC28\uAC11\uAC8C \uC2DD\uC740
+    \uB4EF \uBCF4\uC778\uB2E4. \uC6B0\uB9B0 \uD5E4\uC5B4\uC84C\uB2E4.)"
