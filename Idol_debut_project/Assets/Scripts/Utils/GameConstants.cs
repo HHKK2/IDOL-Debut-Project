@@ -37,6 +37,7 @@ public static class GameConstants
             public const string InputHUD =  "InputHUD";
             public const string StageHUD = "StageHUD";
             public const string ConfirmHUD = "ConfirmHUD";
+            public const string PracticeHUD = "PracticeHUD";
             
         }
         public static class SystemName

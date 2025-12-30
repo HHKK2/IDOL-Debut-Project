@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd3b27cfa3e14adc809a94ec90bf676, type: 3}
+  m_Name: tutorial_startstage
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueText
+  speakers:
+  - {fileID: 11400000, guid: f37cf51a072766c42b39a80f0293f830, type: 2}
+  - {fileID: 11400000, guid: f37cf51a072766c42b39a80f0293f830, type: 2}
+  - {fileID: 11400000, guid: f37cf51a072766c42b39a80f0293f830, type: 2}
+  - {fileID: 11400000, guid: f37cf51a072766c42b39a80f0293f830, type: 2}
+  - {fileID: 11400000, guid: f37cf51a072766c42b39a80f0293f830, type: 2}
+  - {fileID: 11400000, guid: f37cf51a072766c42b39a80f0293f830, type: 2}
+  paragraphs:
+  - "\uC790, \uC774\uC81C \uACB0\uC804\uC758 \uC2DC\uAC04\uC785\uB2C8\uB2E4!"
+  - "\uD0C0\uC774\uBA38\uAC00 \uB05D\uB098\uBA74 \uCEF4\uBC31 \uBB34\uB300\uC5D0
+    \uC62C\uB77C\uC57C \uD569\uB2C8\uB2E4."
+  - "\uC774\uBC88\uC5D0\uB294 \uB370\uBDD4 \uBB34\uB300\uC9C0\uB9CC,\\n\uCEF4\uBC31
+    \uBB34\uB300\uB3C4 \uC5F0\uC2B5\uC2E4\uACFC \uD658\uACBD\uC774 \uB3D9\uC77C\uD569\uB2C8\uB2E4."
+  - "\uB2E4\uB9CC... \uC55E\uC5D0 \uAD00\uC911\uB4E4\uC774 \uC788\uC744 \uBFD0\uC774\uC8E0!"
+  - "'\uCEF4\uBC31' \uBC84\uD2BC\uC744 \uB20C\uB7EC \uC2A4\uD14C\uC774\uC9C0\uC5D0
+    \uC624\uB974\uC138\uC694."
+  - "\uADF8\uB7FC, \uD589\uC6B4\uC744 \uBE55\uB2C8\uB2E4."

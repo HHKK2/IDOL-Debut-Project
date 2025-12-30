@@ -252,7 +252,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialSceneController
   dialogueController: {fileID: 1863471764}
-  tutorialStep1: {fileID: 11400000, guid: ada206323fae28b4aab2ba8473c7f1dc, type: 2}
+  comebackNarration: {fileID: 11400000, guid: ada206323fae28b4aab2ba8473c7f1dc, type: 2}
+  practiceNarration: {fileID: 11400000, guid: bc8b4888d4b3d0446b4446814906f70f, type: 2}
+  debutNarration: {fileID: 11400000, guid: a706ab1eecdde284992cd8e86431dd5a, type: 2}
+  startStageNarration: {fileID: 11400000, guid: 8c5c0e03d1dc4f44aa5a318e40808fbc, type: 2}
+  resultNarration: {fileID: 11400000, guid: 3f4c1b44d7c717247bc51f9d8a7915bb, type: 2}
+  mentalityNarration: {fileID: 11400000, guid: 453d076fbb1924e4f883db5e813d17a3, type: 2}
+  restNarration: {fileID: 11400000, guid: 6743fe6a4551ea64ba1a4ca004167624, type: 2}
+  dateNarration: {fileID: 11400000, guid: 62d5c08775d678946b3edd21295696ea, type: 2}
+  fanserviceNarration: {fileID: 11400000, guid: 18474ecac852a124cbbc7907eae23e56, type: 2}
+  calendarNarration: {fileID: 11400000, guid: dd4353d1f9e6d054ca02463c853f381d, type: 2}
 --- !u!4 &1015514901
 Transform:
   m_ObjectHideFlags: 0
@@ -587,7 +596,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: c3d4a9392ffd7184aa4259410e6bde8f, type: 3}
     - target: {fileID: 5636871555777940258, guid: d0b6881de2b824c048ee9d974c7aaf94, type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 56
       objectReference: {fileID: 0}
     - target: {fileID: 5636871555777940258, guid: d0b6881de2b824c048ee9d974c7aaf94, type: 3}
       propertyPath: m_margin.w
@@ -607,7 +616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5636871555777940258, guid: d0b6881de2b824c048ee9d974c7aaf94, type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 56
       objectReference: {fileID: 0}
     - target: {fileID: 5636871555777940258, guid: d0b6881de2b824c048ee9d974c7aaf94, type: 3}
       propertyPath: m_VerticalAlignment
