@@ -78,7 +78,7 @@ public class EndingSceneController : MonoBehaviour
     {
         EndingType ending = GameManager.Instance.End;
 
-        // 1. 대사 출력 (타이핑)
+        // 대사 출력 (타이핑)
         string[] lines = GetEndingLines(ending);
         float typingSpeed = GetTypingSpeed(ending);
 
@@ -88,11 +88,14 @@ public class EndingSceneController : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-        // 2. 페이드 인 (유틸 사용)
-        yield return StartCoroutine(FadeEffect.Fade(fadePanel, 1f, 0f, 1.7f));
-        
-        //3. 대사는 지우기
+        // 대사 종료 후 여백
+        yield return new WaitForSeconds(1.2f);
+
+        // 대사는 지우기
         narrationText.gameObject.SetActive(false);
+
+        // 페이드 인 (유틸 사용)
+        yield return StartCoroutine(FadeEffect.Fade(fadePanel, 1f, 0f, 1.4f));
 
         var dialogue = GetEndingDialogue(ending);
         if (SequencePlayer == null)
