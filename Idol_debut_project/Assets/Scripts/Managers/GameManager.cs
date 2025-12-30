@@ -84,7 +84,7 @@ public class GameManager : AdolpSingleton<GameManager>
             time.Reset();
 
             player.Reputation = 10;
-            player.FanNumber = 4000;     // 예시 TODO : 감자 초기 스탯을 바꾸세요.
+            player.FanNumber = 4000;     // 예시 TODO : 감자씨! 초기 스탯을 바꾸세요.
             player.MentalHealth = 100;
 
             ResetComebackSongsExceptTutorial(); //컴백 여부 초기화
