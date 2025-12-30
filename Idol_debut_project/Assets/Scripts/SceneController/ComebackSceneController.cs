@@ -135,6 +135,18 @@ public class ComebackSceneController : MonoBehaviour
         // 메인 메뉴 HUD
         mainMenuHUD = UIManager.Instance.ShowHUDUI<MainMenuHUD>();
 
+        // UI 초기화
+        Player player = GameManager.Instance.player;
+        TimeCycleManager time = GameManager.Instance.time;
+
+        mainMenuHUD.Init(
+            date: time.GetCurrentDateString(),   // ← 상/하반기 n월
+            groupName: player.GroupName,
+            fanNum: player.FanNumber.ToString(),
+            mental: player.GetMentalRatio(),
+            name: player.Name
+        );
+
         // 컴백 준비 상태 UI 세팅
         mainMenuHUD.CompackPrepareStarted();
 
