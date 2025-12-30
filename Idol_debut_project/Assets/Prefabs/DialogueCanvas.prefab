@@ -471,6 +471,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LeftBubble
       objectReference: {fileID: 0}
+    - target: {fileID: 6767570193254917520, guid: d0b6881de2b824c048ee9d974c7aaf94, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

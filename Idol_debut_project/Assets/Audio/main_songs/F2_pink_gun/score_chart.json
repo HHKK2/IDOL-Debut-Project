@@ -1,0 +1,1166 @@
+{
+  "version": 1,
+  "notes": [
+    {
+      "start": 0.743039,
+      "end": 0.882358,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 0.940408,
+      "end": 1.079728,
+      "midi": 73,
+      "tol_cents": 50
+    },
+    {
+      "start": 1.253878,
+      "end": 1.393197,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 1.741497,
+      "end": 1.938866,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 1.996916,
+      "end": 2.147846,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 2.507755,
+      "end": 2.751565,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 2.763175,
+      "end": 2.879274,
+      "midi": 51,
+      "tol_cents": 50
+    },
+    {
+      "start": 3.308844,
+      "end": 3.552653,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 3.831293,
+      "end": 4.063492,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 4.272472,
+      "end": 4.435011,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 4.562721,
+      "end": 4.690431,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 4.702041,
+      "end": 4.99229,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 5.07356,
+      "end": 5.21288,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 5.22449,
+      "end": 5.526349,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 5.596009,
+      "end": 5.723719,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 5.735329,
+      "end": 6.072018,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 6.141678,
+      "end": 6.246168,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 6.257778,
+      "end": 6.513197,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 6.733787,
+      "end": 6.954376,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 7.407166,
+      "end": 7.720635,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 7.929615,
+      "end": 8.324354,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 8.417234,
+      "end": 8.811973,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 8.823583,
+      "end": 9.055782,
+      "midi": 62,
+      "tol_cents": 50
+    },
+    {
+      "start": 9.218322,
+      "end": 9.357642,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 9.369252,
+      "end": 9.589841,
+      "midi": 62,
+      "tol_cents": 50
+    },
+    {
+      "start": 9.694331,
+      "end": 9.845261,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 9.856871,
+      "end": 10.10068,
+      "midi": 62,
+      "tol_cents": 50
+    },
+    {
+      "start": 10.39093,
+      "end": 10.623129,
+      "midi": 62,
+      "tol_cents": 50
+    },
+    {
+      "start": 11.168798,
+      "end": 11.749297,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 11.784127,
+      "end": 11.888617,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 11.900227,
+      "end": 12.120816,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 12.202086,
+      "end": 12.736145,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 13.212154,
+      "end": 13.734603,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 13.827483,
+      "end": 13.978413,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 14.187392,
+      "end": 14.791111,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 15.41805,
+      "end": 15.61542,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 15.650249,
+      "end": 15.789569,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 15.917279,
+      "end": 16.114649,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 16.195918,
+      "end": 16.416508,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 16.462948,
+      "end": 16.880907,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 17.345306,
+      "end": 17.925805,
+      "midi": 62,
+      "tol_cents": 50
+    },
+    {
+      "start": 18.030295,
+      "end": 18.634014,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 18.668844,
+      "end": 18.924263,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 19.005533,
+      "end": 19.133243,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 26.679728,
+      "end": 27.028027,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 27.051247,
+      "end": 27.237007,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 27.318277,
+      "end": 27.457596,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 27.469206,
+      "end": 27.794286,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 28.119365,
+      "end": 28.258685,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 28.270295,
+      "end": 28.572154,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 28.595374,
+      "end": 29.431293,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 29.500952,
+      "end": 29.605442,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 29.640272,
+      "end": 29.849252,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 29.895692,
+      "end": 30.104671,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 30.127891,
+      "end": 30.313651,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 30.56907,
+      "end": 30.81288,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 31.184399,
+      "end": 31.474649,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 31.718458,
+      "end": 31.939048,
+      "midi": 69,
+      "tol_cents": 50
+    },
+    {
+      "start": 31.950658,
+      "end": 32.182857,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 32.194467,
+      "end": 32.415057,
+      "midi": 69,
+      "tol_cents": 50
+    },
+    {
+      "start": 32.519546,
+      "end": 32.774966,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 32.809796,
+      "end": 33.227755,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 33.262585,
+      "end": 33.599274,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 33.610884,
+      "end": 34.133333,
+      "midi": 69,
+      "tol_cents": 50
+    },
+    {
+      "start": 34.144943,
+      "end": 34.946032,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 35.073741,
+      "end": 35.340771,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 35.363991,
+      "end": 35.526531,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 35.58458,
+      "end": 35.88644,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 36.09542,
+      "end": 36.571429,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 36.617868,
+      "end": 36.733968,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 36.745578,
+      "end": 36.966168,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 36.977778,
+      "end": 37.117098,
+      "midi": 71,
+      "tol_cents": 50
+    },
+    {
+      "start": 37.175147,
+      "end": 37.430567,
+      "midi": 73,
+      "tol_cents": 50
+    },
+    {
+      "start": 37.500227,
+      "end": 37.976236,
+      "midi": 71,
+      "tol_cents": 50
+    },
+    {
+      "start": 38.022676,
+      "end": 38.138776,
+      "midi": 78,
+      "tol_cents": 50
+    },
+    {
+      "start": 38.150385,
+      "end": 38.312925,
+      "midi": 59,
+      "tol_cents": 50
+    },
+    {
+      "start": 38.429025,
+      "end": 38.533515,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 38.579955,
+      "end": 39.195283,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 39.206893,
+      "end": 39.450703,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 39.462313,
+      "end": 39.624853,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 39.706122,
+      "end": 39.973152,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 40.240181,
+      "end": 40.623311,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 40.90195,
+      "end": 41.389569,
+      "midi": 71,
+      "tol_cents": 50
+    },
+    {
+      "start": 41.691429,
+      "end": 41.912018,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 42.051338,
+      "end": 42.480907,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 42.747937,
+      "end": 43.189116,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 43.340045,
+      "end": 43.618685,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 43.630295,
+      "end": 43.792834,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 43.897324,
+      "end": 44.164354,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 44.361723,
+      "end": 44.837732,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 44.895782,
+      "end": 45.011882,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 45.023492,
+      "end": 45.244082,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 45.255692,
+      "end": 45.395011,
+      "midi": 71,
+      "tol_cents": 50
+    },
+    {
+      "start": 45.441451,
+      "end": 45.708481,
+      "midi": 73,
+      "tol_cents": 50
+    },
+    {
+      "start": 45.778141,
+      "end": 46.24254,
+      "midi": 71,
+      "tol_cents": 50
+    },
+    {
+      "start": 46.579229,
+      "end": 46.683719,
+      "midi": 59,
+      "tol_cents": 50
+    },
+    {
+      "start": 46.776599,
+      "end": 46.892698,
+      "midi": 64,
+      "tol_cents": 50
+    },
+    {
+      "start": 46.904308,
+      "end": 47.217778,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 47.508027,
+      "end": 47.740227,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 47.751837,
+      "end": 48.390385,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 48.518095,
+      "end": 48.924444,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 49.261134,
+      "end": 49.760363,
+      "midi": 71,
+      "tol_cents": 50
+    },
+    {
+      "start": 49.969342,
+      "end": 50.282812,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 50.317642,
+      "end": 50.526621,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 50.99102,
+      "end": 51.29288,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 51.501859,
+      "end": 51.850159,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 52.732517,
+      "end": 53.127256,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 53.150476,
+      "end": 53.371066,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 53.742585,
+      "end": 54.160544,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 54.195374,
+      "end": 54.381134,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 54.833923,
+      "end": 55.182222,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 55.379592,
+      "end": 55.681451,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 55.809161,
+      "end": 56.21551,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 60.464762,
+      "end": 60.580862,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 60.987211,
+      "end": 61.39356,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 61.42839,
+      "end": 61.62576,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 61.66059,
+      "end": 61.799909,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 61.962449,
+      "end": 62.426848,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 62.461678,
+      "end": 62.647438,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 63.169887,
+      "end": 63.402086,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 63.657506,
+      "end": 63.982585,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 64.121905,
+      "end": 64.539864,
+      "midi": 61,
+      "tol_cents": 50
+    },
+    {
+      "start": 76.335601,
+      "end": 76.67229,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 76.6839,
+      "end": 76.86966,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 76.95093,
+      "end": 77.148299,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 77.159909,
+      "end": 77.438549,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 77.450159,
+      "end": 77.601088,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 77.624308,
+      "end": 77.914558,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 77.926168,
+      "end": 78.460227,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 78.518277,
+      "end": 78.762086,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 78.808526,
+      "end": 79.075556,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 79.145215,
+      "end": 79.249705,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 79.284535,
+      "end": 79.493515,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 79.539955,
+      "end": 79.760544,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 79.795374,
+      "end": 79.992744,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 80.074014,
+      "end": 80.190113,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 80.248163,
+      "end": 80.457143,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 80.608073,
+      "end": 80.759002,
+      "midi": 78,
+      "tol_cents": 50
+    },
+    {
+      "start": 80.793832,
+      "end": 81.072472,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 81.374331,
+      "end": 81.583311,
+      "midi": 69,
+      "tol_cents": 50
+    },
+    {
+      "start": 81.594921,
+      "end": 81.83873,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 81.85034,
+      "end": 82.14059,
+      "midi": 69,
+      "tol_cents": 50
+    },
+    {
+      "start": 82.1522,
+      "end": 82.419229,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 82.442449,
+      "end": 82.872018,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 82.883628,
+      "end": 83.371247,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 83.382857,
+      "end": 83.916916,
+      "midi": 69,
+      "tol_cents": 50
+    },
+    {
+      "start": 83.928526,
+      "end": 85.019864,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 86.8078,
+      "end": 87.05161,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 87.07483,
+      "end": 87.24898,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 87.307029,
+      "end": 87.620499,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 87.817868,
+      "end": 88.270658,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 88.340317,
+      "end": 88.468027,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 88.479637,
+      "end": 88.688617,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 88.885986,
+      "end": 89.164626,
+      "midi": 73,
+      "tol_cents": 50
+    },
+    {
+      "start": 89.234286,
+      "end": 89.698685,
+      "midi": 71,
+      "tol_cents": 50
+    },
+    {
+      "start": 89.965714,
+      "end": 90.070204,
+      "midi": 59,
+      "tol_cents": 50
+    },
+    {
+      "start": 90.302404,
+      "end": 90.940952,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 90.952562,
+      "end": 91.161542,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 91.184762,
+      "end": 91.324082,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 91.416961,
+      "end": 91.695601,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 91.95102,
+      "end": 92.35737,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 92.450249,
+      "end": 92.612789,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 92.624399,
+      "end": 93.193288,
+      "midi": 71,
+      "tol_cents": 50
+    },
+    {
+      "start": 93.274558,
+      "end": 93.413878,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 93.437098,
+      "end": 93.646077,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 93.750567,
+      "end": 94.156916,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 94.354286,
+      "end": 94.470385,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 94.528435,
+      "end": 94.853515,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 95.074104,
+      "end": 95.329524,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 95.341134,
+      "end": 95.468844,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 95.654603,
+      "end": 95.875193,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 96.107392,
+      "end": 96.560181,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 96.745941,
+      "end": 96.966531,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 96.978141,
+      "end": 97.11746,
+      "midi": 71,
+      "tol_cents": 50
+    },
+    {
+      "start": 97.15229,
+      "end": 97.43093,
+      "midi": 73,
+      "tol_cents": 50
+    },
+    {
+      "start": 97.50059,
+      "end": 97.964989,
+      "midi": 71,
+      "tol_cents": 50
+    },
+    {
+      "start": 98.475828,
+      "end": 98.591927,
+      "midi": 63,
+      "tol_cents": 50
+    },
+    {
+      "start": 98.615147,
+      "end": 99.125986,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 99.184036,
+      "end": 99.462676,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 99.474286,
+      "end": 100.043175,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 100.054785,
+      "end": 100.182494,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 100.228934,
+      "end": 100.588844,
+      "midi": 65,
+      "tol_cents": 50
+    },
+    {
+      "start": 100.774603,
+      "end": 100.879093,
+      "midi": 79,
+      "tol_cents": 50
+    },
+    {
+      "start": 101.018413,
+      "end": 101.273832,
+      "midi": 71,
+      "tol_cents": 50
+    },
+    {
+      "start": 101.517642,
+      "end": 101.645351,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 101.691791,
+      "end": 101.842721,
+      "midi": 70,
+      "tol_cents": 50
+    },
+    {
+      "start": 102.36517,
+      "end": 102.5161,
+      "midi": 66,
+      "tol_cents": 50
+    },
+    {
+      "start": 102.713469,
+      "end": 102.980499,
+      "midi": 68,
+      "tol_cents": 50
+    },
+    {
+      "start": 103.201088,
+      "end": 103.607438,
+      "midi": 65,
+      "tol_cents": 50
+    }
+  ],
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 19.2,
+      "is_vocal": 1
+    },
+    {
+      "start": 19.2,
+      "end": 26.36,
+      "is_vocal": 0
+    },
+    {
+      "start": 26.36,
+      "end": 68.52,
+      "is_vocal": 1
+    },
+    {
+      "start": 68.52,
+      "end": 76.08,
+      "is_vocal": 0
+    },
+    {
+      "start": 76.08,
+      "end": 121.83,
+      "is_vocal": 1
+    }
+  ]
+}

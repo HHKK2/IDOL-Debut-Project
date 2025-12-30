@@ -55,6 +55,8 @@ public class GameManager : AdolpSingleton<GameManager>
 
 
         gsm = new GameStateMachine();
+
+        EndingSceneController.OnFinished += OnEndingSceneFinished;
     }
 
 
@@ -296,6 +298,13 @@ public class GameManager : AdolpSingleton<GameManager>
         }
 
         Debug.Log("[GameManager] Comeback songs reset (except tutorial)");
+    }
+
+    private void OnEndingSceneFinished()
+    {
+        Debug.Log("[GameManager] EndingScene finished → Go to StartScene");
+
+        GameSceneManager.Instance.ChangeScene(GameScenes.StartScene);
     }
 
 

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Idol_debut_project/Assets/Audio/main_songs/F2_pink_gun.meta
+guid: e214203c2ae454e13810db395cba0892
+========
 guid: ad1f3b5bce2c7e443b56bbed2f24d0b6
+>>>>>>>> main:Idol_debut_project/Assets/Scripts/Dialogue/Dialogues/Tutorial.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

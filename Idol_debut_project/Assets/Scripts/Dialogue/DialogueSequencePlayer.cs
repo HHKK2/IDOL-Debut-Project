@@ -12,7 +12,7 @@ public class DialogueSequencePlayer : MonoBehaviour
     private bool playing;
 
 
-    public DialogueBackgroundController BackgroundController;
+    //public DialogueBackgroundController BackgroundController;
     public bool IsPlaying => playing;
     
     private Action onFinished;
@@ -65,10 +65,10 @@ public class DialogueSequencePlayer : MonoBehaviour
         if (speaker == null && text.StartsWith("BG "))
         {
             string key = text.Substring(3).Trim();
-            if (BackgroundController != null)
-            {
-                BackgroundController.SetBackground(key);
-            }
+            // if (BackgroundController != null)
+            // {
+            //     BackgroundController.SetBackground(key);
+            // }
 
             index++;
             ShowCurrent();

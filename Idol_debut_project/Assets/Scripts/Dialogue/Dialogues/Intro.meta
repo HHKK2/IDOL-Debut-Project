@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Idol_debut_project/Assets/Audio/main_songs/F1_our_spring.meta
+guid: dea1d461d65f74691b9d4493d265741c
+========
 guid: b6a4a411d5dcb7844bd0d00d042b8fe0
+>>>>>>>> main:Idol_debut_project/Assets/Scripts/Dialogue/Dialogues/Intro.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

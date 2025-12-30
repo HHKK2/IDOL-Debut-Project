@@ -29,7 +29,7 @@ public class DialogueControllerMulti : MonoBehaviour
     [Header("타이핑 속도")]
     public float typeSpeed = 0.03f;
 
-    [Header("플레이어 초상화")] 
+    [Header("플레이어 초상화")]
     public Sprite femalePlayerSprite;
     public Sprite malePlayerSprite;
 
@@ -37,6 +37,12 @@ public class DialogueControllerMulti : MonoBehaviour
 
     private Action onTypingComplete;
     public bool IsTyping { get; private set; }
+
+
+    private void Awake()
+    {
+        HideAll();
+    }
 
 
     // ✅ 이름 오버라이드 매개변수 추가 (기본값 null)
@@ -53,7 +59,7 @@ public class DialogueControllerMulti : MonoBehaviour
         }
         onTypingComplete = onComplete;
         text = DialogueTextFormatter.ResolvePlayerTokens(text);
-        
+
         var player = GameManager.Instance.player;
         bool isPlayer = (speaker == null);
 
@@ -116,7 +122,14 @@ public class DialogueControllerMulti : MonoBehaviour
 
     public void HideAll()
     {
-        if (leftBubble)  leftBubble.SetActive(false);
+        if (leftBubble) leftBubble.SetActive(false);
+        if (rightBubble) rightBubble.SetActive(false);
+        if (centerBubble) centerBubble.SetActive(false);
+    }
+
+    public void HideRightCenter()
+    {
+        if (leftBubble) leftBubble.SetActive(true);
         if (rightBubble) rightBubble.SetActive(false);
         if (centerBubble) centerBubble.SetActive(false);
     }
@@ -142,7 +155,7 @@ public class DialogueControllerMulti : MonoBehaviour
         onTypingComplete?.Invoke();
         onTypingComplete = null;
     }
-    
+
     public void EndDialogueAndGoNext(string nextSceneName)
     {
         HideAll();
@@ -151,5 +164,5 @@ public class DialogueControllerMulti : MonoBehaviour
             SceneManager.LoadScene(nextSceneName);
         }
     }
-    
+
 }
