@@ -2,15 +2,18 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class EndingSceneController : MonoBehaviour
 {
-    [Header("Refs")] 
+    public static event Action OnFinished;
+
+    [Header("Refs")]
     public DialogueSequencePlayer SequencePlayer;
     //public DialogueBackgroundController bg;
     public DialogueControllerMulti controllermulti;
 
-    [Header("Dialogues")] 
+    [Header("Dialogues")]
     public DialogueText happyDialogue;
     public DialogueText normalDialouge;
     public DialogueText badDialogue;
@@ -18,8 +21,8 @@ public class EndingSceneController : MonoBehaviour
     public DialogueText superDialogue;
 
     public string defaultBgKey = "intro_image";
-    
-    
+
+
     [Header("UI")]
     [SerializeField] private Image endingImage;
     [SerializeField] private TextMeshProUGUI narrationText;
@@ -50,6 +53,10 @@ public class EndingSceneController : MonoBehaviour
     [SerializeField] private Sprite[] superstarMaleImages;
     [SerializeField] private Sprite[] superstarFemaleImages;
 
+
+    private bool waitingForExitClick = false;
+
+
     private void Start()
     {
         // 1. 엔딩 이미지 미리 세팅 + 켜기
@@ -69,6 +76,28 @@ public class EndingSceneController : MonoBehaviour
         narrationText.color = nc;
 
         StartCoroutine(PlayEndingSequence());
+    }
+
+    private void Update()
+    {
+        if (!waitingForExitClick)
+            return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            FinishEnding();
+        }
+    }
+
+    private void FinishEnding()
+    {
+        waitingForExitClick = false;
+
+        if (controllermulti != null)
+            controllermulti.HideAll();
+
+        Debug.Log("[EndingScene] Finish");
+        OnFinished?.Invoke();
     }
 
 
@@ -113,6 +142,7 @@ public class EndingSceneController : MonoBehaviour
         SequencePlayer.Play(dialogue, () =>
         {
             Debug.Log("[EndingScene] 엔딩 대사 끝!");
+            waitingForExitClick = true;
         });
     }
 
@@ -201,7 +231,10 @@ public class EndingSceneController : MonoBehaviour
             return;
         }
 
-        endingImage.sprite = candidates[Random.Range(0, candidates.Length)];
+        endingImage.sprite = candidates[
+            UnityEngine.Random.Range(0, candidates.Length)
+        ];
+
     }
 
     private Sprite[] GetCandidates(EndingType ending, Gender gender)

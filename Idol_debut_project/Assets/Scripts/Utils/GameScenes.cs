@@ -31,4 +31,7 @@ public static class GameScenes
     
     // 0-0. 인트로 씬
     public const string IntroScene = "IntroScene";
+
+    //시작 씬
+    public const string StartScene = "StartScene";
 }
