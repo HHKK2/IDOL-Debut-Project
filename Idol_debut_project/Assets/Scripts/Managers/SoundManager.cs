@@ -36,13 +36,48 @@ public class SoundManager : AdolpSingleton<SoundManager>
     }
     
     /// <summary>
+    /// 앨범이 바뀔때마다 앨범곡 재생하는 함수. 앨범을 바꿀 때마다 다른 clip삽입하여 호출하기
+    /// </summary>
+    /// <remarks>다른 곡 재생할 때마다 끄고 킬 필요x(하나의오브젝트에서 재생하는 클립을 갈아끼우는 형태로 구현돼있음)</remarks>
+    /// <param name="clip"></param>
+    public void AlbumPlay(AudioClip clip)
+    {
+        GameObject albumGO = GameObject.Find("albumSoundGO");
+        if (albumGO == null)
+        {
+            albumGO = new GameObject("albumSoundGO"); 
+        }
+
+        AudioSource audioSource = GameObjectUtils.GetOrAddComponent<AudioSource>(albumGO);
+        
+        audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
+    
+    /// <summary>
+    /// 앨범곡 재생 끄는 함수
+    /// </summary>
+    /// <remarks>앨범재생 오브젝트를 파괴하고 싶을 떄 호출하기</remarks>
+    /// <param name="clip"></param>
+    public void AlbumStop()
+    {
+        GameObject albumGO = GameObject.Find("albumSoundGO");
+        if (albumGO != null)
+        {
+            Destroy(albumGO);
+        }
+    }
+    
+    
+    /// <summary>
     /// 효과음이 달린 오브젝트에서, 해당 함수를 호출해야함.
     /// </summary>
-    /// <param name="sfxName"></param>
+    /// <param name="albumName"></param>
     /// <param name="clip"></param>
-    public void SFXPlay(string sfxName, AudioClip clip)
+    public void SFXPlay(string albumName, AudioClip clip)
     {
-        GameObject go = new GameObject(sfxName + "Sound");
+        GameObject go = new GameObject(albumName + "Sound");
         AudioSource audioSource = go.AddComponent<AudioSource>();
         audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         audioSource.clip = clip;
