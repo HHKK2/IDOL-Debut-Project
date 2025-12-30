@@ -41,6 +41,10 @@ public class HomeHUD : UIHUD
         GameObject ClickedNewGameButton =  Get<Button>((int)Buttons.NewGameButton).gameObject;
         BindEvent(ClickedNewGameButton,OnClickedNewGameButton, GameEvents.UIEvent.Click);
         GameObject ClickedLoadButton =  Get<Button>((int)Buttons.LoadButton).gameObject;
+        if (GameManager.Instance.IsLoadedGame==false)
+        {
+            ClickedLoadButton.GetComponent<Button>().interactable = false;
+        }
         BindEvent(ClickedLoadButton,OnClickedLoadButton, GameEvents.UIEvent.Click);
         GameObject ClickedExitButton =  Get<Button>((int)Buttons.ExitButton).gameObject;
         BindEvent(ClickedExitButton,OnClickedExitButton, GameEvents.UIEvent.Click);

@@ -428,7 +428,7 @@ public class ComebackSceneController : MonoBehaviour
             // 현재 timestamp에 맞는 가사를 찾아서 표시해야 합니다.
             // 예시: stageHUD.InitLyricsText(GetLyricsAtTime(songTimestamp));
             // 일단 제목으로 표시
-            stageHUD.InitLyricsText(currentSong.title);
+            stageHUD.InitLyricsText(currentSong.title,"");
 
             // 관객 반응 업데이트 (VocalJudge 결과 기반)
             if (vocalJudge != null)
@@ -600,7 +600,7 @@ public class ComebackSceneController : MonoBehaviour
             // 현재 timestamp에 맞는 가사를 찾아서 표시해야 합니다.
             // 예시: practiceHUD.InitLyricsText(GetLyricsAtTime(practiceSongTimestamp));
             // 일단 제목으로 표시
-            practiceHUD.InitLyricsText(currentSong.title);
+            practiceHUD.InitLyricsText(currentSong.title,"");
         }
     }
 
