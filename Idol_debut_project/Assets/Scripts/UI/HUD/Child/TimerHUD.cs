@@ -16,6 +16,9 @@ public class TimerHUD : UIHUD
     private bool isRunning = false;
     public event Action OnTimerFinished;
 
+    private bool isUnder3Seconds = false;
+    private Action OnTimerUnder3Seconds;
+
     private void Start()
     {
         if (initialized)
@@ -38,7 +41,20 @@ public class TimerHUD : UIHUD
         Bind<TextMeshProUGUI>(typeof(Texts));
         TimerText = Get<TextMeshProUGUI>((int)Texts.TimerText);
 
+        OnTimerUnder3Seconds += ChangeTextColorToRed;
+
         initialized = true;
+    }
+
+    private void OnDestroy()
+    {
+        OnTimerUnder3Seconds -= ChangeTextColorToRed;
+    }
+
+    private void ChangeTextColorToRed()
+    {
+        Color red = Color.red;
+        TimerText.color = red;
     }
 
     /// <summary>
@@ -59,6 +75,12 @@ public class TimerHUD : UIHUD
         if (!isRunning) return;
         
         remainingTime -= Time.deltaTime;
+
+        if (remainingTime < 4&&isUnder3Seconds==false)
+        {
+            isUnder3Seconds = true;
+            OnTimerUnder3Seconds?.Invoke();
+        }
         
         if (remainingTime <= 0)
         {
@@ -114,4 +136,5 @@ public class TimerHUD : UIHUD
         int seconds = Mathf.FloorToInt(remainingTime % 60);
         TimerText.text = $"{minutes:00}:{seconds:00}";
     }
+    
 }

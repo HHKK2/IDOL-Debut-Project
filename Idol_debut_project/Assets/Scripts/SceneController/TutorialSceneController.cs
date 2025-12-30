@@ -170,6 +170,7 @@ public class TutorialSceneController : MonoBehaviour
     {
         currentStep = TutorialSteps.Practice;
         timerHUD = UIManager.Instance.ShowHUDUI<TimerHUD>(GameConstants.UI.HUDName.TimerHUD);
+        
         timerHUD.StartCountdown(600f);
         timerHUD.OnTimerFinished += OnTimerEnd;
 
