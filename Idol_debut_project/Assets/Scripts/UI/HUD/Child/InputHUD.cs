@@ -172,8 +172,7 @@ public class InputHUD : UIHUD
             Debug.Log("플레이어 이름, 그룹 명, 걸/보이를 포함한 모든 정보를 입력해야 함.");
             return;
         }
-        
-        InputActionFinished.Invoke(playerInfoData);
+        InputActionFinished?.Invoke(playerInfoData);
     }
     private void OnClickedDownButton(PointerEventData eventData)
     {

@@ -119,9 +119,8 @@ public class IntroFlowController : MonoBehaviour
         {
             inputHUD = UIManager.Instance.ShowHUDUI<InputHUD>(GameConstants.UI.HUDName.InputHUD);
         }
-        
-        inputHUD.gameObject.SetActive(true);
         inputHUD.InputActionFinished += OnInputConfirmed;
+        inputHUD.gameObject.SetActive(true);
     }
 
     void OnInputConfirmed(PlayerInfoData data)
@@ -157,9 +156,9 @@ public class IntroFlowController : MonoBehaviour
         {
             confirmHUD = UIManager.Instance.ShowHUDUI<ConfirmHUD>(GameConstants.UI.HUDName.ConfirmHUD);
         }
-        confirmHUD.gameObject.SetActive(true);
         confirmHUD.OnClickedYes += OnClickYes;
         confirmHUD.OnClickedNo += OnClickNo;
+        confirmHUD.gameObject.SetActive(true);
     }
 
     void CloseConfirmHUD()
@@ -168,9 +167,12 @@ public class IntroFlowController : MonoBehaviour
         {
             confirmHUD.OnClickedYes -= OnClickYes;
             confirmHUD.OnClickedNo -= OnClickNo;
-            UIManager.Instance.CloseHUDUI(GameConstants.UI.HUDName.ConfirmHUD);
-            confirmHUD = null;
+            if (confirmHUD.gameObject != null)
+            {
+                UIManager.Instance.CloseHUDUI(GameConstants.UI.HUDName.ConfirmHUD);
+            }
         }
+        confirmHUD = null;
         waitingConfirm = false;
     }
 
