@@ -73,11 +73,11 @@ public class SoundManager : AdolpSingleton<SoundManager>
     /// <summary>
     /// 효과음이 달린 오브젝트에서, 해당 함수를 호출해야함.
     /// </summary>
-    /// <param name="albumName"></param>
+    /// <param name="SFXName"></param>
     /// <param name="clip"></param>
-    public void SFXPlay(string albumName, AudioClip clip)
+    public void SFXPlay(string SFXName, AudioClip clip)
     {
-        GameObject go = new GameObject(albumName + "Sound");
+        GameObject go = new GameObject(SFXName + "Sound");
         AudioSource audioSource = go.AddComponent<AudioSource>();
         audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         audioSource.clip = clip;
