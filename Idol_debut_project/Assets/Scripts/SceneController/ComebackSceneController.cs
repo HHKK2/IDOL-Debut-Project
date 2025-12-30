@@ -6,6 +6,8 @@ public class ComebackSceneController : MonoBehaviour
 {
     public static event Action OnFinished;
 
+    private KaraokeLinePlayer karaokePlayer;
+
     private enum Phase
     {
         Intro, //실장님 컨셉 설명
@@ -134,6 +136,18 @@ public class ComebackSceneController : MonoBehaviour
 
         // 메인 메뉴 HUD
         mainMenuHUD = UIManager.Instance.ShowHUDUI<MainMenuHUD>();
+
+        // UI 초기화
+        Player player = GameManager.Instance.player;
+        TimeCycleManager time = GameManager.Instance.time;
+
+        mainMenuHUD.Init(
+            date: time.GetCurrentDateString(),   // ← 상/하반기 n월
+            groupName: player.GroupName,
+            fanNum: player.FanNumber.ToString(),
+            mental: player.GetMentalRatio(),
+            name: player.Name
+        );
 
         // 컴백 준비 상태 UI 세팅
         mainMenuHUD.CompackPrepareStarted();
@@ -314,6 +328,7 @@ public class ComebackSceneController : MonoBehaviour
 
     private void StartStagePerformance()
     {
+        
         AudioClip comebackClip = currentSong?.GetComebackClip();
         if (currentSong == null || comebackClip == null)
         {
@@ -367,6 +382,17 @@ public class ComebackSceneController : MonoBehaviour
         {
             Debug.LogWarning("[ComebackScene] VocalJudge를 찾을 수 없습니다. 결과 없이 진행합니다.");
         }
+        
+        // karaoke line player 연결
+        var karaoke = stageHUD != null ? stageHUD.GetComponentInChildren<KaraokeLinePlayer>(true) : null;
+        if (karaoke != null)
+        {
+            karaoke.Init(audioSource, currentSong.karaokeJsonAsset);
+        }
+        else
+        {
+            Debug.LogWarning("[ComebackScene] karaokeLinePlayer not found under stageHUD");
+        }
     }
 
     private void UpdateStage()
@@ -416,7 +442,7 @@ public class ComebackSceneController : MonoBehaviour
             // 현재 timestamp에 맞는 가사를 찾아서 표시해야 합니다.
             // 예시: stageHUD.InitLyricsText(GetLyricsAtTime(songTimestamp));
             // 일단 제목으로 표시
-            stageHUD.InitLyricsText(currentSong.title);
+            stageHUD.InitLyricsText(currentSong.title, "");
 
             // 관객 반응 업데이트 (VocalJudge 결과 기반)
             if (vocalJudge != null)
@@ -588,7 +614,7 @@ public class ComebackSceneController : MonoBehaviour
             // 현재 timestamp에 맞는 가사를 찾아서 표시해야 합니다.
             // 예시: practiceHUD.InitLyricsText(GetLyricsAtTime(practiceSongTimestamp));
             // 일단 제목으로 표시
-            practiceHUD.InitLyricsText(currentSong.title);
+            practiceHUD.InitLyricsText(currentSong.title, "");
         }
     }
 
@@ -649,20 +675,4 @@ public class ComebackSceneController : MonoBehaviour
     }
 }
 
-// using System;
-// using UnityEngine;
 
-// public class ComebackSceneController : MonoBehaviour
-// {
-//     public static event Action OnFinished;
-
-//     private void Update()
-//     {
-//         // 아무 키나 누르면 컴백씬 종료 테스트
-//         if (Input.anyKeyDown)
-//         {
-//             Debug.Log("[TEST] ComebackScene OnFinished invoked");
-//             OnFinished?.Invoke();
-//         }
-//     }
-// }

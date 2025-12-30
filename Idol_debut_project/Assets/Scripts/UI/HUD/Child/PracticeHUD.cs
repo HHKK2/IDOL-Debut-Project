@@ -15,7 +15,8 @@ public class PracticeHUD : UIHUD
     {
         SongTitle,
         SongTimer,
-        LyricsText
+        LyricsText,
+        NextLyricsText
     }
 
     enum Buttons
@@ -41,6 +42,7 @@ public class PracticeHUD : UIHUD
     private TextMeshProUGUI SongTitle;
     private TextMeshProUGUI SongTimer;
     private TextMeshProUGUI LyricsText;
+    private TextMeshProUGUI NextLyricsText;
 
     private Button RightButton;
     private Button LeftButton;
@@ -82,7 +84,8 @@ public class PracticeHUD : UIHUD
         SongTitle = Get<TextMeshProUGUI>((int)Texts.SongTitle);
         SongTimer = Get<TextMeshProUGUI>((int)Texts.SongTimer);
         LyricsText = Get<TextMeshProUGUI>((int)Texts.LyricsText);
-
+        NextLyricsText = Get<TextMeshProUGUI>((int)Texts.NextLyricsText);
+        
         Bind<Button>(typeof(Buttons));
         RightButton = Get<Button>((int)Buttons.RightButton);
         BindEvent(RightButton.gameObject, OnClickRightButton, GameEvents.UIEvent.Click);
@@ -133,13 +136,14 @@ public class PracticeHUD : UIHUD
     /// <summary>
     /// 가사가 한줄한줄 바뀔 때마다 호출하기
     /// </summary>
-    public void InitLyricsText(string value)
+    public void InitLyricsText(string currentText,string nextText)
     {
         if (!initialized)
         {
             EnsureInitialized();
         }
-        LyricsText.text = value;
+        LyricsText.text = currentText;
+        NextLyricsText.text = nextText;
     }
 
     /// <summary>
