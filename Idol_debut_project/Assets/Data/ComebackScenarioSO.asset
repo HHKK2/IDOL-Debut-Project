@@ -15,7 +15,7 @@ MonoBehaviour:
   entries:
   - order: 0
     maleSong:
-      songId: debut01male
+      songId: tutorial
       title: SongSOngSONg
       concept: "\uCCAD\uB7C9"
       albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
@@ -24,7 +24,7 @@ MonoBehaviour:
         inst: {fileID: 8300000, guid: adc586b97aaed914ba6174e6d439b206, type: 3}
       usedInComeback: 1
     femaleSong:
-      songId: debut01female
+      songId: tutorial
       title: SongSOngOSNg
       concept: "\uCCAD\uB7C9"
       albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
@@ -34,45 +34,45 @@ MonoBehaviour:
       usedInComeback: 1
   - order: 1
     maleSong:
-      songId: 
-      title: 
-      concept: 
-      albumCover: {fileID: 0}
+      songId: song01male
+      title: "\uC6B0\uB9AC\uC758 \uBD04"
+      concept: "\uBD04"
+      albumCover: {fileID: 21300000, guid: 776d7bbd7ae0e144087bcc7888101ea1, type: 3}
       audio:
-        original: {fileID: 0}
-        inst: {fileID: 0}
+        original: {fileID: 8300000, guid: 3a0e046169e7a1f4791a7b584db7e84b, type: 3}
+        inst: {fileID: 8300000, guid: a428d0a3ead1842429c8b30412e17f8c, type: 3}
       usedInComeback: 0
     femaleSong:
-      songId: 
-      title: 
-      concept: 
-      albumCover: {fileID: 0}
+      songId: song01female
+      title: "\uC6B0\uB9AC\uC758 \uBD04"
+      concept: "\uBD04"
+      albumCover: {fileID: 21300000, guid: 776d7bbd7ae0e144087bcc7888101ea1, type: 3}
       audio:
-        original: {fileID: 0}
-        inst: {fileID: 0}
-      usedInComeback: 0
+        original: {fileID: 8300000, guid: 3a0e046169e7a1f4791a7b584db7e84b, type: 3}
+        inst: {fileID: 8300000, guid: a428d0a3ead1842429c8b30412e17f8c, type: 3}
+      usedInComeback: 1
   - order: 2
     maleSong:
-      songId: 
-      title: 
-      concept: 
-      albumCover: {fileID: 0}
+      songId: song02male
+      title: pinkgun
+      concept: "\uC139\uC2DC"
+      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 0}
-        inst: {fileID: 0}
+        original: {fileID: 8300000, guid: 8273e27b2ea73a34fb351e9b3f700c83, type: 3}
+        inst: {fileID: 8300000, guid: 2840d5ac4be604b4fb55581fc8f41e65, type: 3}
       usedInComeback: 0
     femaleSong:
-      songId: 
-      title: 
-      concept: 
-      albumCover: {fileID: 0}
+      songId: song02female
+      title: pinkgun
+      concept: "\uC139\uC2DC"
+      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 0}
-        inst: {fileID: 0}
-      usedInComeback: 0
-  - order: 0
+        original: {fileID: 8300000, guid: 8273e27b2ea73a34fb351e9b3f700c83, type: 3}
+        inst: {fileID: 8300000, guid: 2840d5ac4be604b4fb55581fc8f41e65, type: 3}
+      usedInComeback: 1
+  - order: 3
     maleSong:
-      songId: 
+      songId: song03male
       title: 
       concept: 
       albumCover: {fileID: 0}
@@ -81,36 +81,36 @@ MonoBehaviour:
         inst: {fileID: 0}
       usedInComeback: 0
     femaleSong:
-      songId: 
-      title: 
-      concept: 
-      albumCover: {fileID: 0}
+      songId: song03female
+      title: 0303
+      concept: dd
+      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 0}
-        inst: {fileID: 0}
-      usedInComeback: 0
-  - order: 0
+        original: {fileID: 8300000, guid: 3a0e046169e7a1f4791a7b584db7e84b, type: 3}
+        inst: {fileID: 8300000, guid: a428d0a3ead1842429c8b30412e17f8c, type: 3}
+      usedInComeback: 1
+  - order: 4
     maleSong:
-      songId: 
-      title: 
-      concept: 
-      albumCover: {fileID: 0}
+      songId: song04male
+      title: 0404
+      concept: dddddd
+      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
         original: {fileID: 0}
         inst: {fileID: 0}
       usedInComeback: 0
     femaleSong:
-      songId: 
-      title: 
-      concept: 
-      albumCover: {fileID: 0}
+      songId: song04female
+      title: 0404
+      concept: dddd
+      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 0}
-        inst: {fileID: 0}
-      usedInComeback: 0
-  - order: 0
+        original: {fileID: 8300000, guid: 3a0e046169e7a1f4791a7b584db7e84b, type: 3}
+        inst: {fileID: 8300000, guid: a428d0a3ead1842429c8b30412e17f8c, type: 3}
+      usedInComeback: 1
+  - order: 5
     maleSong:
-      songId: 
+      songId: song05male
       title: 
       concept: 
       albumCover: {fileID: 0}
@@ -119,17 +119,17 @@ MonoBehaviour:
         inst: {fileID: 0}
       usedInComeback: 0
     femaleSong:
-      songId: 
-      title: 
-      concept: 
-      albumCover: {fileID: 0}
+      songId: song05female
+      title: 0505
+      concept: 5qjs
+      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 0}
-        inst: {fileID: 0}
-      usedInComeback: 0
-  - order: 0
+        original: {fileID: 8300000, guid: 3a0e046169e7a1f4791a7b584db7e84b, type: 3}
+        inst: {fileID: 8300000, guid: a428d0a3ead1842429c8b30412e17f8c, type: 3}
+      usedInComeback: 1
+  - order: 6
     maleSong:
-      songId: 
+      songId: song06male
       title: 
       concept: 
       albumCover: {fileID: 0}
@@ -138,11 +138,11 @@ MonoBehaviour:
         inst: {fileID: 0}
       usedInComeback: 0
     femaleSong:
-      songId: 
-      title: 
-      concept: 
-      albumCover: {fileID: 0}
+      songId: 0606
+      title: 0606
+      concept: 0606
+      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 0}
-        inst: {fileID: 0}
+        original: {fileID: 8300000, guid: 3a0e046169e7a1f4791a7b584db7e84b, type: 3}
+        inst: {fileID: 8300000, guid: a428d0a3ead1842429c8b30412e17f8c, type: 3}
       usedInComeback: 0
