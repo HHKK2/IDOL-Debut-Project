@@ -544,11 +544,8 @@ public class ComebackSceneController : MonoBehaviour
         // 음악 종료 체크
         if (!audioSource.isPlaying || practiceSongTimestamp >= practiceClip.length)
         {
-            // 음악이 끝나면 정지
-            if (audioSource.isPlaying)
-                audioSource.Stop();
-            isPracticePlaying = false;
-            practiceSongTimestamp = 0f;
+            ExitPractice(); //practice 끝나면 알아서 extibutton을 눌러줌. 
+            return;
         }
 
         // PracticeHUD 업데이트
@@ -628,3 +625,21 @@ public class ComebackSceneController : MonoBehaviour
         }
     }
 }
+
+// using System;
+// using UnityEngine;
+
+// public class ComebackSceneController : MonoBehaviour
+// {
+//     public static event Action OnFinished;
+
+//     private void Update()
+//     {
+//         // 아무 키나 누르면 컴백씬 종료 테스트
+//         if (Input.anyKeyDown)
+//         {
+//             Debug.Log("[TEST] ComebackScene OnFinished invoked");
+//             OnFinished?.Invoke();
+//         }
+//     }
+// }

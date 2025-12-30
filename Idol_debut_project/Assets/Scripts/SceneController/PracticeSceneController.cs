@@ -156,7 +156,7 @@ public class PracticeSceneController : MonoBehaviour
         state = PracticeState.Playing;
         playTime = 0f;
 
-        practiceHUD.SetPlayingMode();   // ⭐⭐⭐ 이 줄이 핵심
+        practiceHUD.SetPlayingMode();  
 
         practiceHUD.InitSongMMSS("00:00");
         practiceHUD.InitSongSlider(0f);
@@ -246,3 +246,21 @@ public class PracticeSceneController : MonoBehaviour
         return "Sprites/Ranks/C";
     }
 }
+
+// using System;
+// using UnityEngine;
+
+// public class PracticeSceneController : MonoBehaviour
+// {
+//     public static event Action OnFinished;
+
+//     private void Update()
+//     {
+//         // 아무 키나 누르면 컴백씬 종료 테스트
+//         if (Input.anyKeyDown)
+//         {
+//             Debug.Log("[TEST] ComebackScene OnFinished invoked");
+//             OnFinished?.Invoke();
+//         }
+//     }
+// }
