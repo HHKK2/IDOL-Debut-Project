@@ -1618,7 +1618,7 @@ GameObject:
   - component: {fileID: 1859216810462162660}
   - component: {fileID: 2001783127368076103}
   m_Layer: 5
-  m_Name: AmbumImage
+  m_Name: AlbumImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
