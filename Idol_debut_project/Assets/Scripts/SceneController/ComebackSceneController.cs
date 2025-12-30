@@ -158,6 +158,21 @@ public class ComebackSceneController : MonoBehaviour
             }
         }
 
+        // ⭐⭐⭐ 테스트용: 연습 중 Space 누르면 바로 ExitPractice TODO 삭제
+        if (phase == Phase.Practice && isPracticePlaying && Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("[TEST] Space pressed → ExitPractice()");
+            ExitPractice();
+            return;
+        }
+        // ⭐⭐ 테스트용: 컴백(무대) 중 Space → 바로 종료 TODO 삭제
+        if (phase == Phase.Stage && Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("[TEST] Space → FinishStage()");
+            FinishStage();
+            return;
+        }
+
         if (phase == Phase.Practice && isPracticePlaying)
         {
             UpdatePractice();
@@ -529,6 +544,14 @@ public class ComebackSceneController : MonoBehaviour
     public void FinishStage()
     {
         Debug.Log("[ComebackScene] Finish");
+
+        // 컴백 완료 체크: 이 곡은 컴백에 사용됨
+        if (currentSong != null)
+        {
+            currentSong.MarkUsedInComeback();
+            Debug.Log($"[ComebackScene] Marked UsedInComeback: {currentSong.title}");
+        }
+
         OnFinished?.Invoke();
     }
 

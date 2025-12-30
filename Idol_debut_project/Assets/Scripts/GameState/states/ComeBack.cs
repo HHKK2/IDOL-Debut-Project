@@ -32,7 +32,7 @@ public class ComeBack : IGameState
             return;
         }
 
-        currentSong = scenario.GetSong(comebackIndex, player.Gender);
+        currentSong = scenario.GetSong((comebackIndex+1), player.Gender);
         if (currentSong == null)
         {
             Debug.LogError($"[ComeBack] 곡 선택 실패 index={comebackIndex} gender={player.Gender}");

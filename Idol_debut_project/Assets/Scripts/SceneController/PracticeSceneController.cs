@@ -120,7 +120,7 @@ public class PracticeSceneController : MonoBehaviour
 
     // ───────────────── 버튼 처리 ─────────────────
 
-    private void OnClickRight()
+    private void OnClickLeft()
     {
         if (state != PracticeState.Selecting) return;
 
@@ -128,7 +128,7 @@ public class PracticeSceneController : MonoBehaviour
         RefreshPracticeHUD();
     }
 
-    private void OnClickLeft()
+    private void OnClickRight()
     {
         if (state != PracticeState.Selecting) return;
 
