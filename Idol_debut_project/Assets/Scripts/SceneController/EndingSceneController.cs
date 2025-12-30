@@ -7,7 +7,8 @@ public class EndingSceneController : MonoBehaviour
 {
     [Header("Refs")] 
     public DialogueSequencePlayer SequencePlayer;
-    public DialogueBackgroundController bg;
+    //public DialogueBackgroundController bg;
+    public DialogueControllerMulti controllermulti;
 
     [Header("Dialogues")] 
     public DialogueText happyDialogue;
