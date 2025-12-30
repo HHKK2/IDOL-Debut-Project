@@ -46,7 +46,7 @@ public class DialogueControllerMulti : MonoBehaviour
             typingRoutine = null;
         }
 
-        //text = DialogueTextFormatter.ResolvePlayerTokens(text);
+        text = DialogueTextFormatter.ResolvePlayerTokens(text);
         
         var player = GameManager.Instance.player;
         bool isPlayer = (speaker == null);
@@ -119,9 +119,15 @@ public class DialogueControllerMulti : MonoBehaviour
     {
         if (!target) yield break;
 
+        text = text.Replace("\\n", "\n");
         target.text = "";
         foreach (char c in text)
         {
+            if (c == '\n')
+            {
+                target.text += c;
+                continue;
+            }
             target.text += c;
             yield return new WaitForSeconds(typeSpeed);
         }

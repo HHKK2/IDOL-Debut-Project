@@ -41,8 +41,8 @@ public class StartSceneController : MonoBehaviour
     private void OnNewGame()
     {
         GameManager.Instance.ClearLoadedGame();
-        // 튜토리얼 시작
-        GameSceneManager.Instance.ChangeScene(GameScenes.TutorialScene);
+        // 인트로 시작
+        GameSceneManager.Instance.ChangeScene(GameScenes.IntroScene);
     }
 
     private void OnLoad()

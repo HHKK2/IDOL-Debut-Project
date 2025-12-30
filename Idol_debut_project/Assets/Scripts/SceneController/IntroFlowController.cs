@@ -1,24 +1,34 @@
 using System;
 using Data;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class IntroFlowController : MonoBehaviour
 {
     [Header("대사 컨트롤러 / 데이터")] 
     public DialogueControllerMulti dialogueController;
-    public DialogueText dialogueBeforeInput;
-    public DialogueText dialogueAfterInput;
+    public DialogueText dialogueBeforeInput;    // 계약서 입력 전 대사
+    public DialogueText dialogueAfterInput;     // 계약서 입력 후 컨펌 대사
+    public DialogueText dialogueRetryInput;     // 계약서 재입력 대사 (아니오, 선택 시)
+    public DialogueText dialogueAfterConfirm;   // 계약서 확정 대사 (예, 선택 시)
+
 
     [Header("배경 컨트롤러")] 
     public DialogueBackgroundController backgroundController;
     public string introBgKey = "intro_image";
-    
+
+
     private InputHUD inputHUD;
+    private ConfirmHUD confirmHUD;
 
     private DialogueText currentDialogue;
     private int index = 0;
+
     private bool waitingInput = false;
-    
+    private bool waitingConfirm = false;
+
+    private PlayerInfoData temporaryPlayerInfo;
+
 
     void Start()
     {
@@ -56,7 +66,11 @@ public class IntroFlowController : MonoBehaviour
                 }
                 continue;
             }
-            dialogueController.ShowDialogue(speaker,text);
+            dialogueController.ShowDialogue(speaker, text);
+            if (currentDialogue == dialogueAfterInput && index >= currentDialogue.paragraphs.Count)
+            {
+                ShowConfirmHUD(); 
+            }
             return;
         }
         OnDialogueBlockFinished();
@@ -64,13 +78,22 @@ public class IntroFlowController : MonoBehaviour
 
     void OnDialogueBlockFinished()
     {
+        if (currentDialogue == dialogueAfterInput)
+        {
+            return;
+        }
+
         dialogueController.HideAll();
 
         if (currentDialogue == dialogueBeforeInput)
         {
             ShowInputHUD();
         }
-        else
+        else if (currentDialogue == dialogueRetryInput)
+        {
+            ShowInputHUD();
+        }
+        else if (currentDialogue == dialogueAfterConfirm)
         {
             GameSceneManager.Instance.ChangeScene(GameScenes.TutorialScene);
         }
@@ -96,12 +119,12 @@ public class IntroFlowController : MonoBehaviour
         {
             inputHUD.InputActionFinished -= OnInputConfirmed;
             UIManager.Instance.CloseHUDUI(GameConstants.UI.HUDName.InputHUD);
-            inputHUD = null; 
+            inputHUD = null;
         }
 
         waitingInput = false;
-        
-        GameManager.Instance.player.ApplyPlayerInfo(data);
+        temporaryPlayerInfo = data;
+        GameManager.Instance.player.ApplyPlayerInfo(temporaryPlayerInfo);
 
         if (backgroundController != null)
         {
@@ -109,6 +132,53 @@ public class IntroFlowController : MonoBehaviour
         }
 
         currentDialogue = dialogueAfterInput;
+        index = 0;
+        ShowNextLine();
+    }
+
+
+    void ShowConfirmHUD()
+    {
+        waitingConfirm = true;
+
+        confirmHUD = UIManager.Instance.HUDList.Find(h => h is ConfirmHUD) as ConfirmHUD;
+        if (confirmHUD == null)
+        {
+            confirmHUD = UIManager.Instance.ShowHUDUI<ConfirmHUD>(GameConstants.UI.HUDName.ConfirmHUD);
+        }
+        confirmHUD.gameObject.SetActive(true);
+        confirmHUD.OnClickedYes += OnClickYes;
+        confirmHUD.OnClickedNo += OnClickNo;
+    }
+
+    void CloseConfirmHUD()
+    {
+        if (confirmHUD != null)
+        {
+            confirmHUD.OnClickedYes -= OnClickYes;
+            confirmHUD.OnClickedNo -= OnClickNo;
+            UIManager.Instance.CloseHUDUI(GameConstants.UI.HUDName.ConfirmHUD);
+            confirmHUD = null;
+        }
+        waitingConfirm = false;
+    }
+
+    void OnClickYes()
+    {
+        CloseConfirmHUD();
+        dialogueController.HideAll();
+
+        currentDialogue = dialogueAfterConfirm;
+        index = 0;
+        ShowNextLine();
+    }
+
+    void OnClickNo()
+    {
+        CloseConfirmHUD();
+        dialogueController.HideAll();
+
+        currentDialogue = dialogueRetryInput;
         index = 0;
         ShowNextLine();
     }

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System;
 using Data;
 using TMPro;
+// using System.Diagnostics;
 
 public class InputHUD : UIHUD
 {
@@ -50,6 +51,7 @@ public class InputHUD : UIHUD
     public Action<PlayerInfoData> InputActionFinished;
 
     private bool initialized = false;
+    private bool isGenderSelected = false;
 
     private void Start()
     {
@@ -132,30 +134,43 @@ public class InputHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+        isGenderSelected = true;
         playerInfoData.gender = Gender.MALE;
         BoyButton_Image.sprite = BoyButton_Active_Sprite;
         GirlButton_Image.sprite = GirlButton_Deactive_Sprite;
     }
-    
+
     private void OnClickedGirlButton(PointerEventData eventData)
     {
         if (!initialized)
         {
             EnsureInitialized();
         }
-        
+        isGenderSelected = true;
         playerInfoData.gender = Gender.FEMALE;
         BoyButton_Image.sprite = BoyButton_Deactive_Sprite;
         GirlButton_Image.sprite = GirlButton_Active_Sprite;
     }
-    
-    
+
+
+    private bool IsAllFieldsFilled()
+    {
+        bool hasName = !string.IsNullOrEmpty(playerInfoData.name);
+        bool hasGroupName = !string.IsNullOrEmpty(playerInfoData.groupName);
+        return hasName && hasGroupName && isGenderSelected;
+    }
+
     public void OnClickedSignButton(PointerEventData eventData)
     {
         if (!initialized)
         {
             EnsureInitialized();
+        }
+
+        while (!IsAllFieldsFilled())
+        {
+            Debug.Log("플레이어 이름, 그룹 명, 걸/보이를 포함한 모든 정보를 입력해야 함.");
+            return;
         }
         
         InputActionFinished.Invoke(playerInfoData);

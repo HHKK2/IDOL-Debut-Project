@@ -25,7 +25,10 @@ public static class GameScenes
 
     //2. 엔딩 씬
     public const string EndingScene = "EndingScene";
-    
+
     // 테스트 씬들
     public const string YujinTestScene = "YujinTestScene"; 
+    
+    // 0-0. 인트로 씬
+    public const string IntroScene = "IntroScene";
 }

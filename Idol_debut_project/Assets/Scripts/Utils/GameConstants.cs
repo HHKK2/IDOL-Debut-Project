@@ -35,7 +35,8 @@ public static class GameConstants
             public const string TimerHUD = "TimerHUD";
             public const string CombackNoticeHUD =  "CombackNoticeHUD";
             public const string InputHUD =  "InputHUD";
-            public const string StageHUD =  "StageHUD";
+            public const string StageHUD = "StageHUD";
+            public const string ConfirmHUD = "ConfirmHUD";
             
         }
         public static class SystemName
