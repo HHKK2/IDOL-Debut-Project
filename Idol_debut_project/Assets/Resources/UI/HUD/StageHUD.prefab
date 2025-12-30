@@ -1114,6 +1114,7 @@ GameObject:
   - component: {fileID: 650250905724820509}
   - component: {fileID: 7521744448989526553}
   - component: {fileID: 432932977178614031}
+  - component: {fileID: 7075955496494450896}
   m_Layer: 5
   m_Name: LyricsText
   m_TagString: Untagged
@@ -1255,6 +1256,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &7075955496494450896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5549101441502020920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abc183e1d20dc468e86552e2fd1f189d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KaraokeLinePlayer
+  lyricsText: {fileID: 7521744448989526553}
+  songAudioSource: {fileID: 0}
+  data:
+    lines: []
+  jsonAsset: {fileID: 0}
+  playerColor: {r: 0.6862745, g: 0.05882353, b: 0.98039216, a: 1}
+  aiColor: {r: 0.48235294, g: 0.49803922, b: 0.5137255, a: 1}
+  chorusColor: {r: 0, g: 0.34901962, b: 1, a: 1}
+  baseWhite: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &5569135099701811648
 GameObject:
   m_ObjectHideFlags: 0
