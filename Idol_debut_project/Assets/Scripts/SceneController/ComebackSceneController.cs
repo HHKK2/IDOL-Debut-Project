@@ -516,11 +516,11 @@ public class ComebackSceneController : MonoBehaviour
     {
         // 점수에 따라 랭크 이미지 경로 반환
         // TODO: 실제 랭크 이미지 경로 규칙에 맞게 수정 필요
-        if (score >= 90) return "Sprites/Rank/S";
-        else if (score >= 80) return "Sprites/Rank/A";
-        else if (score >= 70) return "Sprites/Rank/B";
-        else if (score >= 60) return "Sprites/Rank/C";
-        else return "Sprites/Rank/D";
+        if (score >= 90) return "Sprites/Rank/StageResultS";
+        else if (score >= 60) return "Sprites/Rank/StageResultA";
+        else if (score >= 40) return "Sprites/Rank/StageResultB";
+        else if (score >= 10) return "Sprites/Rank/StageResultC";
+        else return "Sprites/Rank/StageResultF";
     }
 
     private string FormatSongTime(float currentTime, float totalTime)
