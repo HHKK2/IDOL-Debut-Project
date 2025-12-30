@@ -51,7 +51,7 @@ public class DialogueControllerMulti : MonoBehaviour
             StopCoroutine(typingRoutine);
             typingRoutine = null;
         }
-
+        onTypingComplete = onComplete;
         text = DialogueTextFormatter.ResolvePlayerTokens(text);
         
         var player = GameManager.Instance.player;
