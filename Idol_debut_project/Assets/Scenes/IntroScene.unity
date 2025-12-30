@@ -151,6 +151,8 @@ MonoBehaviour:
   dialogueController: {fileID: 1816613777}
   dialogueBeforeInput: {fileID: 11400000, guid: 5f03944ad421845c08c5874f41c70903, type: 2}
   dialogueAfterInput: {fileID: 11400000, guid: 8396e16f45a394b6e934c484163bf939, type: 2}
+  dialogueRetryInput: {fileID: 11400000, guid: 501b144478782a7459e333f2c9733aca, type: 2}
+  dialogueAfterConfirm: {fileID: 11400000, guid: 87e9917413cc30a4db96d84c3a6d9265, type: 2}
   backgroundController: {fileID: 1524873352}
   introBgKey: intro_image
 --- !u!4 &1030565120

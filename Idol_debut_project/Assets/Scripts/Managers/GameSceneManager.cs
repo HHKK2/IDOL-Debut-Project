@@ -36,11 +36,19 @@ public class GameSceneManager : AdolpSingleton<GameSceneManager>
     // 게임 흐름
     // =========================
 
+    // 게임 시작 시 인트로 재생
+    public void StartIntro()
+    {
+        ChangeScene(GameScenes.IntroScene);
+    }
+ 
     //튜토리얼 시작 함수
-    public void StartGame()
+    public void StartTutorial()
     {
         ChangeScene(GameScenes.TutorialScene);
     }
+
+
 
     //홈화면(메인화면)으로 돌아오는 함수
     public void ReturnToHome()

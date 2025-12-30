@@ -175,8 +175,9 @@ public class UIManager: AdolpSingleton<UIManager>
     /// GameConstants.UI.HUDName.으로 허드이름 접근가능->이걸 인자로 넣기
     /// </summary>
     public void CloseHUDUI(string hudName)
-    {
-	    
+	{
+		HUDList.RemoveAll(h => h == null || h.gameObject == null);
+
 	    if (hudList.Count == 0)
 		    return;
 

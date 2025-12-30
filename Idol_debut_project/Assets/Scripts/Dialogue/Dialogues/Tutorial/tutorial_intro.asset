@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd3b27cfa3e14adc809a94ec90bf676, type: 3}
+  m_Name: tutorial_intro
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueText
+  speakers:
+  - {fileID: 11400000, guid: f37cf51a072766c42b39a80f0293f830, type: 2}
+  - {fileID: 11400000, guid: f37cf51a072766c42b39a80f0293f830, type: 2}
+  - {fileID: 11400000, guid: f37cf51a072766c42b39a80f0293f830, type: 2}
+  paragraphs:
+  - "\uB2F9\uC2E0\uC740 \uB370\uBDD4\uB97C \uC55E\uB454 \uC544\uC774\uB3CC \uADF8\uB8F9\uC758
+    \uB9AC\uB354\uC785\uB2C8\uB2E4. "
+  - "\uB370\uBDD4 \uBB34\uB300\uB97C \uD558\uAE30\uAE4C\uC9C4 \uC544\uC9C1 \uC2DC\uAC04\uC774
+    \uC788\uC2B5\uB2C8\uB2E4."
+  - "\u2018\uCEF4\uBC31\u2019 \uBC84\uD2BC\uC744 \uB20C\uB7EC \uB370\uBDD4\uACE1\uC744
+    \uD655\uC778\uD574 \uBCFC\uAE4C\uC694?"
