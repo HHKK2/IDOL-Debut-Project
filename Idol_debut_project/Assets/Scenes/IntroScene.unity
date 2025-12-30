@@ -693,6 +693,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4502657570003808240, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6773776095458009475, guid: 636f28b6c593149e3866bc443e00930b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1

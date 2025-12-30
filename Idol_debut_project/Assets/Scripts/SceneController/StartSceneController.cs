@@ -49,7 +49,7 @@ public class StartSceneController : MonoBehaviour
             {
                 GameManager.Instance.ClearLoadedGame();
                 // 튜토리얼 시작
-                GameSceneManager.Instance.ChangeScene(GameScenes.TutorialScene);
+                GameSceneManager.Instance.ChangeScene(GameScenes.IntroScene);
             };
         }
         
@@ -57,7 +57,7 @@ public class StartSceneController : MonoBehaviour
         {
             GameManager.Instance.ClearLoadedGame();
             // 튜토리얼 시작
-            GameSceneManager.Instance.ChangeScene(GameScenes.TutorialScene);
+            GameSceneManager.Instance.ChangeScene(GameScenes.IntroScene);
         }
     }
 
