@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Data;
+using System.Reflection;
 
 
 public class DialogueControllerMulti : MonoBehaviour
@@ -36,8 +37,8 @@ public class DialogueControllerMulti : MonoBehaviour
 
     private Action onTypingComplete;
     public bool IsTyping { get; private set; }
-    
-    
+
+
     // ✅ 이름 오버라이드 매개변수 추가 (기본값 null)
     public void ShowDialogue(Speaker speaker, string text, string speakerNameOverride = null, Action onComplete = null)
     {
@@ -52,9 +53,9 @@ public class DialogueControllerMulti : MonoBehaviour
         }
 
         text = DialogueTextFormatter.ResolvePlayerTokens(text);
-        
+
         onTypingComplete = onComplete;
-        
+
         var player = GameManager.Instance.player;
         bool isPlayer = (speaker == null);
 
@@ -82,7 +83,7 @@ public class DialogueControllerMulti : MonoBehaviour
             portrait = speaker.characterImage;
             pos = speaker.position;
         }
-        
+
 
         switch (pos)
         {

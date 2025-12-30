@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Data;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,8 +27,6 @@ public class IntroFlowController : MonoBehaviour
 
     private bool waitingInput = false;
     private bool waitingConfirm = false;
-
-    private PlayerInfoData temporaryPlayerInfo;
 
 
     void Start()
@@ -106,7 +105,10 @@ public class IntroFlowController : MonoBehaviour
         }
         else if (currentDialogue == dialogueAfterConfirm)
         {
-            GameSceneManager.Instance.ChangeScene(GameScenes.TutorialScene);
+            var fadeUI = UIManager.Instance.ShowSystemUI<FadeInEffectSystemUI>(GameConstants.UI.SystemName.FadeInEffectSystemUI);
+            fadeUI.FadeOut(1f, () => {
+                GameSceneManager.Instance.ChangeScene(GameScenes.TutorialScene);
+            });
         }
     }
 
@@ -127,14 +129,14 @@ public class IntroFlowController : MonoBehaviour
     {
         if (inputHUD != null)
         {
+            UnityEngine.Debug.Log($"받은 성별: {data.gender}");
             inputHUD.InputActionFinished -= OnInputConfirmed;
             UIManager.Instance.CloseHUDUI(GameConstants.UI.HUDName.InputHUD);
             inputHUD = null;
         }
 
         waitingInput = false;
-        temporaryPlayerInfo = data;
-        GameManager.Instance.player.ApplyPlayerInfo(temporaryPlayerInfo);
+        GameManager.Instance.player.ApplyPlayerInfo(data);
 
         if (backgroundController != null)
         {

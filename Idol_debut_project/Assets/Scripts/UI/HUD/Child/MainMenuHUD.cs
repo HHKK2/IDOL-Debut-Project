@@ -35,7 +35,7 @@ public class MainMenuHUD : UIHUD
 
     enum GameObjects
     {
-        ProfileBG, 
+        ProfileBG,
         BG
     }
 
@@ -77,7 +77,7 @@ public class MainMenuHUD : UIHUD
         {
             return;
         }
-        
+
         EnsureInitialized();
     }
 
@@ -118,9 +118,9 @@ public class MainMenuHUD : UIHUD
             ComebackButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/버튼_컴백_남");
         }
         KingButton = Get<Button>((int)Buttons.KingButton);
-        BindEvent(KingButton.gameObject,OnClickedKingButton ,GameEvents.UIEvent.Click);
-        
-        
+        BindEvent(KingButton.gameObject, OnClickedKingButton, GameEvents.UIEvent.Click);
+
+
         BindEvent(ComebackButton, OnClickedComebackButton, GameEvents.UIEvent.Click);
         GameObject SaveButton = Get<Button>((int)Buttons.SaveButton).gameObject;
         BindEvent(SaveButton, OnClickedSaveButton, GameEvents.UIEvent.Click);
@@ -134,18 +134,18 @@ public class MainMenuHUD : UIHUD
         GameObject BG = Get<GameObject>((int)GameObjects.BG);
         if (GameManager.Instance.player.Gender == Gender.FEMALE)
         {
-            ProfileBG.GetComponent<Image>().sprite=Resources.Load<Sprite>("Sprites/MainScreen/UI_스탯 표시_여");
+            ProfileBG.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/UI_스탯 표시_여");
             BG.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/배경_메인화면_여");
         }
         else
         {
-            ProfileBG.GetComponent<Image>().sprite=Resources.Load<Sprite>("Sprites/MainScreen/UI_스탯 표시_남");
+            ProfileBG.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/UI_스탯 표시_남");
             BG.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/배경_메인화면_남");
         }
-        
+
         initialized = true;
     }
-    
+
     private void OnClickedKingButton(PointerEventData eventData)
     {
         //TODO: 킹 팝업 띄우기
@@ -202,7 +202,7 @@ public class MainMenuHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+
         FanText.text = fanNum;
         NameText.text = name;
         GroupNameText.text = groupName;
@@ -222,7 +222,7 @@ public class MainMenuHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+
         LiveButton.interactable = false;
         DatingButton.interactable = false;
         RestButton.interactable = false;
@@ -237,7 +237,7 @@ public class MainMenuHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+
         LiveButton.interactable = false;
         DatingButton.interactable = false;
         RestButton.interactable = false;
@@ -253,11 +253,10 @@ public class MainMenuHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+
         LiveButton.interactable = true;
         DatingButton.interactable = true;
         RestButton.interactable = true;
         PracticeButton.interactable = true;
     }
-
 }

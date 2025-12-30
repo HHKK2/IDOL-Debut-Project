@@ -15,14 +15,15 @@ MonoBehaviour:
   speakers:
   - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
   - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
+  - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
   - {fileID: 0}
   - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
   - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
   - {fileID: 11400000, guid: d63692beea0d04fad95a9514ad825c98, type: 2}
   paragraphs:
   - "\u2026\uC5B4, \uC654\uB0D0."
-  - "\uC624\uB298 \uC65C \uBD88\uB800\uB294\uC9C0\uB294 \uC54C\uACE0 \uC788\uC9C0?\\n(\uAE40\uC2E4\uC7A5\uC774
-    \uC885\uC774\uB97C \uB0B4\uBC00\uC5C8\uB2E4.)"
+  - "\uC624\uB298 \uC65C \uBD88\uB800\uB294\uC9C0\uB294 \uC54C\uACE0 \uC788\uC9C0?"
+  - "(\uAE40\uC2E4\uC7A5\uC774 \uC885\uC774\uB97C \uB0B4\uBC00\uC5C8\uB2E4.)"
   - '[BG]debut_contract_image'
   - "\uB370\uBDD4 \uACC4\uC57D\uC11C\uB2E4.\\n\uB0B4\uC6A9\uC740 \uD615\uC2DD\uC801\uC774\uB2C8\uAE4C
     \uAF3C\uAF3C\uD788 \uBCFC \uD544\uC694\uB294 \uC5C6\uACE0\u2026"
