@@ -1,4 +1,5 @@
 using System;
+using System.Net.Mime;
 using UnityEngine;
 
 [Serializable]
@@ -19,6 +20,7 @@ public class ComebackSongData
     [SerializeField] private bool usedInComeback;
 
     public TextAsset karaokeJsonAsset;
+    public TextAsset scoreChartJsonAsset;
 
     // ───── 외부 접근용 ─────
     public bool UsedInComeback => usedInComeback;

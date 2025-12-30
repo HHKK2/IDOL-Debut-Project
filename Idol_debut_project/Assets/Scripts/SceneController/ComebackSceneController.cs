@@ -368,7 +368,7 @@ public class ComebackSceneController : MonoBehaviour
         countdownCoroutine = StartCoroutine(WaitForCountdownAndStartMusic());
 
         // VocalJudge 관련 초기화
-        vocalJudge = FindFirstObjectByType<VocalJudge>();
+        vocalJudge = stageHUD != null ? stageHUD.GetComponentInChildren<VocalJudge>(true) : null;
         if (vocalJudge != null)
         {
             // audioSource 연결
@@ -381,6 +381,11 @@ public class ComebackSceneController : MonoBehaviour
         else
         {
             Debug.LogWarning("[ComebackScene] VocalJudge를 찾을 수 없습니다. 결과 없이 진행합니다.");
+        }
+
+        if (vocalJudge != null && vocalJudge.scoreChart != null)
+        {
+            vocalJudge.scoreChart.Init(currentSong.scoreChartJsonAsset);
         }
         
         // karaoke line player 연결
@@ -442,7 +447,7 @@ public class ComebackSceneController : MonoBehaviour
             // 현재 timestamp에 맞는 가사를 찾아서 표시해야 합니다.
             // 예시: stageHUD.InitLyricsText(GetLyricsAtTime(songTimestamp));
             // 일단 제목으로 표시
-            stageHUD.InitLyricsText(currentSong.title, "");
+            
 
             // 관객 반응 업데이트 (VocalJudge 결과 기반)
             if (vocalJudge != null)
@@ -614,7 +619,7 @@ public class ComebackSceneController : MonoBehaviour
             // 현재 timestamp에 맞는 가사를 찾아서 표시해야 합니다.
             // 예시: practiceHUD.InitLyricsText(GetLyricsAtTime(practiceSongTimestamp));
             // 일단 제목으로 표시
-            practiceHUD.InitLyricsText(currentSong.title, "");
+            //practiceHUD.InitLyricsText(currentSong.title, "");
         }
     }
 

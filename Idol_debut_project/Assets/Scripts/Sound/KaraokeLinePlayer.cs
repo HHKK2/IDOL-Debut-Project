@@ -7,12 +7,13 @@ using UnityEngine;
 public class KaraokeLinePlayer : MonoBehaviour
 {
     public TextMeshProUGUI lyricsText;
+    public TextMeshProUGUI nextLyricsText;
     public AudioSource songAudioSource;
     [SerializeField] private KaraokeSongData data;
 
     public TextAsset jsonAsset;
 
-    private int currentLineIndex = 0;
+    private KaraokeLine lastLine;
 
     [Header("Singer Colors")]
     [SerializeField] private Color playerColor  = new Color32(0xAF, 0x0F, 0xFA, 0xFF); // AF0FFA
@@ -27,6 +28,9 @@ public class KaraokeLinePlayer : MonoBehaviour
     //     }
     // }
 
+    [Header("Next line color")] [SerializeField]
+    private Color nextLineColor = new Color32(0x7b, 0x7f, 0x83, 0xff);
+    private float nextAlpha = 0.75f;
     public void Init(AudioSource src, TextAsset json)
     {
         songAudioSource = src;
@@ -41,6 +45,8 @@ public class KaraokeLinePlayer : MonoBehaviour
 
         data = JsonUtility.FromJson<KaraokeSongData>(jsonAsset.text);
         if (lyricsText != null) lyricsText.text = "";
+        if (nextLyricsText != null) nextLyricsText.text = "";
+        lastLine = null;
     }
     private void Update()
     {
@@ -76,6 +82,23 @@ public class KaraokeLinePlayer : MonoBehaviour
             default:
                 lyricsText.text = line.text;
                 break;
+        }
+
+        if (nextLyricsText != null && !ReferenceEquals(line, lastLine))
+        {
+            lastLine = line;
+            int idx = data.lines != null ? data.lines.IndexOf(line) : -1;
+            KaraokeLine next = (idx >= 0 && idx + 1 < data.lines.Count) ? data.lines[idx + 1] : null;
+            if (next == null)
+            {
+                nextLyricsText.text = "";
+            }
+            else
+            {
+                var c = nextLineColor;
+                c.a = nextAlpha;
+                nextLyricsText.text = WrapWholeLineWithColor(next.text, c);
+            }
         }
     }
 

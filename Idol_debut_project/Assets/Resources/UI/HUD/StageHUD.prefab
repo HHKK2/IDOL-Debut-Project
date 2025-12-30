@@ -1269,6 +1269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KaraokeLinePlayer
   lyricsText: {fileID: 7521744448989526553}
+  nextLyricsText: {fileID: 6035899997688674847}
   songAudioSource: {fileID: 0}
   data:
     lines: []
@@ -1277,6 +1278,7 @@ MonoBehaviour:
   aiColor: {r: 0.48235294, g: 0.49803922, b: 0.5137255, a: 1}
   chorusColor: {r: 0, g: 0.34901962, b: 1, a: 1}
   baseWhite: {r: 1, g: 1, b: 1, a: 1}
+  nextLineColor: {r: 0.48235294, g: 0.49803922, b: 0.5137255, a: 1}
 --- !u!1 &5569135099701811648
 GameObject:
   m_ObjectHideFlags: 0

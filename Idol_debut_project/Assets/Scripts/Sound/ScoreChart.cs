@@ -15,7 +15,7 @@ public class ScoreChart : MonoBehaviour
         public int midi;
         public int tol_cents;
     }
-
+    
     [Serializable]
     public class Chart
     {
@@ -26,6 +26,13 @@ public class ScoreChart : MonoBehaviour
 
     private Chart chart;
 
+    public void Init(TextAsset chartJson)
+    {
+        scoreChartJson = chartJson;
+        curIdx = 0;
+        LoadChart();
+    }
+    
     void Awake()
     {
         LoadChart();
