@@ -28,7 +28,7 @@ def build_karaoke_lines(lyrics_lines: List[LyricsLine], notes: List[Dict[str, An
         cur_t = line_notes[0]["start"]
         for ch in chars:
             syllables.append({
-                "char": ch,
+                "ch": ch,
                 "start": cur_t,
                 "end": cur_t+dur_per_char,
             })

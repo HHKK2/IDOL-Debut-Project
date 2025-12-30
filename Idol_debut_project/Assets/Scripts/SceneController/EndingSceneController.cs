@@ -8,6 +8,7 @@ public class EndingSceneController : MonoBehaviour
     [Header("Refs")] 
     public DialogueSequencePlayer SequencePlayer;
     public DialogueBackgroundController bg;
+    
 
     [Header("Dialogues")] 
     public DialogueText happyDialogue;
@@ -54,6 +55,7 @@ public class EndingSceneController : MonoBehaviour
         // 1. 엔딩 이미지 미리 세팅 + 켜기
         ApplyEndingImage();
         endingImage.gameObject.SetActive(true);
+        
 
         // 2. 페이드 패널: 검정 화면으로 시작
         fadePanel.gameObject.SetActive(true);
