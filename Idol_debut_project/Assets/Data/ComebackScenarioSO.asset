@@ -18,21 +18,21 @@ MonoBehaviour:
       songId: debut01male
       title: SongSOngSONg
       concept: "\uCCAD\uB7C9"
-      albumCover: {fileID: 21300000, guid: 458dd46b7b8279545a9dff5a909f26ee, type: 3}
+      albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
       audio:
         original: {fileID: 8300000, guid: bb10ba8483baa460baa08c3f8c827e93, type: 3}
         inst: {fileID: 8300000, guid: adc586b97aaed914ba6174e6d439b206, type: 3}
-      usedInComeback: 0
+      usedInComeback: 1
     femaleSong:
       songId: debut01female
       title: SongSOngOSNg
       concept: "\uCCAD\uB7C9"
-      albumCover: {fileID: 21300000, guid: 458dd46b7b8279545a9dff5a909f26ee, type: 3}
+      albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
       audio:
         original: {fileID: 8300000, guid: bb10ba8483baa460baa08c3f8c827e93, type: 3}
         inst: {fileID: 8300000, guid: adc586b97aaed914ba6174e6d439b206, type: 3}
-      usedInComeback: 0
-  - order: 0
+      usedInComeback: 1
+  - order: 1
     maleSong:
       songId: 
       title: 
@@ -51,7 +51,7 @@ MonoBehaviour:
         original: {fileID: 0}
         inst: {fileID: 0}
       usedInComeback: 0
-  - order: 0
+  - order: 2
     maleSong:
       songId: 
       title: 

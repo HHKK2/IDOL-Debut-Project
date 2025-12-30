@@ -84,8 +84,10 @@ public class GameManager : AdolpSingleton<GameManager>
             time.Reset();
 
             player.Reputation = 10;
-            player.FanNumber = 4000;     // 예시
+            player.FanNumber = 4000;     // 예시 TODO : 감자 초기 스탯을 바꾸세요.
             player.MentalHealth = 100;
+
+            ResetComebackSongsExceptTutorial(); //컴백 여부 초기화
         }
 
         // 첫 상태: 행동 선택
@@ -271,5 +273,31 @@ public class GameManager : AdolpSingleton<GameManager>
     {
         CurrentComebackSong = song;
     }
+
+    //시작할 때, 노래들이 컴백했다는 것을 초기화시킵니다.
+    private void ResetComebackSongsExceptTutorial()
+    {
+        if (comebackScenario == null)
+        {
+            Debug.LogWarning("[GameManager] comebackScenario is null");
+            return;
+        }
+
+        foreach (var entry in comebackScenario.entries)
+        {
+            // order == 0 → 튜토리얼 곡이므로 스킵
+            if (entry.order == 0)
+                continue;
+
+            if (entry.maleSong != null)
+                entry.maleSong.ResetUsedInComeback();
+
+            if (entry.femaleSong != null)
+                entry.femaleSong.ResetUsedInComeback();
+        }
+
+        Debug.Log("[GameManager] Comeback songs reset (except tutorial)");
+    }
+
 
 }

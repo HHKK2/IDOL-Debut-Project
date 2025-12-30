@@ -182,14 +182,21 @@ public class UIManager: AdolpSingleton<UIManager>
 		    return;
 
 	    UIHUD targetHud = null;
-	    for (int i = 0; i < hudList.Count; i++)
-	    {
-		    if (hudList[i].gameObject.name == hudName)
-		    {
-			    targetHud = hudList[i];
-			    break;
-		    }
-	    }
+	    for (int i = hudList.Count - 1; i >= 0; i--)
+{
+    if (hudList[i] == null)
+    {
+        hudList.RemoveAt(i);
+        continue;
+    }
+
+    if (hudList[i].gameObject.name == hudName)
+    {
+        targetHud = hudList[i];
+        break;
+    }
+}
+
 
 	    if (targetHud == null)
 	    {

@@ -30,7 +30,7 @@ public class ComebackSceneController : MonoBehaviour
     private PracticeHUD practiceHUD;
     private StageHUD stageHUD;
     private StageResultHUD resultHUD;
-    
+
 
     //무대 관련
     private AudioSource audioSource;
@@ -158,6 +158,21 @@ public class ComebackSceneController : MonoBehaviour
             }
         }
 
+        // ⭐⭐⭐ 테스트용: 연습 중 Space 누르면 바로 ExitPractice TODO 삭제
+        if (phase == Phase.Practice && isPracticePlaying && Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("[TEST] Space pressed → ExitPractice()");
+            ExitPractice();
+            return;
+        }
+        // ⭐⭐ 테스트용: 컴백(무대) 중 Space → 바로 종료 TODO 삭제
+        if (phase == Phase.Stage && Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("[TEST] Space → FinishStage()");
+            FinishStage();
+            return;
+        }
+
         if (phase == Phase.Practice && isPracticePlaying)
         {
             UpdatePractice();
@@ -182,6 +197,8 @@ public class ComebackSceneController : MonoBehaviour
             currentSong.title,
             $"Sprites/AlbumCovers/{currentSong.albumCover.name}");
 
+        //practiceHUD.SetSelectingMode();
+
         practiceHUD.onClickedPracticeButton += StartPractice;
         practiceHUD.onClickedExitButton += ExitPractice;
     }
@@ -189,6 +206,8 @@ public class ComebackSceneController : MonoBehaviour
     private void StartPractice()
     {
         Debug.Log("[ComebackScene] Practice Started");
+
+        practiceHUD.SetPlayingMode();
 
         AudioClip practiceClip = currentSong?.GetPracticeClip();
         if (currentSong == null || practiceClip == null)
@@ -497,11 +516,11 @@ public class ComebackSceneController : MonoBehaviour
     {
         // 점수에 따라 랭크 이미지 경로 반환
         // TODO: 실제 랭크 이미지 경로 규칙에 맞게 수정 필요
-        if (score >= 90) return "Sprites/Rank/S";
-        else if (score >= 80) return "Sprites/Rank/A";
-        else if (score >= 70) return "Sprites/Rank/B";
-        else if (score >= 60) return "Sprites/Rank/C";
-        else return "Sprites/Rank/D";
+        if (score >= 90) return "Sprites/Rank/StageResultS";
+        else if (score >= 60) return "Sprites/Rank/StageResultA";
+        else if (score >= 40) return "Sprites/Rank/StageResultB";
+        else if (score >= 10) return "Sprites/Rank/StageResultC";
+        else return "Sprites/Rank/StageResultF";
     }
 
     private string FormatSongTime(float currentTime, float totalTime)
@@ -525,6 +544,14 @@ public class ComebackSceneController : MonoBehaviour
     public void FinishStage()
     {
         Debug.Log("[ComebackScene] Finish");
+
+        // 컴백 완료 체크: 이 곡은 컴백에 사용됨
+        if (currentSong != null)
+        {
+            currentSong.MarkUsedInComeback();
+            Debug.Log($"[ComebackScene] Marked UsedInComeback: {currentSong.title}");
+        }
+
         OnFinished?.Invoke();
     }
 
@@ -540,11 +567,8 @@ public class ComebackSceneController : MonoBehaviour
         // 음악 종료 체크
         if (!audioSource.isPlaying || practiceSongTimestamp >= practiceClip.length)
         {
-            // 음악이 끝나면 정지
-            if (audioSource.isPlaying)
-                audioSource.Stop();
-            isPracticePlaying = false;
-            practiceSongTimestamp = 0f;
+            ExitPractice(); //practice 끝나면 알아서 extibutton을 눌러줌. 
+            return;
         }
 
         // PracticeHUD 업데이트
@@ -624,3 +648,21 @@ public class ComebackSceneController : MonoBehaviour
         }
     }
 }
+
+// using System;
+// using UnityEngine;
+
+// public class ComebackSceneController : MonoBehaviour
+// {
+//     public static event Action OnFinished;
+
+//     private void Update()
+//     {
+//         // 아무 키나 누르면 컴백씬 종료 테스트
+//         if (Input.anyKeyDown)
+//         {
+//             Debug.Log("[TEST] ComebackScene OnFinished invoked");
+//             OnFinished?.Invoke();
+//         }
+//     }
+// }

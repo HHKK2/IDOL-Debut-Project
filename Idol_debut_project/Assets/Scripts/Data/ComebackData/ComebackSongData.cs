@@ -21,10 +21,18 @@ public class ComebackSongData
     // ───── 외부 접근용 ─────
     public bool UsedInComeback => usedInComeback;
 
+    //너는 이미 컴백을 했단다. 이제부터 연습하기에서 재생이 되렴.
     public void MarkUsedInComeback()
     {
         usedInComeback = true;
     }
+
+    //초기에 시작할 때 컴백했음을 전부 초기화해줍니다.
+    public void ResetUsedInComeback()
+    {
+        usedInComeback = false;
+    }
+
 
     public AudioClip GetPracticeClip()
     {

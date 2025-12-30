@@ -35,19 +35,24 @@ public class PracticeHUD : UIHUD
     public Action onClickedLeftSongButton;
     public Action onClickedPracticeButton;
     public Action onClickedExitButton;
-    
+
     private Image AlbumImage;
 
     private TextMeshProUGUI SongTitle;
     private TextMeshProUGUI SongTimer;
-    private  TextMeshProUGUI LyricsText;
-    
+    private TextMeshProUGUI LyricsText;
+
     private Button RightButton;
     private Button LeftButton;
     private Button PracticeButton;
     private Button ExitButton;
 
     private Slider SongTimerSlider;
+
+    //selecting/selected 변환
+    private GameObject Selecting;
+    private GameObject Selected;
+
 
     private bool initialized = false;
 
@@ -57,7 +62,7 @@ public class PracticeHUD : UIHUD
         {
             return;
         }
-        
+
         EnsureInitialized();
     }
 
@@ -69,41 +74,45 @@ public class PracticeHUD : UIHUD
         }
 
         base.Init();
-        
+
         Bind<Image>(typeof(Images));
         AlbumImage = Get<Image>((int)Images.AlbumImage);
-        
+
         Bind<TextMeshProUGUI>(typeof(Texts));
         SongTitle = Get<TextMeshProUGUI>((int)Texts.SongTitle);
-        SongTimer =  Get<TextMeshProUGUI>((int)Texts.SongTimer);
+        SongTimer = Get<TextMeshProUGUI>((int)Texts.SongTimer);
         LyricsText = Get<TextMeshProUGUI>((int)Texts.LyricsText);
-        
+
         Bind<Button>(typeof(Buttons));
         RightButton = Get<Button>((int)Buttons.RightButton);
         BindEvent(RightButton.gameObject, OnClickRightButton, GameEvents.UIEvent.Click);
         LeftButton = Get<Button>((int)Buttons.LeftButton);
-        BindEvent(LeftButton.gameObject, OnClickLeftButton,GameEvents.UIEvent.Click);
-        PracticeButton =  Get<Button>((int)Buttons.PracticeButton);
+        BindEvent(LeftButton.gameObject, OnClickLeftButton, GameEvents.UIEvent.Click);
+        PracticeButton = Get<Button>((int)Buttons.PracticeButton);
         BindEvent(PracticeButton.gameObject, OnClickPracticeButton, GameEvents.UIEvent.Click);
-        ExitButton =   Get<Button>((int)Buttons.ExitButton);
-        BindEvent(ExitButton.gameObject, OnClickExitButton,GameEvents.UIEvent.Click);
+        ExitButton = Get<Button>((int)Buttons.ExitButton);
+        BindEvent(ExitButton.gameObject, OnClickExitButton, GameEvents.UIEvent.Click);
 
         Bind<Slider>(typeof(Sliders));
         SongTimerSlider = Get<Slider>((int)Sliders.SongTimerSlider);
-        
+
+        Selecting = transform.Find("Selecting").gameObject;
+        Selected = transform.Find("Selected").gameObject;
+
+
         initialized = true;
     }
 
-  
+
     /// /// <param name="albumImagePath">Resources 폴더 내의 상대 경로 (확장자 제외)
     /// 예: "Sprites/AlbumCovers/MySong" (Assets/Resources/Sprites/AlbumCovers/MySong.png 일 경우)</param>
-    public void Init(string songTitle,string albumImagePath )
+    public void Init(string songTitle, string albumImagePath)
     {
         if (!initialized)
         {
             EnsureInitialized();
         }
-        
+
         AlbumImage.sprite = Resources.Load<Sprite>(albumImagePath);
         SongTitle.text = songTitle;
     }
@@ -117,7 +126,7 @@ public class PracticeHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+
         SongTimer.text = SongMMSS;
     }
 
@@ -130,7 +139,7 @@ public class PracticeHUD : UIHUD
         {
             EnsureInitialized();
         }
-         LyricsText.text = value;
+        LyricsText.text = value;
     }
 
     /// <summary>
@@ -143,27 +152,59 @@ public class PracticeHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+
         SongTimerSlider.value = value;
     }
+
+    //selectingmode
+    public void SetSelectingMode()
+    {
+        if (!initialized)
+            EnsureInitialized();
+
+        Selecting.SetActive(true);
+        Selected.SetActive(false);
+    }
+
+    //selectedmode
+    public void SetPlayingMode()
+    {
+        if (!initialized)
+            EnsureInitialized();
+
+        Selecting.SetActive(false);
+        Selected.SetActive(true);
+    }
+
+    //exitbutton 비활성화 함수
+    public void SetExitButtonActive(bool active)
+    {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+
+        ExitButton.gameObject.SetActive(active);
+    }
+
 
 
     private void OnClickRightButton(PointerEventData eventData)
     {
-        onClickedRightSongButton.Invoke();
+        onClickedRightSongButton?.Invoke();
     }
     private void OnClickLeftButton(PointerEventData eventData)
     {
-        onClickedLeftSongButton.Invoke();
+        onClickedLeftSongButton?.Invoke();
     }
     private void OnClickPracticeButton(PointerEventData eventData)
     {
-        onClickedPracticeButton.Invoke();
+        onClickedPracticeButton?.Invoke();
     }
     private void OnClickExitButton(PointerEventData eventData)
     {
-        onClickedExitButton.Invoke();
+        onClickedExitButton?.Invoke();
     }
-    
-    
+
+
 }
