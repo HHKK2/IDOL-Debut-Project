@@ -14,7 +14,8 @@ public class StageHUD : UIHUD
     enum Texts
     {
         LyricsText,
-        SongTimerText
+        SongTimerText,
+        NextLyricsText
     }
 
     enum Sliders
@@ -26,6 +27,7 @@ public class StageHUD : UIHUD
 
     private TextMeshProUGUI LyricsText;
     private TextMeshProUGUI SongTimerText;
+    private TextMeshProUGUI NextLyricsText;
     
 
     private Slider  SongTimerSlider;
@@ -59,10 +61,11 @@ public class StageHUD : UIHUD
         Bind<TextMeshProUGUI>(typeof(Texts));
         LyricsText = Get<TextMeshProUGUI>((int)Texts.LyricsText);
         SongTimerText =  Get<TextMeshProUGUI>((int)Texts.SongTimerText);
+        NextLyricsText= Get<TextMeshProUGUI>((int)Texts.NextLyricsText);
         
         Bind<Slider>(typeof(Sliders));
         SongTimerSlider = Get<Slider>((int)Sliders.SongTimerSlider);
-
+        
         initialized = true;
     }
     ///<summary>
@@ -100,13 +103,14 @@ public class StageHUD : UIHUD
     /// 가사 바꿀 때마다 호출
     /// </summary>
     /// <param name="lyricsText">음악 가사</param>
-    public void InitLyricsText(string lyricsText)
+    public void InitLyricsText(string lyricsText,string nextlyricsText)
     {
         if (!initialized)
         {
             EnsureInitialized();
         }
         LyricsText.text = lyricsText;
+        NextLyricsText.text = nextlyricsText;
     }
 
     /// <summary>

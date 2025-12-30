@@ -30,13 +30,15 @@ public class MainMenuHUD : UIHUD
         SaveButton,
         SettingButton,
         ExitButton,
-        KingButton
+        KingButton,
+        KingPopupXButton
     }
 
     enum GameObjects
     {
         ProfileBG, 
-        BG
+        BG,
+        KingPopupGameObject
     }
 
 
@@ -68,6 +70,9 @@ public class MainMenuHUD : UIHUD
     private Button RestButton;
     private Button PracticeButton;
     private Button KingButton;
+    private Button KingPopupXButton;
+    
+    private GameObject KingPopupGameObject;
 
     private bool initialized = false;
 
@@ -117,10 +122,6 @@ public class MainMenuHUD : UIHUD
         {
             ComebackButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/버튼_컴백_남");
         }
-        KingButton = Get<Button>((int)Buttons.KingButton);
-        BindEvent(KingButton.gameObject,OnClickedKingButton ,GameEvents.UIEvent.Click);
-        
-        
         BindEvent(ComebackButton, OnClickedComebackButton, GameEvents.UIEvent.Click);
         GameObject SaveButton = Get<Button>((int)Buttons.SaveButton).gameObject;
         BindEvent(SaveButton, OnClickedSaveButton, GameEvents.UIEvent.Click);
@@ -128,6 +129,10 @@ public class MainMenuHUD : UIHUD
         BindEvent(SettingButton, OnClickedSettingButton, GameEvents.UIEvent.Click);
         GameObject ExitButton = Get<Button>((int)Buttons.ExitButton).gameObject;
         BindEvent(ExitButton, OnClickedExitButton, GameEvents.UIEvent.Click);
+        KingButton = Get<Button>((int)Buttons.KingButton);
+        BindEvent(KingButton.gameObject,OnClickedKingButton ,GameEvents.UIEvent.Click);
+        KingPopupXButton=Get<Button>((int)Buttons.KingPopupXButton);
+        BindEvent(KingPopupXButton.gameObject,OnClickedKingPopupXButton,GameEvents.UIEvent.Click);
 
         Bind<GameObject>(typeof(GameObjects));
         GameObject ProfileBG = Get<GameObject>((int)GameObjects.ProfileBG);
@@ -142,13 +147,19 @@ public class MainMenuHUD : UIHUD
             ProfileBG.GetComponent<Image>().sprite=Resources.Load<Sprite>("Sprites/MainScreen/UI_스탯 표시_남");
             BG.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/배경_메인화면_남");
         }
+        KingPopupGameObject=Get<GameObject>((int)GameObjects.KingPopupGameObject);
         
         initialized = true;
     }
     
+    private void OnClickedKingPopupXButton(PointerEventData eventData)
+    {
+        KingPopupGameObject.SetActive(false);
+    }
+    
     private void OnClickedKingButton(PointerEventData eventData)
     {
-        //TODO: 킹 팝업 띄우기
+        KingPopupGameObject.SetActive(true);
     }
 
     private void OnClickedLiveButton(PointerEventData eventData)
