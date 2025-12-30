@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UIEventHandler : MonoBehaviour, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler
 {
@@ -14,6 +15,10 @@ public class UIEventHandler : MonoBehaviour, IPointerClickHandler, IDragHandler,
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Selectable selectable = GetComponent<Selectable>();
+        if (selectable != null && !selectable.interactable)
+            return;
+
         if (OnClickHandler != null)
             OnClickHandler.Invoke(eventData);
     }
