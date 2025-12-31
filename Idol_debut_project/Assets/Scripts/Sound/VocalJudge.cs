@@ -34,7 +34,7 @@ public class VocalJudge : MonoBehaviour
 
     [Range(0f, 1f)] public float badWeight = 0.55f;
 
-    [Range(0.3f, 1.0f)] public float perfectRatio = 0.75f;
+    [Range(0.3f, 1.0f)] public float perfectRatio = 0.85f;
     
     
     [Header("Audience Window")] 
@@ -110,6 +110,7 @@ public class VocalJudge : MonoBehaviour
         Debug.Log($"[VocalJudge] START id={GetInstanceID()} name={gameObject.name} active={gameObject.activeInHierarchy}");
         ResetResult();
         RecalcAudienceWindow();
+        AudienceTick();
     }
 
     void RecalcAudienceWindow()
@@ -126,6 +127,15 @@ public class VocalJudge : MonoBehaviour
 
     void Update()
     {
+        
+        audienceTimer += Time.deltaTime;
+        while (audienceTimer >= audienceUpdateIntervalSec)
+        {
+            audienceTimer -= audienceUpdateIntervalSec;
+            AudienceTick();
+
+        }
+        
         if(finished) return;
         if (audioInput == null || pitchDetector == null || vocalDetector == null || scoreChart == null)
         {
@@ -214,14 +224,6 @@ public class VocalJudge : MonoBehaviour
                      $"Perfect: {PerfectCount}, Good: {GoodCount}, Bad: {BadCount}, Miss: {MissCount}");
         }
 
-        audienceTimer += Time.deltaTime;
-        if (audienceTimer >= audienceUpdateIntervalSec)
-        {
-            audienceTimer -= audienceUpdateIntervalSec;
-            AudienceTick();
-
-        }
-        
         
 
         // note가 null이든 아니든 디버그 출력
