@@ -34,12 +34,16 @@ public class VocalJudge : MonoBehaviour
 
     [Range(0f, 1f)] public float badWeight = 0.55f;
 
-    [Range(0.3f, 1.0f)] public float perfectRatio = 0.85f;
+    [Range(0.3f, 1.0f)] public float perfectRatio = 0.95f;
     
     
     [Header("Audience Window")] 
     public float audienceWindowSec = 5f;
     public float audienceUpdateIntervalSec = 5f;
+   
+    
+    private float nextAudienceTickAtUnscaled = -1f;
+    
     
     [Header("Audience Debug")]
     public bool audienceDebugAlways = true;
@@ -88,7 +92,7 @@ public class VocalJudge : MonoBehaviour
     
     [Header("Judgement Tuning")]
     [Range(0.5f, 3.0f)]
-    public float judgementToleranceScale = 2.0f; // 1.0=원래, 1.4=널널, 1.8=더 널널
+    public float judgementToleranceScale = 4.0f; // 1.0=원래, 1.4=널널, 1.8=더 널널
 
     public int Score { get; private set; }
     public int PerfectCount { get; private set; }
@@ -110,6 +114,7 @@ public class VocalJudge : MonoBehaviour
         Debug.Log($"[VocalJudge] START id={GetInstanceID()} name={gameObject.name} active={gameObject.activeInHierarchy}");
         ResetResult();
         RecalcAudienceWindow();
+        nextAudienceTickAtUnscaled = Time.unscaledTime + audienceUpdateIntervalSec;
         AudienceTick();
     }
 
@@ -127,13 +132,16 @@ public class VocalJudge : MonoBehaviour
 
     void Update()
     {
-        
-        audienceTimer += Time.deltaTime;
-        while (audienceTimer >= audienceUpdateIntervalSec)
-        {
-            audienceTimer -= audienceUpdateIntervalSec;
-            AudienceTick();
 
+        if (nextAudienceTickAtUnscaled < 0)
+        {
+            nextAudienceTickAtUnscaled = Time.unscaledTime + audienceUpdateIntervalSec;
+        }
+
+        while (Time.unscaledTime >= nextAudienceTickAtUnscaled)
+        {
+            AudienceTick();
+            nextAudienceTickAtUnscaled += audienceUpdateIntervalSec;
         }
         
         if(finished) return;
@@ -336,7 +344,7 @@ public class VocalJudge : MonoBehaviour
         float cents = 1200f * Mathf.Abs(Mathf.Log(actualHz / expectedHz, 2f)); // log2
 
         //float cents = Mathf.Abs(actualMidi - expectedMidi) * 100.0f;
-        int basetol = note.tol_cents > 0 ? note.tol_cents : 200;
+        int basetol = note.tol_cents > 0 ? note.tol_cents : 300;
 
         float tolScale = judgementToleranceScale;
         float tol = basetol * tolScale;
@@ -359,10 +367,17 @@ public class VocalJudge : MonoBehaviour
             AddWindowSample(JudgeKind.Good);
             Debug.Log($"[Judge] ✓ Good | Score: {Score - 10} → {Score} | GoodCount: {GoodCount}");
         }
+        else if (cents <= tol / 50)
+        {
+            LastJudgement = "Good";
+            Score += 0;
+            GoodCount++;
+            AddWindowSample(JudgeKind.Good);
+        }
         else
         {
             LastJudgement = "Bad";
-            Score -= 10;
+            Score -= 5;
             BadCount++;
             AddWindowSample(JudgeKind.Bad);
             Debug.Log($"[Judge] ✗ Bad | Score: {Score + 10} → {Score} | BadCount: {BadCount}");
