@@ -15,6 +15,11 @@ public class SaveManager : AdolpSingleton<SaveManager>
         return File.Exists(SavePath);
     }
 
+    public void DeleteSave()
+    {
+        File.Delete(SavePath);
+    }
+
     public void Save()
     {
         Debug.Log($"Save Path: {SavePath}");

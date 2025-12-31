@@ -278,7 +278,6 @@ public class GameManager : AdolpSingleton<GameManager>
     public void ClearLoadedGame()
     {
         IsLoadedGame = false;
-
     }
 
     public void ResumeFromLoad()
