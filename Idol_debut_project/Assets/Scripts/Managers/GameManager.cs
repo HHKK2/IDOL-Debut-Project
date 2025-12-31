@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -44,6 +45,8 @@ public class GameManager : AdolpSingleton<GameManager>
     //isLoad 사용 여부
     public bool IsLoadedGame { get; private set; }
 
+    [Header("Twitter Database")]
+    [SerializeField] private TwitterDatabaseSO twitterDatabase;
 
     protected override void Awake()
     {
@@ -57,7 +60,26 @@ public class GameManager : AdolpSingleton<GameManager>
         gsm = new GameStateMachine();
 
         EndingSceneController.OnFinished += OnEndingSceneFinished;
+        
+        player.OnNameOrGroupChanged += OnPlayerNameOrGroupChanged;
+
     }
+
+    private void OnDestroy()
+    {
+        EndingSceneController.OnFinished -= OnEndingSceneFinished;
+        
+        player.OnNameOrGroupChanged -= OnPlayerNameOrGroupChanged;
+    }
+
+    private void OnPlayerNameOrGroupChanged()
+    {
+        if (twitterDatabase != null)
+        {
+            twitterDatabase.SetPlayerAndGroupName();
+        }
+    }
+
 
 
     private void Update()

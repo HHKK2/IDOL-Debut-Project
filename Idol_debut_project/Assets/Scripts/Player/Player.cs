@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Data;
 
@@ -11,10 +12,16 @@ public class Player
     private string groupName; //그룹명
     private bool canDating = true; //연애 가능 여부 플래그 변수
 
+    public event Action OnNameOrGroupChanged;
+    
     public string Name
     {
         get { return name; }
-        set { name = value; }
+        set
+        {
+            name = value; 
+            OnNameOrGroupChanged?.Invoke();
+        }
     }
 
     public Gender Gender
@@ -43,7 +50,11 @@ public class Player
     public string GroupName
     {
         get { return groupName; }
-        set { groupName = value; }
+        set
+        {
+            groupName = value; 
+            OnNameOrGroupChanged?.Invoke();
+        }
     }
 
     public bool CanDating

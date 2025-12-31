@@ -716,6 +716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   dispatchCount: 0
   comebackScenario: {fileID: 11400000, guid: 53f3f9281a49f5f4182aea79d6c57561, type: 2}
+  twitterDatabase: {fileID: 11400000, guid: ea265f87a5520bd4489d86a4bb2ec123, type: 2}
 --- !u!4 &1551202496
 Transform:
   m_ObjectHideFlags: 0

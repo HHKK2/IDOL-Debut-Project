@@ -18,7 +18,8 @@ public class IntroFlowController : MonoBehaviour
     public DialogueBackgroundController backgroundController;
     public string introBgKey = "intro_image";
 
-
+    
+    
     private InputHUD inputHUD;
     private ConfirmHUD confirmHUD;
 
