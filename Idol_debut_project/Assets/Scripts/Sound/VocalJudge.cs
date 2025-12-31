@@ -26,12 +26,12 @@ public class VocalJudge : MonoBehaviour
     private bool finished = false;
 
     [Header("Score Normalization")] 
-    [Range(0f, 1f)] public float goodWeight = 0.70f;
+    [Range(0f, 1f)] public float goodWeight = 1.0f;
 
     [Range(0f, 1f)] public float badWeight = 0.20f;
 
-    public float missPenaltyWeight = 1.0f;
-    public float silentPenaltyWeight = 1.5f;
+    public float missPenaltyWeight = 0.4f;
+    public float silentPenaltyWeight = 0.5f;
     public int PitchScore100 { get; private set; }
     public int Penalty100 { get; private set; }
     public int FinalScore100 { get; private set; }
@@ -54,7 +54,7 @@ public class VocalJudge : MonoBehaviour
             return;
         }
 
-        float raw = (PerfectCount * 1.0f) + (GoodCount * goodWeight) + (BadCount * badWeight);
+        float raw = (PerfectCount * 1.5f) + (GoodCount * goodWeight) + (BadCount * badWeight);
         float pitchAcc = (raw / pitchTrials) * 100.0f;
         PitchScore100 = Mathf.Clamp(Mathf.RoundToInt(pitchAcc), 0, 100);
 
@@ -92,13 +92,26 @@ public class VocalJudge : MonoBehaviour
         Debug.Log($"[VocalJudge] START id={GetInstanceID()} name={gameObject.name} active={gameObject.activeInHierarchy}");
         ResetResult();
         maxSamplesPerWindow = Mathf.Max(1, Mathf.RoundToInt(audienceWindowSec / judgeIntervalSec));
+        
+        // PitchDetector의 sampleRate를 AudioInput과 동기화
+        if (audioInput != null && pitchDetector != null)
+        {
+            pitchDetector.sampleRate = audioInput.sampleRate;
+            Debug.Log($"[VocalJudge] PitchDetector sampleRate 동기화: {pitchDetector.sampleRate}");
+        }
     }
 
     void Update()
     {
         if(finished) return;
         if (audioInput == null || pitchDetector == null || vocalDetector == null || scoreChart == null)
+        {
+            Debug.LogWarning("[VocalJudge] 컴포넌트가 null입니다! audioInput=" + (audioInput != null) + 
+                            " pitchDetector=" + (pitchDetector != null) + 
+                            " vocalDetector=" + (vocalDetector != null) + 
+                            " scoreChart=" + (scoreChart != null));
             return;
+        }
 
         // 시간 업데이트
         if (useAudioSourceTime && songAudioSource != null)
@@ -125,16 +138,25 @@ public class VocalJudge : MonoBehaviour
         // 오디오 프레임 받기
         float[] frame;
         if (!audioInput.TryGetFrame(out frame))
+        {
+            Debug.LogWarning("[VocalJudge] 마이크 입력 실패! IsReady=" + audioInput.IsReady);
             return;
+        }
 
         // 보컬 활동 감지
         vocalDetector.Analyze(frame);
 
         // 보컬일 때만 pitch 분석 (null 넣지 말자)
         if (vocalDetector.IsVocalActive)
+        {
             pitchDetector.Analyze(frame);
+            Debug.Log($"[VocalJudge] 보컬 감지: IsVocalActive={vocalDetector.IsVocalActive}, RMS={vocalDetector.LastRms:F4}, " +
+                     $"MIDI={pitchDetector.LastMidi:F2}, Hz={pitchDetector.LastF0Hz:F1}, Confidence={pitchDetector.Confidence:F2}");
+        }
         else
-            pitchDetector.Reset(); // PitchDetector에 Reset() 만들어두는 걸 추천
+        {
+            pitchDetector.Reset();
+        }
 
         // 판정은 매 프레임 말고 N초마다
         judgeTimer += Time.deltaTime;
@@ -143,21 +165,45 @@ public class VocalJudge : MonoBehaviour
 
         // 현재 노트 찾기
         ScoreChart.Note note = scoreChart.GetNoteAtTime(songTimeSec);
+        
+        if (note != null)
+        {
+            Debug.Log($"[VocalJudge] 현재 노트: midi={note.midi}, tol_cents={note.tol_cents}, time={songTimeSec:F2}");
+        }
+
+        // 판정 전 상태 저장
+        int scoreBefore = Score;
+        int perfectBefore = PerfectCount;
+        int goodBefore = GoodCount;
+        int badBefore = BadCount;
+        int missBefore = MissCount;
+        string judgementBefore = LastJudgement;
 
         // 판정
         Judge(note);
+
+        // 판정 후 값 변화 확인
+        if (Score != scoreBefore || PerfectCount != perfectBefore || 
+            GoodCount != goodBefore || BadCount != badBefore || MissCount != missBefore)
+        {
+            Debug.Log($"[VocalJudge] ⭐ 판정 결과: {LastJudgement} | " +
+                     $"Score: {scoreBefore} → {Score} ({Score - scoreBefore:+0;-0}) | " +
+                     $"Perfect: {PerfectCount}, Good: {GoodCount}, Bad: {BadCount}, Miss: {MissCount}");
+        }
 
         audienceTimer += judgeIntervalSec;
         if (audienceTimer >= audienceUpdateIntervalSec)
         {
             audienceTimer = 0f;
+            AudianceData.EAudianceFeeling feelingBefore = Feeling;
             var feeling = CalculateWindowFeeling();
-            if (logDebug)
+            Feeling = feeling;
+            
+            if (feelingBefore != feeling)
             {
-                Debug.Log($"[AudienceWindow] t={songTimeSec:F2}s feeling={feeling} " +
-                          $"windowSec={audienceWindowSec:F1} updateEvery={audienceUpdateIntervalSec:F1}s " +
-                          $"samples={windowSamples.Count}");
+                Debug.Log($"[VocalJudge] 🎭 Feeling 업데이트: {feelingBefore} → {feeling} | windowSamples.Count={windowSamples.Count}");
             }
+            
             OnAudienceFeelingUpdated?.Invoke(feeling);
         }
 
@@ -214,6 +260,7 @@ public class VocalJudge : MonoBehaviour
                 Score -= 6;
                 SilentPenaltyCount++;
                 AddWindowSample(JudgeKind.SilentPenalty);
+                Debug.Log($"[Judge] ⚠️ 페널티: 노트 없는데 소리냄 | Score: {Score + 6} → {Score}");
             }
             else
             {
@@ -229,6 +276,7 @@ public class VocalJudge : MonoBehaviour
             Score -= 4;
             MissCount++;
             AddWindowSample(JudgeKind.Miss);
+            Debug.Log($"[Judge] ❌ Miss: 노트 있는데 조용함 | Score: {Score + 4} → {Score}");
             return;
         }
 
@@ -238,6 +286,7 @@ public class VocalJudge : MonoBehaviour
             LastJudgement = "Uncertain";
             Score -= 1;
             BadCount++;
+            Debug.Log($"[Judge] ⚠️ Uncertain: Confidence 낮음 ({pitchDetector.Confidence:F2}) | Score: {Score + 1} → {Score}");
             return;
         }
 
@@ -248,12 +297,15 @@ public class VocalJudge : MonoBehaviour
         float cents = Mathf.Abs(actualMidi - expectedMidi) * 1.0f;
         int tol = note.tol_cents > 0 ? note.tol_cents : 80;
 
+        Debug.Log($"[Judge] 음높이 비교: 기대={expectedMidi:F2}, 실제={actualMidi:F2}, 차이={cents:F2}센트, 허용={tol}센트");
+
         if (cents <= tol*0.5f)
         {
             LastJudgement = "Perfect";
             Score += 20;
             PerfectCount++;
             AddWindowSample(JudgeKind.Perfect);
+            Debug.Log($"[Judge] ✅ Perfect! | Score: {Score - 20} → {Score} | PerfectCount: {PerfectCount}");
         }
         else if (cents <= tol)
         {
@@ -261,6 +313,7 @@ public class VocalJudge : MonoBehaviour
             Score += 10;
             GoodCount++;
             AddWindowSample(JudgeKind.Good);
+            Debug.Log($"[Judge] ✓ Good | Score: {Score - 10} → {Score} | GoodCount: {GoodCount}");
         }
         else
         {
@@ -268,6 +321,7 @@ public class VocalJudge : MonoBehaviour
             Score -= 10;
             BadCount++;
             AddWindowSample(JudgeKind.Bad);
+            Debug.Log($"[Judge] ✗ Bad | Score: {Score + 10} → {Score} | BadCount: {BadCount}");
         }
     }
 
@@ -372,6 +426,7 @@ public class VocalJudge : MonoBehaviour
         int trials = wPerfect + wGood + wBad + wMiss;
         if (trials <= 0)
         {
+            Debug.Log("[CalculateWindowFeeling] 판정 데이터 없음 → Bad");
             return AudianceFeelingUtil.FromScore100(0);
         }
 
@@ -385,7 +440,13 @@ public class VocalJudge : MonoBehaviour
         float final = pitchAcc - penaltyRate;
         int final100 = Mathf.Clamp(Mathf.RoundToInt(final), 0, 100);
 
-        return AudianceFeelingUtil.FromScore100(final100);
+        AudianceData.EAudianceFeeling feeling = AudianceFeelingUtil.FromScore100(final100);
+        Debug.Log($"[CalculateWindowFeeling] 최근 5초 판정: " +
+                 $"Perfect={wPerfect}, Good={wGood}, Bad={wBad}, Miss={wMiss}, Silent={wSilent} | " +
+                 $"정확도={pitchAcc:F1}%, 페널티={penaltyRate:F1}% | " +
+                 $"최종점수={final100} → Feeling={feeling}");
+
+        return feeling;
     }
 
 }
