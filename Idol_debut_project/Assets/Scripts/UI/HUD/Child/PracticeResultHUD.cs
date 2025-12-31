@@ -81,9 +81,22 @@ public class PracticeResultHUD : UIHUD
         {
             EnsureInitialized();
         }
-        
+
         RankImage.sprite = Resources.Load<Sprite>(rankImagePath);
         AlbumImage.sprite = Resources.Load<Sprite>(albumImagePath);
+        ScoreText.text = scoreText;
+        ResultText.text = $"{albumNth}번째 앨범 <{songName}> 연습 결과";
+    }
+    
+    public void InitWithSprite(Sprite rankSprite, Sprite albumCover, string scoreText, string albumNth, string songName)
+    {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        
+        RankImage.sprite = rankSprite;
+        AlbumImage.sprite = albumCover;
         ScoreText.text = scoreText;
         ResultText.text = $"{albumNth}번째 앨범 <{songName}> 연습 결과";
     }

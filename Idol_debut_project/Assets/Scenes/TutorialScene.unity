@@ -211,6 +211,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &935393982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 935393984}
+  - component: {fileID: 935393983}
+  m_Layer: 0
+  m_Name: KaraokeLinePlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &935393983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935393982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abc183e1d20dc468e86552e2fd1f189d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KaraokeLinePlayer
+  lyricsText: {fileID: 0}
+  nextLyricsText: {fileID: 0}
+  songAudioSource: {fileID: 0}
+  data:
+    lines: []
+  jsonAsset: {fileID: 0}
+  playerColor: {r: 0.6862745, g: 0.05882353, b: 0.98039216, a: 1}
+  aiColor: {r: 0.48235294, g: 0.49803922, b: 0.5137255, a: 1}
+  chorusColor: {r: 0, g: 0.34901962, b: 1, a: 1}
+  baseWhite: {r: 1, g: 1, b: 1, a: 1}
+  nextLineColor: {r: 0.48235294, g: 0.49803922, b: 0.5137255, a: 1}
+--- !u!4 &935393984
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935393982}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1237.176, y: 306.8017, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1005273365 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5636871555777940258, guid: d0b6881de2b824c048ee9d974c7aaf94, type: 3}
@@ -262,6 +317,8 @@ MonoBehaviour:
   dateNarration: {fileID: 11400000, guid: 62d5c08775d678946b3edd21295696ea, type: 2}
   fanserviceNarration: {fileID: 11400000, guid: 18474ecac852a124cbbc7907eae23e56, type: 2}
   calendarNarration: {fileID: 11400000, guid: dd4353d1f9e6d054ca02463c853f381d, type: 2}
+  comebackScenario: {fileID: 11400000, guid: 53f3f9281a49f5f4182aea79d6c57561, type: 2}
+  karaokePlayer: {fileID: 935393983}
 --- !u!4 &1015514901
 Transform:
   m_ObjectHideFlags: 0
@@ -779,3 +836,4 @@ SceneRoots:
   - {fileID: 1015514901}
   - {fileID: 1028182988}
   - {fileID: 1863471768}
+  - {fileID: 935393984}

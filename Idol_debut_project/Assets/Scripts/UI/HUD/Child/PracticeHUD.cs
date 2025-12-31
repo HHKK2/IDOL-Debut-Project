@@ -119,6 +119,17 @@ public class PracticeHUD : UIHUD
         AlbumImage.sprite = Resources.Load<Sprite>(albumImagePath);
         SongTitle.text = songTitle;
     }
+
+    public void InitWithSprite(string songTitle, Sprite albumCover)
+    {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+
+        AlbumImage.sprite = albumCover;
+        SongTitle.text = songTitle;
+    } 
     /// <summary>
     /// update에서 호출하기
     /// </summary>

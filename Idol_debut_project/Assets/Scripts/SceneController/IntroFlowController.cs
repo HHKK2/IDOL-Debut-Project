@@ -108,7 +108,7 @@ public class IntroFlowController : MonoBehaviour
         {
             var fadeUI = UIManager.Instance.ShowSystemUI<FadeInEffectSystemUI>(GameConstants.UI.SystemName.FadeInEffectSystemUI);
             fadeUI.FadeOut(1f, () => {
-                GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
+                GameSceneManager.Instance.ChangeScene(GameScenes.TutorialScene);
             });
         }
     }
