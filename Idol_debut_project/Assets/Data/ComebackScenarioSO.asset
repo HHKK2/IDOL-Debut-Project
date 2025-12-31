@@ -15,134 +15,162 @@ MonoBehaviour:
   entries:
   - order: 0
     maleSong:
-      songId: tutorial
-      title: SongSOngSONg
-      concept: "\uCCAD\uB7C9"
+      songId: trainee
+      title: "\uC5F0\uC2B5\uACE1"
+      concept: "\uC5B4\uCFE0\uC2A4\uD2F1\uD31D"
       albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
       audio:
-        original: {fileID: 8300000, guid: bb10ba8483baa460baa08c3f8c827e93, type: 3}
-        inst: {fileID: 8300000, guid: adc586b97aaed914ba6174e6d439b206, type: 3}
+        original: {fileID: 8300000, guid: 39ee18de3f8c5d448a85d431828ec738, type: 3}
+        inst: {fileID: 8300000, guid: f29850912e77ff64998594ec46fb2bf1, type: 3}
       usedInComeback: 1
+      karaokeJsonAsset: {fileID: 4900000, guid: a4a614378746f4460a738685cab96b3c, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: 38a6e6dc3f4524a8aa00425d976e9fa6, type: 3}
     femaleSong:
-      songId: tutorial
-      title: SongSOngOSNg
-      concept: "\uCCAD\uB7C9"
+      songId: trainee
+      title: "\uC5F0\uC2B5\uACE1"
+      concept: "\uC5B4\uCFE0\uC2A4\uD2F1\uD31D"
       albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
       audio:
-        original: {fileID: 8300000, guid: bb10ba8483baa460baa08c3f8c827e93, type: 3}
-        inst: {fileID: 8300000, guid: adc586b97aaed914ba6174e6d439b206, type: 3}
+        original: {fileID: 8300000, guid: 39ee18de3f8c5d448a85d431828ec738, type: 3}
+        inst: {fileID: 8300000, guid: f29850912e77ff64998594ec46fb2bf1, type: 3}
       usedInComeback: 1
+      karaokeJsonAsset: {fileID: 4900000, guid: a4a614378746f4460a738685cab96b3c, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: 38a6e6dc3f4524a8aa00425d976e9fa6, type: 3}
   - order: 1
     maleSong:
       songId: song01male
-      title: "\uC6B0\uB9AC\uC758 \uBD04"
-      concept: "\uBD04"
+      title: i'm insane
+      concept: "\uC560\uC808"
       albumCover: {fileID: 21300000, guid: 776d7bbd7ae0e144087bcc7888101ea1, type: 3}
       audio:
-        original: {fileID: 8300000, guid: 3a0e046169e7a1f4791a7b584db7e84b, type: 3}
-        inst: {fileID: 8300000, guid: a428d0a3ead1842429c8b30412e17f8c, type: 3}
-      usedInComeback: 0
+        original: {fileID: 8300000, guid: ff5383e97f7dbd545b961978e679b1a6, type: 3}
+        inst: {fileID: 8300000, guid: e45f1b513ada6ce45b354c44ef5f5dde, type: 3}
+      usedInComeback: 1
+      karaokeJsonAsset: {fileID: 4900000, guid: 2757edd196e8f4c92a4179321d3ab4bb, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: 0178b81cf1301473ca02bef36eafda65, type: 3}
     femaleSong:
       songId: song01female
       title: "\uC6B0\uB9AC\uC758 \uBD04"
-      concept: "\uBD04"
+      concept: "\uC544\uB828"
       albumCover: {fileID: 21300000, guid: 776d7bbd7ae0e144087bcc7888101ea1, type: 3}
       audio:
-        original: {fileID: 8300000, guid: 3a0e046169e7a1f4791a7b584db7e84b, type: 3}
-        inst: {fileID: 8300000, guid: a428d0a3ead1842429c8b30412e17f8c, type: 3}
-      usedInComeback: 1
+        original: {fileID: 8300000, guid: 169d54152353a7249baeb811ddf36dfa, type: 3}
+        inst: {fileID: 8300000, guid: 034cbe597a1b8214a9d537bba6e09a07, type: 3}
+      usedInComeback: 0
+      karaokeJsonAsset: {fileID: 4900000, guid: 7a5e9beda833c45589a20d28eb1c9657, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: bd9ed546153534fe48d06bb70cad1033, type: 3}
   - order: 2
     maleSong:
       songId: song02male
-      title: pinkgun
-      concept: "\uC139\uC2DC"
+      title: overdrive
+      concept: "\uCCAD\uB7C9"
       albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 8300000, guid: 8273e27b2ea73a34fb351e9b3f700c83, type: 3}
-        inst: {fileID: 8300000, guid: 2840d5ac4be604b4fb55581fc8f41e65, type: 3}
+        original: {fileID: 8300000, guid: 76a204452d740304d9966f128a8fab78, type: 3}
+        inst: {fileID: 8300000, guid: cfb12a3f28104aa409984fb72b55b306, type: 3}
       usedInComeback: 0
+      karaokeJsonAsset: {fileID: 4900000, guid: 136a7b8d0b9fd4164b12037cd17faf7e, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: f2e0ffd0a8a27415d8631768164474f3, type: 3}
     femaleSong:
       songId: song02female
-      title: pinkgun
+      title: Pink Gun
       concept: "\uC139\uC2DC"
       albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 8300000, guid: 8273e27b2ea73a34fb351e9b3f700c83, type: 3}
-        inst: {fileID: 8300000, guid: 2840d5ac4be604b4fb55581fc8f41e65, type: 3}
-      usedInComeback: 1
+        original: {fileID: 8300000, guid: f8fde40899416cd42af9ac4e5a35bda4, type: 3}
+        inst: {fileID: 8300000, guid: f6e37a1a6e9b83849ab97ae1f6410e18, type: 3}
+      usedInComeback: 0
+      karaokeJsonAsset: {fileID: 4900000, guid: 15e2ad6b05889498b81f388a3b66c6be, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: 0e5b390f0da3b4521afc545d05b64a89, type: 3}
   - order: 3
     maleSong:
       songId: song03male
-      title: 
-      concept: 
-      albumCover: {fileID: 0}
+      title: FEVER
+      concept: R&B
+      albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
       audio:
-        original: {fileID: 0}
-        inst: {fileID: 0}
+        original: {fileID: 8300000, guid: 31bc9a02ce993494abb5501c2ca7f14d, type: 3}
+        inst: {fileID: 8300000, guid: 6613a8c2164e6644f948974b93ffb473, type: 3}
       usedInComeback: 0
+      karaokeJsonAsset: {fileID: 4900000, guid: 459f3d75c275e4799ab9fb5ffe5a3516, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: 6e453f8b757f24b18906bb5194a7467d, type: 3}
     femaleSong:
       songId: song03female
-      title: 0303
-      concept: dd
+      title: Sweet Sour Love
+      concept: "\uCCAD\uB7C9"
       albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 8300000, guid: 3a0e046169e7a1f4791a7b584db7e84b, type: 3}
-        inst: {fileID: 8300000, guid: a428d0a3ead1842429c8b30412e17f8c, type: 3}
-      usedInComeback: 1
+        original: {fileID: 8300000, guid: c1a8e041ac75c0741a0df9940f4959c0, type: 3}
+        inst: {fileID: 8300000, guid: 85e64d59377bf2a41a77639cdc79fac2, type: 3}
+      usedInComeback: 0
+      karaokeJsonAsset: {fileID: 4900000, guid: 552433e69fc474bca890412362fec160, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: 1d294623cca2e4e1daf0bb4445d16d8e, type: 3}
   - order: 4
     maleSong:
       songId: song04male
-      title: 0404
-      concept: dddddd
+      title: When End
+      concept: "\uBC1C\uB77C\uB4DC"
       albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 0}
-        inst: {fileID: 0}
+        original: {fileID: 8300000, guid: 2bfaea50f0d40ee4ca59ed9c8528e2ab, type: 3}
+        inst: {fileID: 8300000, guid: 399bbaac510d0ab45a9b54411df5d358, type: 3}
       usedInComeback: 0
+      karaokeJsonAsset: {fileID: 4900000, guid: 54ce53c2025ab45ca9e8c3b8ee404002, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: 8206f80027f27455185dbc7e5a66cfc5, type: 3}
     femaleSong:
       songId: song04female
-      title: 0404
-      concept: dddd
+      title: SleepWalking
+      concept: "\uBABD\uD658"
       albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 8300000, guid: 3a0e046169e7a1f4791a7b584db7e84b, type: 3}
-        inst: {fileID: 8300000, guid: a428d0a3ead1842429c8b30412e17f8c, type: 3}
-      usedInComeback: 1
+        original: {fileID: 8300000, guid: 606a764729bbb6846aa00012b461a7d1, type: 3}
+        inst: {fileID: 8300000, guid: 920d630aebeca4848a32358ecb81b558, type: 3}
+      usedInComeback: 0
+      karaokeJsonAsset: {fileID: 4900000, guid: 03ecdb8fdd12e497eb7f2895835951c0, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: 9d2ec52262d944e90a0e8f204070abc1, type: 3}
   - order: 5
     maleSong:
       songId: song05male
-      title: 
-      concept: 
-      albumCover: {fileID: 0}
+      title: Algorithm
+      concept: "\uCCAD\uB7C9\uBC34\uB4DC"
+      albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
       audio:
-        original: {fileID: 0}
-        inst: {fileID: 0}
+        original: {fileID: 8300000, guid: 254ed9f754faa4841a2a2ae3b2840f69, type: 3}
+        inst: {fileID: 8300000, guid: 33e606d375422c840adc883ae0857149, type: 3}
       usedInComeback: 0
+      karaokeJsonAsset: {fileID: 4900000, guid: c8de6356c4f6f4a0ba33fdb3529670bb, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: e8c3bf001a8f94add95cf13e426b052a, type: 3}
     femaleSong:
       songId: song05female
-      title: 0505
-      concept: 5qjs
+      title: "\uAE30\uB2E4\uB824\uC918"
+      concept: "\uCCAD\uB7C9"
       albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 8300000, guid: 3a0e046169e7a1f4791a7b584db7e84b, type: 3}
-        inst: {fileID: 8300000, guid: a428d0a3ead1842429c8b30412e17f8c, type: 3}
-      usedInComeback: 1
+        original: {fileID: 8300000, guid: cbbe28874d8309a488e666c3a8e03119, type: 3}
+        inst: {fileID: 8300000, guid: dc185aa1fc14e9e418a00bcf6c4aa614, type: 3}
+      usedInComeback: 0
+      karaokeJsonAsset: {fileID: 4900000, guid: 146ca0a38e5564fae80249d790602eba, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: d5c8a8b692b4e41d9b3c350a770a7c2d, type: 3}
   - order: 6
     maleSong:
       songId: song06male
-      title: 
-      concept: 
-      albumCover: {fileID: 0}
+      title: King
+      concept: "\uBC85\uCC28\uC624\uB984"
+      albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
       audio:
-        original: {fileID: 0}
-        inst: {fileID: 0}
+        original: {fileID: 8300000, guid: 14a794f86a15d734abd8d1ad97202f34, type: 3}
+        inst: {fileID: 8300000, guid: f9fd545925e3f3648990784dbd908b38, type: 3}
       usedInComeback: 0
+      karaokeJsonAsset: {fileID: 4900000, guid: 39e953ffb4da14ff78c2ee1e5f23ed51, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: a5ee201defbe94114b954b27aedf202d, type: 3}
     femaleSong:
-      songId: 0606
-      title: 0606
-      concept: 0606
+      songId: song06female
+      title: Dreamers
+      concept: "\uB4DC\uB9BC\uD31D"
       albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
       audio:
-        original: {fileID: 8300000, guid: 3a0e046169e7a1f4791a7b584db7e84b, type: 3}
-        inst: {fileID: 8300000, guid: a428d0a3ead1842429c8b30412e17f8c, type: 3}
+        original: {fileID: 8300000, guid: 6532a0b4d2447da44af913cf227c6592, type: 3}
+        inst: {fileID: 8300000, guid: 00e207fce556f74488d6e511649d9c65, type: 3}
       usedInComeback: 0
+      karaokeJsonAsset: {fileID: 4900000, guid: bbec1c3ee23184ef188d9e403f219210, type: 3}
+      scoreChartJsonAsset: {fileID: 4900000, guid: 44077a52d39ac4b1bbabcb28081a5990, type: 3}
