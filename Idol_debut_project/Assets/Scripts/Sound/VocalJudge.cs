@@ -33,6 +33,8 @@ public class VocalJudge : MonoBehaviour
     [Range(0f, 1f)] public float goodWeight = 1.0f;
 
     [Range(0f, 1f)] public float badWeight = 0.20f;
+    
+    
 
     public float missPenaltyWeight = 0.4f;
     public float silentPenaltyWeight = 0.5f;
@@ -199,7 +201,7 @@ public class VocalJudge : MonoBehaviour
                      $"Perfect: {PerfectCount}, Good: {GoodCount}, Bad: {BadCount}, Miss: {MissCount}");
         }
 
-        //audienceTimer += judgeIntervalSec;
+        audienceTimer += judgeIntervalSec;
         if (audienceTimer >= audienceUpdateIntervalSec)
         {
             audienceTimer = 0f;
@@ -234,21 +236,21 @@ public class VocalJudge : MonoBehaviour
        
         
         // --- audience window timer는 "실시간"으로 돌린다 ---
-        audienceTimer += Time.deltaTime;
-        if (audienceTimer >= audienceUpdateIntervalSec)
-        {
-            audienceTimer = 0f;
-
-            var feeling = CalculateWindowFeeling();
-
-            Debug.Log(
-                $"[AudienceWindow] t={songTimeSec:F2}s feeling={feeling} " +
-                $"samples={windowSamples.Count} " +
-                $"P/G/B/M/S={CountKind(JudgeKind.Perfect)}/{CountKind(JudgeKind.Good)}/{CountKind(JudgeKind.Bad)}/{CountKind(JudgeKind.Miss)}/{CountKind(JudgeKind.SilentPenalty)}"
-            );
-
-            OnAudienceFeelingUpdated?.Invoke(feeling);
-        }
+        // audienceTimer += Time.deltaTime;
+        // if (audienceTimer >= audienceUpdateIntervalSec)
+        // {
+        //     audienceTimer = 0f;
+        //
+        //     var feeling = CalculateWindowFeeling();
+        //
+        //     Debug.Log(
+        //         $"[AudienceWindow] t={songTimeSec:F2}s feeling={feeling} " +
+        //         $"samples={windowSamples.Count} " +
+        //         $"P/G/B/M/S={CountKind(JudgeKind.Perfect)}/{CountKind(JudgeKind.Good)}/{CountKind(JudgeKind.Bad)}/{CountKind(JudgeKind.Miss)}/{CountKind(JudgeKind.SilentPenalty)}"
+        //     );
+        //
+        //     OnAudienceFeelingUpdated?.Invoke(feeling);
+        // }
     }
     int CountKind(JudgeKind kind)
     {
