@@ -288,7 +288,7 @@ public class TutorialSceneController : MonoBehaviour
         currentStep = TutorialSteps.Practice;
         timerHUD = UIManager.Instance.ShowHUDUI<TimerHUD>(GameConstants.UI.HUDName.TimerHUD);
 
-        timerHUD.StartCountdown(10f); // 10분
+        timerHUD.StartCountdown(300f); // 10분
         timerHUD.OnTimerFinished += OnTimerEnd;
 
         currentDialogue = practiceNarration;
