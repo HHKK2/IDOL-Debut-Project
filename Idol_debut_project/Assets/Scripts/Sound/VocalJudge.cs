@@ -26,12 +26,12 @@ public class VocalJudge : MonoBehaviour
     private bool finished = false;
 
     [Header("Score Normalization")] 
-    [Range(0f, 1f)] public float goodWeight = 0.70f;
+    [Range(0f, 1f)] public float goodWeight = 1.0f;
 
     [Range(0f, 1f)] public float badWeight = 0.20f;
 
-    public float missPenaltyWeight = 1.0f;
-    public float silentPenaltyWeight = 1.5f;
+    public float missPenaltyWeight = 0.4f;
+    public float silentPenaltyWeight = 0.5f;
     public int PitchScore100 { get; private set; }
     public int Penalty100 { get; private set; }
     public int FinalScore100 { get; private set; }
@@ -54,7 +54,7 @@ public class VocalJudge : MonoBehaviour
             return;
         }
 
-        float raw = (PerfectCount * 1.0f) + (GoodCount * goodWeight) + (BadCount * badWeight);
+        float raw = (PerfectCount * 1.5f) + (GoodCount * goodWeight) + (BadCount * badWeight);
         float pitchAcc = (raw / pitchTrials) * 100.0f;
         PitchScore100 = Mathf.Clamp(Mathf.RoundToInt(pitchAcc), 0, 100);
 
