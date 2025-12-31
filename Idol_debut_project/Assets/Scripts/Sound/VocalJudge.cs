@@ -301,7 +301,7 @@ public class VocalJudge : MonoBehaviour
             if (vocalDetector.IsVocalActive)
             {
                 LastJudgement = "ShouldBeSilent";
-                Score -= 6;
+                Score -= 15;
                 SilentPenaltyCount++;
                 AddWindowSample(JudgeKind.SilentPenalty);
                 Debug.Log($"[Judge] ⚠️ 페널티: 노트 없는데 소리냄 | Score: {Score + 6} → {Score}");
@@ -317,7 +317,7 @@ public class VocalJudge : MonoBehaviour
         if (!vocalDetector.IsVocalActive)
         {
             LastJudgement = "Miss(Silent)";
-            Score -= 4;
+            Score -= 15;
             MissCount++;
             AddWindowSample(JudgeKind.Miss);
             Debug.Log($"[Judge] ❌ Miss: 노트 있는데 조용함 | Score: {Score + 4} → {Score}");
@@ -341,7 +341,7 @@ public class VocalJudge : MonoBehaviour
         float expectedHz = 440f * Mathf.Pow(2f, (expectedMidi - 69f) / 12f);
         float actualHz = pitchDetector.LastF0Hz;
 
-        float cents = 400f * Mathf.Abs(Mathf.Log(actualHz / expectedHz, 2f)); // log2
+        float cents = 100f * Mathf.Abs(Mathf.Log(actualHz / expectedHz, 2f)); // log2
 
         //float cents = Mathf.Abs(actualMidi - expectedMidi) * 100.0f;
         int basetol = note.tol_cents > 0 ? note.tol_cents : 300;
@@ -377,7 +377,7 @@ public class VocalJudge : MonoBehaviour
         else
         {
             LastJudgement = "Bad";
-            Score -= 5;
+            Score -= 100;
             BadCount++;
             AddWindowSample(JudgeKind.Bad);
             Debug.Log($"[Judge] ✗ Bad | Score: {Score + 10} → {Score} | BadCount: {BadCount}");
