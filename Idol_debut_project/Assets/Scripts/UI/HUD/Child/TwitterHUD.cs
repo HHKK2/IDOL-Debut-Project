@@ -10,7 +10,6 @@ public class TwitterHUD : UIHUD
         TwitterContents,
     }
     
-    [SerializeField] private TwitterDatabaseSO twitterDatabase;
     [Tooltip("트위터 랜덤으로 몇 개 띄울지")]
     [SerializeField] private int randomTwitCount = 2;
 
@@ -62,7 +61,7 @@ public class TwitterHUD : UIHUD
         {
             reputationStatus = 0;
         }
-        TwitterData[] twits = twitterDatabase.GetRandomTweets(audianceFeeling, reputationStatus, randomTwitCount);
+        TwitterData[] twits = TwitterDatabase.Instance.GetRandomTweets(audianceFeeling, reputationStatus, randomTwitCount);
         
         for (int i = 0; i < twits.Length; i++)
         {

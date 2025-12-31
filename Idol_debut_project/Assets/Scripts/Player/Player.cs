@@ -12,7 +12,8 @@ public class Player
     private string groupName; //그룹명
     private bool canDating = true; //연애 가능 여부 플래그 변수
 
-    public event Action OnNameOrGroupChanged;
+    public event Action OnNameChanged;
+    public event Action OnGroupChanged;
     
     public string Name
     {
@@ -20,7 +21,7 @@ public class Player
         set
         {
             name = value; 
-            OnNameOrGroupChanged?.Invoke();
+            OnNameChanged?.Invoke();
         }
     }
 
@@ -53,7 +54,7 @@ public class Player
         set
         {
             groupName = value; 
-            OnNameOrGroupChanged?.Invoke();
+            OnGroupChanged?.Invoke();
         }
     }
 
@@ -77,7 +78,7 @@ public class Player
     public void ApplyPlayerInfo(PlayerInfoData data)
     {
         Name = data.name;
-        groupName = data.groupName;
+        GroupName = data.groupName;
         Gender = data.gender;
 
         // 초기값 세팅 (기획에 맞게 조정)

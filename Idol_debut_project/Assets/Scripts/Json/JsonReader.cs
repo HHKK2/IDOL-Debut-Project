@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Data;
 using UnityEngine.SceneManagement;
 
-public class TSVReader : AdolpSingleton<TSVReader>
+public class JsonReader : AdolpSingleton<JsonReader>
 {
     enum EReadMode{
         Twitter,
@@ -12,7 +12,6 @@ public class TSVReader : AdolpSingleton<TSVReader>
     }
     
     [SerializeField] private TextAsset textAssetData;
-    [SerializeField] private TwitterDatabaseSO twitterDatabase;
     [SerializeField] private EReadMode eReadMode;
     
     
@@ -33,12 +32,8 @@ public class TSVReader : AdolpSingleton<TSVReader>
                 //1. 구조체에 저장
                 TwitterDataList loadedData = JsonUtility.FromJson<TwitterDataList>(textAssetData.text);
         
-                //2. SO에 저장(메모리x 파일저장)
-                if (twitterDatabase != null)
-                {
-                    twitterDatabase.SetData(loadedData.twitter); 
-                }
-
+                //2. 데이터에 저장
+                TwitterDatabase.Instance.SetData(loadedData.twitter); 
                 break;
             default:
                 Debug.Log("[TSVReader] 읽기모드를 선택해주세요");

@@ -3,12 +3,17 @@ using Data;
 using System.Linq;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "TwitterDatabase", menuName = "ScriptableObjects/TwitterDatabase")]
-public class TwitterDatabaseSO : ScriptableObject
+public class TwitterDatabase : AdolpSingleton<TwitterDatabase>
 {    
     [SerializeField] private TextAsset twitterJson;
 
     private TwitterData[] twitterDataArray;
+
+    public TwitterData[] TwitterDataArray
+    {
+        get { return twitterDataArray; }
+    }
+    
     private bool isLoaded = false;
     private void EnsureDataLoaded()
     {
@@ -16,7 +21,7 @@ public class TwitterDatabaseSO : ScriptableObject
         
         if (twitterJson == null)
         {
-            Debug.LogError("[TwitterDatabaseSO] twitterJson이 연결되지 않음!");
+            Debug.LogError("[TwitterDatabase] twitterJson이 연결되지 않음!");
             return;
         }
         
@@ -28,6 +33,11 @@ public class TwitterDatabaseSO : ScriptableObject
     public void SetData(TwitterData[] data)
     {
         twitterDataArray = data;
+
+        if (GameManager.Instance.player.Name == null || GameManager.Instance.player.GroupName == null)
+        {
+            return;
+        }
         
         for (int i = 0; i < twitterDataArray.Length; i++)
         {
@@ -36,14 +46,25 @@ public class TwitterDatabaseSO : ScriptableObject
         }
     }
 
-    public void SetPlayerAndGroupName()
+    public void SetPlayerName()
     {
         for (int i = 0; i < twitterDataArray.Length; i++)
         {
+            twitterDataArray[i].name = twitterDataArray[i].name.Replace("{플레이어이름}", GameManager.Instance.player.Name);
             twitterDataArray[i].text = twitterDataArray[i].text.Replace("{플레이어이름}", GameManager.Instance.player.Name);
+        }
+    }
+    
+    public void SetGroupName()
+    {
+        for (int i = 0; i < twitterDataArray.Length; i++)
+        {
+            twitterDataArray[i].name = twitterDataArray[i].name.Replace("{그룹이름}", GameManager.Instance.player.GroupName);
             twitterDataArray[i].text = twitterDataArray[i].text.Replace("{그룹이름}", GameManager.Instance.player.GroupName);
         }
     }
+    
+    
     
     /// <param name="reputationStatus">무대가 끝난 시점의 플레이어 평판. 양수인지, 음수인지 구별 (int).1: 양수, 0: 음수</param>
     /// <param name="count">랜덤으로 가져올 트위터 개수</param>

@@ -45,8 +45,6 @@ public class GameManager : AdolpSingleton<GameManager>
     //isLoad 사용 여부
     public bool IsLoadedGame { get; private set; }
 
-    [Header("Twitter Database")]
-    [SerializeField] private TwitterDatabaseSO twitterDatabase;
 
     protected override void Awake()
     {
@@ -61,7 +59,8 @@ public class GameManager : AdolpSingleton<GameManager>
 
         EndingSceneController.OnFinished += OnEndingSceneFinished;
         
-        player.OnNameOrGroupChanged += OnPlayerNameOrGroupChanged;
+        player.OnNameChanged += OnPlayerNameChanged;
+        player.OnGroupChanged += OnGroupNameChanged;
 
     }
 
@@ -69,17 +68,21 @@ public class GameManager : AdolpSingleton<GameManager>
     {
         EndingSceneController.OnFinished -= OnEndingSceneFinished;
         
-        player.OnNameOrGroupChanged -= OnPlayerNameOrGroupChanged;
+        player.OnNameChanged -= OnPlayerNameChanged;
+        player.OnGroupChanged -= OnGroupNameChanged;
     }
 
-    private void OnPlayerNameOrGroupChanged()
+    private void OnPlayerNameChanged()
     {
-        if (twitterDatabase != null)
-        {
-            twitterDatabase.SetPlayerAndGroupName();
-        }
+        
+        TwitterDatabase.Instance.SetPlayerName();
+        
     }
-
+    private void OnGroupNameChanged()
+    {
+        TwitterDatabase.Instance.SetGroupName();
+        
+    }
 
 
     private void Update()

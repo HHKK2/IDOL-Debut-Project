@@ -240,7 +240,7 @@ MonoBehaviour:
   mixer: {fileID: 24100000, guid: d7704af070e910c4cbe092151688f4b3, type: 2}
   bgList:
   - {fileID: 377067460}
-  bgSound: {fileID: 0}
+  turnOnBGMaccordingTo: 0
 --- !u!4 &377067459
 Transform:
   m_ObjectHideFlags: 0
@@ -626,7 +626,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TSVReader
   textAssetData: {fileID: 4900000, guid: cfd0af77a2ecab74c8938fab97f77e5e, type: 3}
-  twitterDatabase: {fileID: 11400000, guid: ea265f87a5520bd4489d86a4bb2ec123, type: 2}
   eReadMode: 0
 --- !u!4 &922352092
 Transform:
@@ -735,6 +734,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1132369264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1132369265}
+  - component: {fileID: 1132369266}
+  m_Layer: 0
+  m_Name: TwitterDatabase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1132369265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132369264}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 745.83655, y: 273.55664, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1132369266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132369264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a7e42d97b76046438572005b4e9dcac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TwitterDatabase
+  twitterJson: {fileID: 4900000, guid: cfd0af77a2ecab74c8938fab97f77e5e, type: 3}
 --- !u!1 &1179692614
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,7 +859,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   dispatchCount: 0
   comebackScenario: {fileID: 11400000, guid: 53f3f9281a49f5f4182aea79d6c57561, type: 2}
-  twitterDatabase: {fileID: 11400000, guid: ea265f87a5520bd4489d86a4bb2ec123, type: 2}
 --- !u!4 &1551202496
 Transform:
   m_ObjectHideFlags: 0
@@ -890,3 +933,4 @@ SceneRoots:
   - {fileID: 1989314546}
   - {fileID: 432886562}
   - {fileID: 119008662}
+  - {fileID: 1132369265}
