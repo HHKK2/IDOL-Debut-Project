@@ -550,7 +550,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "{N}\uBC88\uC9F8 \uC568\uBC94 <{\uB178\uB798\uC81C\uBAA9}> \uC5F0\uC2B5
+  m_text: "{N}\uBC88\uC9F8 \uC568\uBC94 <{\uB178\uB798\uC81C\uBAA9}> \uCEF4\uBC31
     \uACB0\uACFC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fbf4a48f2243a0438fb29046e2d74ce, type: 2}
