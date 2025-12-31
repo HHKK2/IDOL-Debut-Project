@@ -7,7 +7,7 @@ public class TwitterDatabase : AdolpSingleton<TwitterDatabase>
 {    
     [SerializeField] private TextAsset twitterJson;
 
-    private TwitterData[] twitterDataArray;
+    public TwitterData[] twitterDataArray;
 
     public TwitterData[] TwitterDataArray
     {
@@ -15,20 +15,7 @@ public class TwitterDatabase : AdolpSingleton<TwitterDatabase>
     }
     
     private bool isLoaded = false;
-    private void EnsureDataLoaded()
-    {
-        if (isLoaded && twitterDataArray != null) return;
-        
-        if (twitterJson == null)
-        {
-            Debug.LogError("[TwitterDatabase] twitterJson이 연결되지 않음!");
-            return;
-        }
-        
-        TwitterDataList dataList = JsonUtility.FromJson<TwitterDataList>(twitterJson.text);
-        SetData(dataList.twitter);
-        isLoaded = true;
-    }
+
 
     public void SetData(TwitterData[] data)
     {
@@ -70,7 +57,6 @@ public class TwitterDatabase : AdolpSingleton<TwitterDatabase>
     /// <param name="count">랜덤으로 가져올 트위터 개수</param>
     public TwitterData[] GetRandomTweets(AudianceData.EAudianceFeeling feeling, int reputationStatus, int count)
     {
-        EnsureDataLoaded();
 
         // 해당 감정 && 평판의 데이터만 필터링
         List<TwitterData> filteredList = twitterDataArray.Where(i=>i.feeling==feeling && i.reputationStatus==reputationStatus)
