@@ -341,7 +341,7 @@ public class VocalJudge : MonoBehaviour
         float expectedHz = 440f * Mathf.Pow(2f, (expectedMidi - 69f) / 12f);
         float actualHz = pitchDetector.LastF0Hz;
 
-        float cents = 1200f * Mathf.Abs(Mathf.Log(actualHz / expectedHz, 2f)); // log2
+        float cents = 1f * Mathf.Abs(Mathf.Log(actualHz / expectedHz, 2f)); // log2
 
         //float cents = Mathf.Abs(actualMidi - expectedMidi) * 100.0f;
         int basetol = note.tol_cents > 0 ? note.tol_cents : 300;
