@@ -90,7 +90,7 @@ public class ComeBack : IGameState
         // =========================
         // 2. 팬 수 변화 (0 ~ 무한)
         // =========================
-        int fanDelta = reputationDelta * 100;
+        int fanDelta = reputationDelta * 1000 + 1000;
         player.FanNumber = Mathf.Max(0, player.FanNumber + fanDelta);
 
         // =========================

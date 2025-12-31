@@ -51,7 +51,7 @@ public class FanService : IGameState
         if (player.Reputation > 0)
         {
             // 팬 수: 0 ~ 무한
-            int fanGain = player.Reputation * 10;
+            int fanGain = player.Reputation * 50;
             player.FanNumber = Mathf.Max(0, player.FanNumber + fanGain);
         }
         else
