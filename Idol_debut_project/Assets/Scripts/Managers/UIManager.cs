@@ -8,6 +8,8 @@ using Object = UnityEngine.Object;
 
 public class UIManager: AdolpSingleton<UIManager>
 {
+
+	public Action OnHUDListChanged;
 	
 	Stack<UIPopup> popupStack = new Stack<UIPopup>();
 
@@ -15,12 +17,16 @@ public class UIManager: AdolpSingleton<UIManager>
 	{
 		get{ return popupStack; }
 	}
+	
 	List<UIHUD> hudList = new List<UIHUD>();
-
+	
+	
 	public List<UIHUD> HUDList
 	{
 		get{ return hudList; }
 	}
+
+	
 	List<UISystem> systemList = new List<UISystem>();
 
 	public List<UISystem> SystemList
@@ -104,7 +110,9 @@ public class UIManager: AdolpSingleton<UIManager>
 			//타이머는 항상 HUD에서 가장 앞으로
 			timer.SetAsLastSibling();
 		}
-
+		
+		OnHUDListChanged?.Invoke();
+		
 		return hud;
 	}
 
@@ -175,27 +183,28 @@ public class UIManager: AdolpSingleton<UIManager>
     /// GameConstants.UI.HUDName.으로 허드이름 접근가능->이걸 인자로 넣기
     /// </summary>
     public void CloseHUDUI(string hudName)
-	{
-		HUDList.RemoveAll(h => h == null || h.gameObject == null);
+    {
+	    HUDList.RemoveAll(h => h == null || h.gameObject == null);
 
 	    if (hudList.Count == 0)
 		    return;
 
 	    UIHUD targetHud = null;
 	    for (int i = hudList.Count - 1; i >= 0; i--)
-{
-    if (hudList[i] == null)
-    {
-        hudList.RemoveAt(i);
-        continue;
-    }
+	    {
+		    if (hudList[i] == null)
+		    {
+			    hudList.RemoveAt(i);
+			    continue;
+		    }
 
-    if (hudList[i].gameObject.name == hudName)
-    {
-        targetHud = hudList[i];
-        break;
-    }
-}
+		    if (hudList[i].gameObject.name == hudName)
+		    {
+			    targetHud = hudList[i];
+			    break;
+		    }
+		    
+	    }
 
 
 	    if (targetHud == null)
@@ -206,6 +215,7 @@ public class UIManager: AdolpSingleton<UIManager>
 
 	    hudList.Remove(targetHud);
 	    Object.Destroy(targetHud.gameObject);
+	    OnHUDListChanged?.Invoke();
 	    targetHud = null;
     }
 
@@ -217,6 +227,7 @@ public class UIManager: AdolpSingleton<UIManager>
 	    UIHUD hud = hudList[hudList.Count - 1];
 	    hudList.RemoveAt(hudList.Count - 1);
 	    Object.Destroy(hud.gameObject);
+	    OnHUDListChanged?.Invoke();
 	    hud = null;
     }
 

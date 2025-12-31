@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,22 +8,86 @@ using UnityEngine.Serialization;
 
 public class SoundManager : AdolpSingleton<SoundManager>
 {
+
+    enum ETurnOnBGMaccordingTo
+    {
+        HUD,
+        SCENE_NAME,
+    }
+    
     [SerializeField] private AudioMixer mixer;
-    [Header("each bg source have to be same as scene name")]
+    [Header("each bg source have to be same as scene/hud name")]
     [SerializeField]private AudioSource[] bgList;
-    [SerializeField]private AudioSource bgSound;
+    [Tooltip("if you choose hud, it turn bgm according to hud[0]")]
+    [SerializeField] private ETurnOnBGMaccordingTo turnOnBGMaccordingTo;
+    
+    private AudioSource bgSound;
+    
 
     
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        switch (turnOnBGMaccordingTo)
+        {
+            case ETurnOnBGMaccordingTo.HUD:
+                UIManager.Instance.OnHUDListChanged+=OnHUDGenerated;
+                break;
+            case ETurnOnBGMaccordingTo.SCENE_NAME:
+                SceneManager.sceneLoaded += OnSceneLoaded;
+                break;
+        }
+        
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        switch (turnOnBGMaccordingTo)
+        {
+            case ETurnOnBGMaccordingTo.HUD:
+                UIManager.Instance.OnHUDListChanged-=OnHUDGenerated;
+                break;
+            case ETurnOnBGMaccordingTo.SCENE_NAME:
+                SceneManager.sceneLoaded -= OnSceneLoaded;
+                break;
+        }
     }
 
+    
+    private void OnHUDGenerated()
+    {
+        List<UIHUD> currentHUDList =UIManager.Instance.HUDList;
+        int mostUpperIndex = currentHUDList.Count - 1;
+        
+        if (currentHUDList.Count==0)
+        {
+            return;
+        }
+        
+        for (int i = currentHUDList.Count-1; i >= 0; i--)
+        {
+            if (currentHUDList[i].name == GameConstants.UI.HUDName.TimerHUD)
+            {
+                continue;
+            }
+
+            mostUpperIndex = i;
+            break;
+        }
+
+        foreach (var audioSource in bgList)
+        {
+            if (audioSource.clip.name == currentHUDList[mostUpperIndex].name)
+            {
+                bgSound = audioSource;
+                BgSoundPlay(audioSource.clip);
+                return;
+            }
+        }
+        
+        //맞는 브금 없으면 틀던브금 stop
+        StopBGM();
+    }
+    
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         for (int i = 0; i < bgList.Length; i++)
@@ -86,6 +151,7 @@ public class SoundManager : AdolpSingleton<SoundManager>
         AudioSource audioSource = go.AddComponent<AudioSource>();
         audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         audioSource.clip = clip;
+        audioSource.volume = 0.7f;
         audioSource.Play();
 
         Destroy(go, clip.length);
@@ -125,7 +191,7 @@ public class SoundManager : AdolpSingleton<SoundManager>
         bgSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];
         bgSound.clip = clip;
         bgSound.loop = true;
-        bgSound.volume = 0.1f;
+        bgSound.volume = 0.3f;
         bgSound.Play();     
     }
 
