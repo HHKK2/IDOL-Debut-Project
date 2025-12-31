@@ -156,7 +156,7 @@ public class PracticeSceneController : MonoBehaviour
         state = PracticeState.Playing;
         playTime = 0f;
 
-        practiceHUD.SetPlayingMode();  
+        practiceHUD.SetPlayingMode();
 
         practiceHUD.InitSongMMSS("00:00");
         practiceHUD.InitSongSlider(0f);
@@ -240,10 +240,11 @@ public class PracticeSceneController : MonoBehaviour
 
     private string GetRankSpritePath(int score)
     {
-        if (score >= 90) return "Sprites/Ranks/S";
-        if (score >= 80) return "Sprites/Ranks/A";
-        if (score >= 70) return "Sprites/Ranks/B";
-        return "Sprites/Ranks/C";
+        if (score >= 90) return "Sprites/Rank/StageResultS";
+        else if (score >= 60) return "Sprites/Rank/StageResultA";
+        else if (score >= 40) return "Sprites/Rank/StageResultB";
+        else if (score >= 10) return "Sprites/Rank/StageResultC";
+        else return "Sprites/Rank/StageResultF";
     }
 }
 
