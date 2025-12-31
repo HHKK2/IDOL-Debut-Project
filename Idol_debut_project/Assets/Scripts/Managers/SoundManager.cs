@@ -77,7 +77,12 @@ public class SoundManager : AdolpSingleton<SoundManager>
     /// <param name="clip"></param>
     public void SFXPlay(string SFXName, AudioClip clip)
     {
+        
         GameObject go = new GameObject(SFXName + "Sound");
+        if (SFXName.Equals(GameConstants.SoundName.ClickSound))
+        {
+            DontDestroyOnLoad(go);
+        }
         AudioSource audioSource = go.AddComponent<AudioSource>();
         audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         audioSource.clip = clip;

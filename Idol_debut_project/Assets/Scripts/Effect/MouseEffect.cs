@@ -53,7 +53,7 @@ public class MouseEffect : AdolpSingleton<MouseEffect>
 
         if (Input.GetMouseButtonDown(0))
         {
-            SoundManager.Instance.SFXPlay("ClickSound",audioSource.clip);
+            SoundManager.Instance.SFXPlay(GameConstants.SoundName.ClickSound,audioSource.clip);
         }
         spawnsTime += Time.deltaTime;
     }

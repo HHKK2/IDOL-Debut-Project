@@ -46,4 +46,9 @@ public static class GameConstants
             public const string FadeInEffectSystemUI = "FadeInEffectSystemUI";
         }
     }
+
+    public static class SoundName
+    {
+        public const string ClickSound = "ClickSound";
+    }
 }
