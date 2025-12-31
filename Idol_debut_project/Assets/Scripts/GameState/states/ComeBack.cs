@@ -32,7 +32,7 @@ public class ComeBack : IGameState
             return;
         }
 
-        currentSong = scenario.GetSong((comebackIndex+1), player.Gender);
+        currentSong = scenario.GetSong((comebackIndex + 1), player.Gender);
         if (currentSong == null)
         {
             Debug.LogError($"[ComeBack] 곡 선택 실패 index={comebackIndex} gender={player.Gender}");
@@ -74,23 +74,33 @@ public class ComeBack : IGameState
     private void FinishComeBack()
     {
         var time = TimeCycleManager.Instance;
-        var stat = PlayerStatController.Instance;
 
         Debug.Log("[COMEBACK FINISH] 결과 적용");
 
-        // 1. 평판 변화
-        int beforeReputation = stat.Reputation;
-        stat.ModifyReputation(bonus);
-        int reputationDelta = stat.Reputation - beforeReputation;
+        // =========================
+        // 1. 평판 변화 (-100 ~ 100)
+        // =========================
+        int beforeReputation = player.Reputation;
 
-        // 2. 팬 수 변화 : 평판 증감량 * 100
-        stat.ModifyFanNumber(reputationDelta*100);
+        int newReputation = player.Reputation + bonus;
+        player.Reputation = Mathf.Clamp(newReputation, -100, 100);
 
-        // 3. 멘탈 변화
+        int reputationDelta = player.Reputation - beforeReputation;
+
+        // =========================
+        // 2. 팬 수 변화 (0 ~ 무한)
+        // =========================
+        int fanDelta = reputationDelta * 100;
+        player.FanNumber = Mathf.Max(0, player.FanNumber + fanDelta);
+
+        // =========================
+        // 3. 멘탈 변화 (0 ~ 100)
+        // =========================
+        int mentalDelta = 0;
+
         if (reputationDelta > 0)
         {
-            // 평판이 늘어났다면
-            stat.ModifyMentalHealth(bonus *3);
+            mentalDelta = bonus * 3;
             time.ResetNegativeReputation();
         }
         else if (reputationDelta < 0)
@@ -98,32 +108,33 @@ public class ComeBack : IGameState
             int absBonus = Mathf.Abs(bonus);
             time.IncreaseNegativeReputation();
 
-            if (time.repeatedNegative >= 3)
-            {
-                // 연속 3회 이상 평판 -
-                stat.ModifyMentalHealth(-absBonus*5);
-            }
-            else
-            {
-                // 일반 평판 -
-                stat.ModifyMentalHealth(-absBonus*3);
-            }
+            mentalDelta = (time.repeatedNegative >= 3)
+                ? -absBonus * 5
+                : -absBonus * 3;
         }
 
+        player.MentalHealth = Mathf.Clamp(
+            player.MentalHealth + mentalDelta,
+            0,
+            100
+        );
+
+        // =========================
         // 4. 주 종료 + 컴백 완료
+        // =========================
         time.didComeBack = true;
         time.CompleteComeback();
 
-        // 5. 엔딩 체크 + 메인메뉴로 돌아오기
-
+        // =========================
+        // 5. 엔딩 체크
+        // =========================
         GameManager.Instance.CheckImmediateEnding();
-
         if (GameManager.Instance.isGameEnded)
             return;
 
         GameManager.Instance.OnActionStateFinished();
-        //GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
+
 
     private int GetStageBonus(int score) //TODO : 무대평가 후 score 받아와야 함. 
     {

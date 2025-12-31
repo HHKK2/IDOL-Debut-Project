@@ -68,38 +68,43 @@ public class Dating : IGameState
 
     private void FinishDating()
     {
-        var stat = PlayerStatController.Instance;
+        int mentalDelta = 0;
 
-        // === 결과 적용 ===
         switch (result)
         {
             case DatingResult.Dispatch:
                 GameManager.Instance.dispatchCount++;
 
-                int fanLoss = stat.FanNumber / 5;
-                stat.ModifyFanNumber(-fanLoss);
-                stat.ModifyMentalHealth(-20);
-                break;
-            case DatingResult.Breakup:
-                stat.ModifyMentalHealth(-50);
+                // 팬 수: 0 ~ 무한
+                int fanLoss = player.FanNumber / 5;
+                player.FanNumber = Mathf.Max(0, player.FanNumber - fanLoss);
 
+                mentalDelta = -20;
+                break;
+
+            case DatingResult.Breakup:
+                mentalDelta = -50;
                 player.DisableDating();
                 break;
+
             case DatingResult.MentalUp:
-                stat.ModifyMentalHealth(+30);
+                mentalDelta = 30;
                 break;
         }
 
-        //time.AdvanceMonth();
+        // 멘탈: 0 ~ 100
+        player.MentalHealth = Mathf.Clamp(
+            player.MentalHealth + mentalDelta,
+            0,
+            100
+        );
 
-        // 흐름 복귀, 엔딩인지 체크 + 메인으로 돌아오기
-
+        // 엔딩 체크 + 복귀
         GameManager.Instance.CheckImmediateEnding();
-
         if (GameManager.Instance.isGameEnded)
             return;
 
         GameManager.Instance.OnActionStateFinished();
-        // GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
+
 }

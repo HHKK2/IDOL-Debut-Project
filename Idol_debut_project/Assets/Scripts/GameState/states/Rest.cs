@@ -43,17 +43,21 @@ public class Rest : IGameState
     private void FinishRest()
     {
         Debug.Log($"[Rest] playerRef={player.GetHashCode()} mental(before)={player.MentalHealth}");
-
         Debug.Log("휴식 상태 종료");
 
-        PlayerStatController.Instance.ModifyMentalHealth(10);
+        // 멘탈: 0 ~ 100
+        player.MentalHealth = Mathf.Clamp(
+            player.MentalHealth + 10,
+            0,
+            100
+        );
 
-        //엔딩 검사 +메인으로 돌아오기
+        // 엔딩 검사 + 복귀
         GameManager.Instance.CheckImmediateEnding();
-
         if (GameManager.Instance.isGameEnded)
             return;
 
         GameManager.Instance.OnActionStateFinished();
     }
+
 }

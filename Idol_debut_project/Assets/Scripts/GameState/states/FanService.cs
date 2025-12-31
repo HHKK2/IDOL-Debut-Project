@@ -45,30 +45,38 @@ public class FanService : IGameState
     // =========================
     private void FinishFanService()
     {
-        var stat = PlayerStatController.Instance;
-
-        if (stat.Reputation > 0) //평판이 양수면 팬 수가 증가
+        // =========================
+        // 1. 팬 수 / 평판 처리
+        // =========================
+        if (player.Reputation > 0)
         {
-           stat.ModifyFanNumber(stat.Reputation * 10); // 팬 수 증가: 평판 * 10
+            // 팬 수: 0 ~ 무한
+            int fanGain = player.Reputation * 10;
+            player.FanNumber = Mathf.Max(0, player.FanNumber + fanGain);
         }
-        else //평판이 음수면 명성을 늘려줌
+        else
         {
-            stat.ModifyReputation(10);
+            // 평판: -100 ~ 100
+            player.Reputation = Mathf.Clamp(player.Reputation + 10, -100, 100);
         }
 
-        stat.ModifyMentalHealth(-5);   // 멘탈 감소
+        // =========================
+        // 2. 멘탈 감소 (0 ~ 100)
+        // =========================
+        player.MentalHealth = Mathf.Clamp(
+            player.MentalHealth - 5,
+            0,
+            100
+        );
 
-        // time.AdvanceMonth();        // 1개월 경과
-
-        // 흐름 복귀 + 엔딩 체크 + 메인으로 돌아오기
-        // 결과 적용
-
+        // =========================
+        // 3. 엔딩 체크 + 복귀
+        // =========================
         GameManager.Instance.CheckImmediateEnding();
-
         if (GameManager.Instance.isGameEnded)
             return;
 
         GameManager.Instance.OnActionStateFinished();
-        //GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
+
 }
