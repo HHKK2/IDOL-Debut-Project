@@ -68,20 +68,25 @@ public class Dating : IGameState
 
     private void FinishDating()
     {
+        var stat = PlayerStatController.Instance;
+
         // === 결과 적용 ===
         switch (result)
         {
             case DatingResult.Dispatch:
                 GameManager.Instance.dispatchCount++;
-                player.FanNumber -= player.FanNumber / 5;
-                player.MentalHealth -= 20;
+
+                int fanLoss = stat.FanNumber / 5;
+                stat.ModifyFanNumber(-fanLoss);
+                stat.ModifyMentalHealth(-20);
                 break;
             case DatingResult.Breakup:
-                player.MentalHealth -= 50;
+                stat.ModifyMentalHealth(-50);
+
                 player.DisableDating();
                 break;
             case DatingResult.MentalUp:
-                player.MentalHealth += 30;
+                stat.ModifyMentalHealth(+30);
                 break;
         }
 
@@ -95,6 +100,6 @@ public class Dating : IGameState
             return;
 
         GameManager.Instance.OnActionStateFinished();
-       // GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
+        // GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }

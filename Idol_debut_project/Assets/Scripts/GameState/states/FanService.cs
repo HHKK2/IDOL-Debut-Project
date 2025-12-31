@@ -45,16 +45,18 @@ public class FanService : IGameState
     // =========================
     private void FinishFanService()
     {
-        if (player.Reputation > 0) //평판이 양수면 팬 수가 증가
+        var stat = PlayerStatController.Instance;
+
+        if (stat.Reputation > 0) //평판이 양수면 팬 수가 증가
         {
-            player.FanNumber += player.Reputation * 10; // 팬 수 증가: 평판 * 10
+           stat.ModifyFanNumber(stat.Reputation * 10); // 팬 수 증가: 평판 * 10
         }
         else //평판이 음수면 명성을 늘려줌
         {
-            player.Reputation += 10;
+            stat.ModifyReputation(10);
         }
 
-        player.MentalHealth -= 5;   // 멘탈 감소
+        stat.ModifyMentalHealth(-5);   // 멘탈 감소
 
         // time.AdvanceMonth();        // 1개월 경과
 

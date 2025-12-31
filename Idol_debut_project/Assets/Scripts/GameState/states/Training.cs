@@ -48,6 +48,5 @@ public class Training : IGameState
         //다음 상태로 복귀
         GameManager.Instance.OnActionStateFinished();
         //메인으로 돌아오기
-        //GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }

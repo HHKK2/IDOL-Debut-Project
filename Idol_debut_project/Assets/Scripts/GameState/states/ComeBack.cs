@@ -74,22 +74,23 @@ public class ComeBack : IGameState
     private void FinishComeBack()
     {
         var time = TimeCycleManager.Instance;
+        var stat = PlayerStatController.Instance;
 
         Debug.Log("[COMEBACK FINISH] 결과 적용");
 
         // 1. 평판 변화
-        int beforeReputation = player.Reputation;
-        player.Reputation += bonus;
-        int reputationDelta = player.Reputation - beforeReputation;
+        int beforeReputation = stat.Reputation;
+        stat.ModifyReputation(bonus);
+        int reputationDelta = stat.Reputation - beforeReputation;
 
         // 2. 팬 수 변화 : 평판 증감량 * 100
-        player.FanNumber += reputationDelta * 100;
+        stat.ModifyFanNumber(reputationDelta*100);
 
         // 3. 멘탈 변화
         if (reputationDelta > 0)
         {
             // 평판이 늘어났다면
-            player.MentalHealth += bonus * 3;
+            stat.ModifyMentalHealth(bonus *3);
             time.ResetNegativeReputation();
         }
         else if (reputationDelta < 0)
@@ -100,12 +101,12 @@ public class ComeBack : IGameState
             if (time.repeatedNegative >= 3)
             {
                 // 연속 3회 이상 평판 -
-                player.MentalHealth -= absBonus * 5;
+                stat.ModifyMentalHealth(-absBonus*5);
             }
             else
             {
                 // 일반 평판 -
-                player.MentalHealth -= absBonus * 3;
+                stat.ModifyMentalHealth(-absBonus*3);
             }
         }
 

@@ -46,8 +46,7 @@ public class Rest : IGameState
 
         Debug.Log("휴식 상태 종료");
 
-        player.MentalHealth += 10;
-        // time.AdvanceMonth();
+        PlayerStatController.Instance.ModifyMentalHealth(10);
 
         //엔딩 검사 +메인으로 돌아오기
         GameManager.Instance.CheckImmediateEnding();
@@ -56,6 +55,5 @@ public class Rest : IGameState
             return;
 
         GameManager.Instance.OnActionStateFinished();
-        //GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
     }
 }
