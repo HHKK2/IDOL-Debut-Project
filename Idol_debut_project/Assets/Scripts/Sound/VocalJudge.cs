@@ -396,6 +396,8 @@ public class VocalJudge : MonoBehaviour
         PitchScore100 = 0;
         Penalty100 = 0;
         FinalScore100 = 0;
+
+        Feeling = AudianceData.EAudianceFeeling.SoSo;
     }
 
     public event Action<AudianceData.EAudianceFeeling> OnAudienceFeelingUpdated;
@@ -446,7 +448,7 @@ public class VocalJudge : MonoBehaviour
         if (trials <= 0)
         {
             Debug.Log("[CalculateWindowFeeling] 판정 데이터 없음 → Bad");
-            return AudianceFeelingUtil.FromScore100(0);
+            return AudianceData.EAudianceFeeling.SoSo;
         }
 
         float raw = (wPerfect * 1.0f) + (wGood * goodWeight) + (wBad * badWeight);
