@@ -34,6 +34,11 @@ public class PracticeSceneController : MonoBehaviour
     private float clipLength;
     private AudioSource practiceAudioSource;
 
+    private VocalJudge vocalJudge;
+    private VocalResult vocalResult;
+    private Coroutine resultDelayCoroutine;
+    private bool isResultShown = false;
+
 
     private void Start()
     {
@@ -64,7 +69,7 @@ public class PracticeSceneController : MonoBehaviour
 
     private void Update()
     {
-        if (state == PracticeState.Playing)
+        if (state == PracticeState.Playing && practiceHUD != null)
         {
             playTime += Time.deltaTime;
 
@@ -76,12 +81,6 @@ public class PracticeSceneController : MonoBehaviour
             {
                 EndPractice();
             }
-        }
-
-        // 임시 종료
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            EndPractice();
         }
     }
 
@@ -194,6 +193,46 @@ public class PracticeSceneController : MonoBehaviour
         
         karaokePlayer.Init(practiceAudioSource, lyricJson);
 
+        // VocalJudge 관련 초기화
+        // PracticeHUD의 자식에서 찾거나, 씬에서 직접 찾기
+        if (practiceHUD != null && practiceHUD.gameObject != null)
+        {
+            vocalJudge = practiceHUD.gameObject.GetComponentInChildren<VocalJudge>(true);
+        }
+        
+        // PracticeHUD에서 못 찾으면 씬에서 직접 찾기
+        if (vocalJudge == null)
+        {
+            vocalJudge = FindFirstObjectByType<VocalJudge>(FindObjectsInactive.Include);
+        }
+        
+        if (vocalJudge != null)
+        {
+            // 결과 초기화
+            vocalJudge.ResetResult();
+
+            // audioSource 연결
+            vocalJudge.songAudioSource = practiceAudioSource;
+            vocalJudge.useAudioSourceTime = true;
+            vocalJudge.autoFinishWhenSongEnds = true;
+
+            // OnFinished 이벤트 구독
+            vocalJudge.OnFinished += OnVocalJudgeFinished;
+
+            Debug.Log("[PracticeScene] VocalJudge 초기화 완료");
+        }
+        else
+        {
+            Debug.LogWarning("[PracticeScene] VocalJudge를 찾을 수 없습니다. 결과 없이 진행합니다.");
+        }
+
+        if (vocalJudge != null && vocalJudge.scoreChart != null)
+        {
+            vocalJudge.scoreChart.Init(song.scoreChartJsonAsset);
+        }
+
+        isResultShown = false;
+        vocalResult = null;
     }
 
     private void OnClickExit()
@@ -209,34 +248,109 @@ public class PracticeSceneController : MonoBehaviour
 
         state = PracticeState.Result;
 
-        if (practiceAudioSource.isPlaying)
+        Debug.Log("[PracticeScene] EndPractice 호출됨");
+
+        // 기존 코루틴 정지
+        if (resultDelayCoroutine != null)
+        {
+            StopCoroutine(resultDelayCoroutine);
+            resultDelayCoroutine = null;
+        }
+
+        // VocalJudge가 있으면 결과를 기다리고, 없으면 바로 지연 후 표시
+        if (vocalJudge != null)
+        {
+            Debug.Log("[PracticeScene] VocalJudge가 있음. 결과를 기다립니다...");
+            // VocalJudge의 autoFinishWhenSongEnds가 true이면 자동으로 Finish()가 호출됨
+            resultDelayCoroutine = StartCoroutine(ShowResultAfterDelay());
+        }
+        else
+        {
+            Debug.Log("[PracticeScene] VocalJudge가 없음. 지연 후 결과 표시");
+            resultDelayCoroutine = StartCoroutine(ShowResultAfterDelay());
+        }
+    }
+
+    private void OnVocalJudgeFinished(VocalResult result)
+    {
+        Debug.Log($"[PracticeScene] OnVocalJudgeFinished 호출됨! finalScore100={result?.finalScore100}, score={result?.score}");
+        vocalResult = result;
+        // 결과가 준비되면 바로 표시 (지연 코루틴이 있으면 취소)
+        if (resultDelayCoroutine != null)
+        {
+            StopCoroutine(resultDelayCoroutine);
+            resultDelayCoroutine = null;
+        }
+        ShowResultHUD(result);
+    }
+
+    private System.Collections.IEnumerator ShowResultAfterDelay()
+    {
+        const float delaySeconds = 1.5f;
+        yield return new WaitForSeconds(delaySeconds);
+
+        // VocalJudge 결과가 있으면 그것을 사용, 없으면 null로 표시
+        Debug.Log($"[PracticeScene] ShowResultAfterDelay 완료. vocalResult={vocalResult?.finalScore100 ?? -1}");
+        ShowResultHUD(vocalResult);
+        resultDelayCoroutine = null;
+    }
+
+    private void ShowResultHUD(VocalResult result)
+    {
+        // 중복 호출 방지
+        if (isResultShown)
+        {
+            Debug.Log("[PracticeScene] ShowResultHUD 중복 호출 방지");
+            return;
+        }
+        isResultShown = true;
+
+        Debug.Log($"[PracticeScene] ShowResultHUD 호출됨. result={result != null}, finalScore100={result?.finalScore100 ?? -1}");
+
+        // 노래 정지
+        if (practiceAudioSource != null && practiceAudioSource.isPlaying)
         {
             practiceAudioSource.Stop();
         }
 
-        ShowResultHUD();
-    }
-
-    private void ShowResultHUD()
-    {
         UIManager.Instance.CloseHUDUI(nameof(PracticeHUD));
+        practiceHUD = null;
 
         resultHUD = UIManager.Instance.ShowHUDUI<PracticeResultHUD>();
 
         var song = unlockedSongs[currentIndex];
-
-        // 임시 결과값
-        int score = UnityEngine.Random.Range(60, 100);
-        string rankPath = GetRankSpritePath(score);
         string albumPath = $"Sprites/AlbumCovers/{song.albumCover.name}";
 
-        resultHUD.Init(
-            rankPath,
-            albumPath,
-            score.ToString(),
-            (currentIndex + 1).ToString(),
-            song.title
-        );
+        if (result != null)
+        {
+            // VocalJudge 결과가 있는 경우
+            int score = result.finalScore100;
+            string rankPath = GetRankSpritePath(score);
+
+            Debug.Log($"[PracticeScene] 결과 표시: score={score}, rank={rankPath}");
+            resultHUD.Init(
+                rankPath,
+                albumPath,
+                score.ToString(),
+                (currentIndex + 1).ToString(),
+                song.title
+            );
+        }
+        else
+        {
+            // VocalJudge 결과가 없는 경우 (기본값)
+            int score = 0;
+            string rankPath = GetRankSpritePath(score);
+
+            Debug.Log($"[PracticeScene] 결과 없음. 기본값 표시: score={score}, rank={rankPath}");
+            resultHUD.Init(
+                rankPath,
+                albumPath,
+                score.ToString(),
+                (currentIndex + 1).ToString(),
+                song.title
+            );
+        }
 
         resultHUD.OnClickToMainButton += () =>
         {
@@ -261,6 +375,42 @@ public class PracticeSceneController : MonoBehaviour
         else if (score >= 40) return "Sprites/Rank/StageResultB";
         else if (score >= 10) return "Sprites/Rank/StageResultC";
         else return "Sprites/Rank/StageResultF";
+    }
+
+    private void OnDestroy()
+    {
+        // 이벤트 구독 해제
+        if (practiceHUD != null)
+        {
+            practiceHUD.onClickedRightSongButton -= OnClickRight;
+            practiceHUD.onClickedLeftSongButton -= OnClickLeft;
+            practiceHUD.onClickedPracticeButton -= OnClickPractice;
+            practiceHUD.onClickedExitButton -= OnClickExit;
+        }
+
+        // 코루틴 정지
+        if (resultDelayCoroutine != null)
+        {
+            StopCoroutine(resultDelayCoroutine);
+            resultDelayCoroutine = null;
+        }
+
+        // AudioSource 정리
+        if (practiceAudioSource != null)
+        {
+            if (practiceAudioSource.isPlaying)
+                practiceAudioSource.Stop();
+
+            UnityEngine.Object.Destroy(practiceAudioSource);
+            practiceAudioSource = null;
+        }
+
+        // VocalJudge 이벤트 구독 해제
+        if (vocalJudge != null)
+        {
+            vocalJudge.OnFinished -= OnVocalJudgeFinished;
+            vocalJudge = null;
+        }
     }
 }
 
