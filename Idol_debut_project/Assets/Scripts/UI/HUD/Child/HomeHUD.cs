@@ -41,7 +41,7 @@ public class HomeHUD : UIHUD
         GameObject ClickedNewGameButton =  Get<Button>((int)Buttons.NewGameButton).gameObject;
         BindEvent(ClickedNewGameButton,OnClickedNewGameButton, GameEvents.UIEvent.Click);
         GameObject ClickedLoadButton =  Get<Button>((int)Buttons.LoadButton).gameObject;
-        if (GameManager.Instance.IsLoadedGame==false)
+        if (SaveManager.Instance.HasSave()==false)
         {
             ClickedLoadButton.GetComponent<Button>().interactable = false;
         }

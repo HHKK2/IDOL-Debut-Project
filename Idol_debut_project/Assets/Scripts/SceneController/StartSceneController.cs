@@ -41,12 +41,14 @@ public class StartSceneController : MonoBehaviour
 
     private void OnNewGame()
     {
-        if (GameManager.Instance.IsLoadedGame)
+        if (SaveManager.Instance.HasSave())
         {
             Popup_NewGame popupNewGame = UIManager.Instance.ShowPopupUI<Popup_NewGame>();
             popupNewGame.OnClick_Popup_NewGame_No_Button += () => UIManager.Instance.ClosePopupUI();
             popupNewGame.OnClick_Popup_NewGame_Yes_Button += () =>
             {
+                //세이브 파일 삭제
+                SaveManager.Instance.DeleteSave();
                 GameManager.Instance.ClearLoadedGame();
                 // 튜토리얼 시작
                 GameSceneManager.Instance.ChangeScene(GameScenes.IntroScene);
