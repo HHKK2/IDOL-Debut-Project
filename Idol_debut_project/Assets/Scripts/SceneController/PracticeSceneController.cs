@@ -6,6 +6,10 @@ using System.Collections;
 
 public class PracticeSceneController : MonoBehaviour
 {
+    //노래방이랑 한 줄 한 줄 연결.
+    [SerializeField] private KaraokeLinePlayer karaokePlayer;
+
+
     public static event Action OnFinished;
 
     private PracticeHUD practiceHUD;
@@ -66,9 +70,6 @@ public class PracticeSceneController : MonoBehaviour
 
             practiceHUD.InitSongMMSS(FormatTime(playTime));
             practiceHUD.InitSongSlider(playTime / clipLength);
-
-            // 가사 예시 (실제론 타임라인/데이터로 교체)
-            UpdateLyrics(playTime);
 
             // 곡 끝
             if (playTime >= clipLength)
@@ -161,6 +162,7 @@ public class PracticeSceneController : MonoBehaviour
         practiceHUD.InitSongMMSS("00:00");
         practiceHUD.InitSongSlider(0f);
 
+        var song = unlockedSongs[currentIndex];
         var clip = unlockedSongs[currentIndex].GetPracticeClip();
 
         if (clip == null)
@@ -172,6 +174,25 @@ public class PracticeSceneController : MonoBehaviour
 
         practiceAudioSource.clip = clip;
         practiceAudioSource.Play();
+
+        //노래방 한 줄 한 줄 
+        if (karaokePlayer == null)
+        {
+            Debug.LogError("[Practice] KaraokeLinePlayer is null");
+            return;
+        }
+
+        TextAsset lyricJson = song.karaokeJsonAsset;
+        if (lyricJson == null)
+        {
+            Debug.LogError("[Practice] karaokeJsonAsset is null");
+            return;
+        }
+
+        karaokePlayer.lyricsText = practiceHUD.GetLyricsText();
+        karaokePlayer.nextLyricsText = practiceHUD.GetNextLyricsText();
+        
+        karaokePlayer.Init(practiceAudioSource, lyricJson);
 
     }
 
@@ -224,13 +245,8 @@ public class PracticeSceneController : MonoBehaviour
         };
     }
 
-    // ───────────────── 가사 / 유틸 ─────────────────
-
-    private void UpdateLyrics(float time)
-    {
-        //TODO : 민경이의 가사 한 줄 한 줄 띄우는 로직...
-    }
-
+    // ───────────────── 유틸 ─────────────────
+    
     private string FormatTime(float time)
     {
         int m = (int)(time / 60);
