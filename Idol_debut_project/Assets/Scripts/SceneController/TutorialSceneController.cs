@@ -850,6 +850,7 @@ public class TutorialSceneController : MonoBehaviour
         Debug.Log("[Tutorial] 튜토리얼 완료! HomeScene으로 전환");
         time.SetTutorial(false);
         SceneManager.LoadScene(GameScenes.HomeScene);
+        GameManager.Instance.StartGame();
     }
 
     #endregion
