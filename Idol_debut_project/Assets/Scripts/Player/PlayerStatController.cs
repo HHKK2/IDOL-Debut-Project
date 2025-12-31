@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using UnityEditor.Overlays;
 using UnityEngine;
 
-public class PlayerStatController : MonoBehaviour
+public class PlayerStatController : AdolpSingleton<PlayerStatController>
 {
     // 플레이어의 모든 스탯을 관리함 -> 스탯 읽기, 쓰기, 범위 제한, 변경 시 이벤트 발행 관리
     // GameState UI 민심은 직접 Player 에게 접근하지 않음
