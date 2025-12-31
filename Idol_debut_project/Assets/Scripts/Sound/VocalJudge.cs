@@ -32,7 +32,7 @@ public class VocalJudge : MonoBehaviour
     [Header("Score Normalization")] 
     [Range(0f, 1f)] public float goodWeight = 1.0f;
 
-    [Range(0f, 1f)] public float badWeight = 0.20f;
+    [Range(0f, 1f)] public float badWeight = 0.55f;
 
     [Range(0.3f, 1.0f)] public float perfectRatio = 0.75f;
     
@@ -81,7 +81,7 @@ public class VocalJudge : MonoBehaviour
     
     [Header("Judgement Tuning")]
     [Range(0.5f, 3.0f)]
-    public float judgementToleranceScale = 1.4f; // 1.0=원래, 1.4=널널, 1.8=더 널널
+    public float judgementToleranceScale = 2.0f; // 1.0=원래, 1.4=널널, 1.8=더 널널
 
     public int Score { get; private set; }
     public int PerfectCount { get; private set; }
@@ -309,9 +309,14 @@ public class VocalJudge : MonoBehaviour
         // tol_cents 기반 판정 (권장)
         float expectedMidi = note.midi;
         float actualMidi = pitchDetector.LastMidi;
+        
+        float expectedHz = 440f * Mathf.Pow(2f, (expectedMidi - 69f) / 12f);
+        float actualHz = pitchDetector.LastF0Hz;
 
-        float cents = Mathf.Abs(actualMidi - expectedMidi) * 100.0f;
-        int basetol = note.tol_cents > 0 ? note.tol_cents : 120;
+        float cents = 1200f * Mathf.Abs(Mathf.Log(actualHz / expectedHz, 2f)); // log2
+
+        //float cents = Mathf.Abs(actualMidi - expectedMidi) * 100.0f;
+        int basetol = note.tol_cents > 0 ? note.tol_cents : 200;
 
         float tolScale = judgementToleranceScale;
         float tol = basetol * tolScale;
