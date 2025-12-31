@@ -135,11 +135,11 @@ public class TutorialSceneController : MonoBehaviour
         }
 
         // 테스트: Space로 스킵
-        if ((isPracticePlaying || isStagePlaying) && Input.GetKeyDown(KeyCode.Space))
+        /*if ((isPracticePlaying || isStagePlaying) && Input.GetKeyDown(KeyCode.Space))
         {
             if (isPracticePlaying) EndPracticeAndReturnToMenu();
             else if (isStagePlaying) EndStage();
-        }
+        }*/
     }
 
     #region 다이얼로그 시스템
@@ -288,7 +288,7 @@ public class TutorialSceneController : MonoBehaviour
         currentStep = TutorialSteps.Practice;
         timerHUD = UIManager.Instance.ShowHUDUI<TimerHUD>(GameConstants.UI.HUDName.TimerHUD);
 
-        timerHUD.StartCountdown(300f); // 10분
+        timerHUD.StartCountdown(300f); // 5분
         timerHUD.OnTimerFinished += OnTimerEnd;
 
         currentDialogue = practiceNarration;
