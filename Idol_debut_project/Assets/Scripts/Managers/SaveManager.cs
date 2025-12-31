@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using UnityEngine;
@@ -41,10 +42,18 @@ public class SaveManager : AdolpSingleton<SaveManager>
 
         data.tutorialCompleted = true;
 
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(SavePath, json);
         
-        Debug.Log("[SAVE] successful");
+        try
+        {
+            Debug.Log($"[SAVE] path={SavePath}");
+            string json = JsonUtility.ToJson(data, true);
+            File.WriteAllText(SavePath, json);
+            Debug.Log("[SAVE] successful");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[SAVE] failed: {e}");
+        }
 
     }
 
