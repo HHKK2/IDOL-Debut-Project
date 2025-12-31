@@ -54,4 +54,9 @@ public static class GameConstants
     {
         public const string ClickSound = "ClickSound";
     }
+
+    public static class PopupName
+    {
+        public const string Popup_Fullscreen = "Popup_Fullscreen";
+    }
 }

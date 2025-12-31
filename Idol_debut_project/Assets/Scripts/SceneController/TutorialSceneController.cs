@@ -48,6 +48,7 @@ public class TutorialSceneController : MonoBehaviour
     private PracticeHUD practiceHUD;
     private StageHUD stageHUD;
     private StageResultHUD stageResultHUD;
+    private Popup_Fullscreen fullscreenPopup;
 
     // 오디오
     private AudioSource audioSource;
@@ -146,7 +147,6 @@ public class TutorialSceneController : MonoBehaviour
 
     void ShowNextLine()
     {
-        // ★ currentDialogue 없으면 바로 OnDialogueFinished() ★
         if (currentDialogue == null)
         {
             OnDialogueFinished();
@@ -199,7 +199,6 @@ public class TutorialSceneController : MonoBehaviour
             case TutorialSteps.Result:
                 Debug.Log("Result 케이스 진입!");
                 
-                // ★ StageResultHUD 유지한 채로 클릭 대기 ★
                 currentDialogue = null;
                 currentStep = TutorialSteps.ResultClick;
                 waitingForClick = true;
@@ -207,7 +206,6 @@ public class TutorialSceneController : MonoBehaviour
                 break;
 
             case TutorialSteps.ResultClick:
-                // ★ 여기서 HUD 닫기 ★
                 if (stageResultHUD != null)
                 {
                     UIManager.Instance.CloseHUDUI(GameConstants.UI.HUDName.StageResultHUD);
@@ -276,8 +274,24 @@ public class TutorialSceneController : MonoBehaviour
         UIManager.Instance.CloseHUDUI(GameConstants.UI.HUDName.CombackNoticeHUD);
         combackNoticeHUD = null;
 
-        StartPracticeIntro();
+        ShowPlayGuidePopup();
     }
+
+    void ShowPlayGuidePopup()
+    {
+        fullscreenPopup = UIManager.Instance.ShowPopupUI<Popup_Fullscreen>("Popup_Playguide");
+        fullscreenPopup.OnClickClose += OnPlayGuideClose;
+    }
+
+    void OnPlayGuideClose()
+    {
+        fullscreenPopup.OnClickClose -= OnPlayGuideClose;
+        
+        Destroy(fullscreenPopup.gameObject);
+        fullscreenPopup = null;
+        
+        StartPracticeIntro();
+}
 
     #endregion
 
@@ -720,7 +734,6 @@ public class TutorialSceneController : MonoBehaviour
         Debug.Log($"[Tutorial] 무대 완료! 최종 점수: {finalScore}");
 
 
-        // ★ FadeInEffectSystemUI 닫기 ★
         try
         {
             UIManager.Instance.CloseSystemUI(GameConstants.UI.SystemName.FadeInEffectSystemUI);
@@ -917,7 +930,6 @@ public class TutorialSceneController : MonoBehaviour
             stageResultHUD.OnClickGoHomeButton -= OnStageResultConfirmed;
         }
 
-        // ★ VocalJudge 정리 ★
         if (vocalJudge != null)
         {
             vocalJudge.OnFinished -= OnVocalJudgeFinished;
