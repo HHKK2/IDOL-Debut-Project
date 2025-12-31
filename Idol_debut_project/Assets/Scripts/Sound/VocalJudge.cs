@@ -17,7 +17,7 @@ public class VocalJudge : MonoBehaviour
     public AudioSource songAudioSource;
 
     [Header("Judge Rate")]
-    public float judgeIntervalSec = 0.05f; // 0.05초마다 판정
+    public float judgeIntervalSec = 0.25f; // 0.25초마다 판정
     private float judgeTimer = 0.0f;
 
     [Header("Result")] 
@@ -36,6 +36,13 @@ public class VocalJudge : MonoBehaviour
 
     [Range(0.3f, 1.0f)] public float perfectRatio = 0.75f;
     
+    
+    [Header("Audience Window")] 
+    public float audienceWindowSec = 5f;
+    public float audienceUpdateIntervalSec = 5f;
+    
+    [Header("Audience Debug")]
+    public bool audienceDebugAlways = true;
 
     public float missPenaltyWeight = 0.2f;
     public float silentPenaltyWeight = 0.3f;
@@ -210,18 +217,12 @@ public class VocalJudge : MonoBehaviour
         audienceTimer += Time.deltaTime;
         if (audienceTimer >= audienceUpdateIntervalSec)
         {
-            audienceTimer = 0f;
-            AudianceData.EAudianceFeeling feelingBefore = Feeling;
-            var feeling = CalculateWindowFeeling();
-            Feeling = feeling;
-            
-            if (true)
-            {
-                Debug.Log($"[VocalJudge] 🎭 Feeling 업데이트: {feelingBefore} → {feeling} | windowSamples.Count={windowSamples.Count}");
-            }
-            
-            OnAudienceFeelingUpdated?.Invoke(feeling);
+            audienceTimer -= audienceUpdateIntervalSec;
+            AudienceTick();
+
         }
+        
+        
 
         // note가 null이든 아니든 디버그 출력
         if (logDebug)
@@ -257,6 +258,23 @@ public class VocalJudge : MonoBehaviour
         //
         //     OnAudienceFeelingUpdated?.Invoke(feeling);
         // }
+    }
+
+    private void AudienceTick()
+    {
+        var feelingBefore = Feeling;
+        var feeling = CalculateWindowFeeling();
+        Feeling = feeling;
+        if (audienceDebugAlways)
+        {
+            Debug.Log(
+                $"[AudienceTick] t={songTimeSec:F2}s " +
+                $"before={feelingBefore} -> now={feeling} " +
+                $"samples={windowSamples.Count} " +
+                $"P/G/B/M/S={CountKind(JudgeKind.Perfect)}/{CountKind(JudgeKind.Good)}/{CountKind(JudgeKind.Bad)}/{CountKind(JudgeKind.Miss)}/{CountKind(JudgeKind.SilentPenalty)}"
+            );
+        }
+        OnAudienceFeelingUpdated?.Invoke(feeling);
     }
     int CountKind(JudgeKind kind)
     {
@@ -406,9 +424,7 @@ public class VocalJudge : MonoBehaviour
     }
 
     public event Action<AudianceData.EAudianceFeeling> OnAudienceFeelingUpdated;
-    [Header("Audience Window")] 
-    public float audienceWindowSec = 5f;
-    public float audienceUpdateIntervalSec = 5f;
+    
 
     private int maxSamplesPerWindow;
     private float audienceTimer = 0f;
