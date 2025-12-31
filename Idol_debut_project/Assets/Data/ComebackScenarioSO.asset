@@ -18,7 +18,7 @@ MonoBehaviour:
       songId: trainee
       title: "\uC5F0\uC2B5\uACE1"
       concept: "\uC5B4\uCFE0\uC2A4\uD2F1\uD31D"
-      albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
+      albumCover: {fileID: 21300000, guid: 2c1aef1a1a2ea05479cf5b993afc0302, type: 3}
       audio:
         original: {fileID: 8300000, guid: 39ee18de3f8c5d448a85d431828ec738, type: 3}
         inst: {fileID: 8300000, guid: f29850912e77ff64998594ec46fb2bf1, type: 3}
@@ -29,7 +29,7 @@ MonoBehaviour:
       songId: trainee
       title: "\uC5F0\uC2B5\uACE1"
       concept: "\uC5B4\uCFE0\uC2A4\uD2F1\uD31D"
-      albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
+      albumCover: {fileID: 21300000, guid: 2c1aef1a1a2ea05479cf5b993afc0302, type: 3}
       audio:
         original: {fileID: 8300000, guid: 39ee18de3f8c5d448a85d431828ec738, type: 3}
         inst: {fileID: 8300000, guid: f29850912e77ff64998594ec46fb2bf1, type: 3}
@@ -41,18 +41,18 @@ MonoBehaviour:
       songId: song01male
       title: i'm insane
       concept: "\uC560\uC808"
-      albumCover: {fileID: 21300000, guid: 776d7bbd7ae0e144087bcc7888101ea1, type: 3}
+      albumCover: {fileID: 21300000, guid: 3e8b127877ae83c468f93dfa87ced587, type: 3}
       audio:
         original: {fileID: 8300000, guid: ff5383e97f7dbd545b961978e679b1a6, type: 3}
         inst: {fileID: 8300000, guid: e45f1b513ada6ce45b354c44ef5f5dde, type: 3}
-      usedInComeback: 1
+      usedInComeback: 0
       karaokeJsonAsset: {fileID: 4900000, guid: 2757edd196e8f4c92a4179321d3ab4bb, type: 3}
       scoreChartJsonAsset: {fileID: 4900000, guid: 0178b81cf1301473ca02bef36eafda65, type: 3}
     femaleSong:
       songId: song01female
       title: "\uC6B0\uB9AC\uC758 \uBD04"
       concept: "\uC544\uB828"
-      albumCover: {fileID: 21300000, guid: 776d7bbd7ae0e144087bcc7888101ea1, type: 3}
+      albumCover: {fileID: 21300000, guid: 629f4989aadffad44ab68434b353a62b, type: 3}
       audio:
         original: {fileID: 8300000, guid: 169d54152353a7249baeb811ddf36dfa, type: 3}
         inst: {fileID: 8300000, guid: 034cbe597a1b8214a9d537bba6e09a07, type: 3}
@@ -64,7 +64,7 @@ MonoBehaviour:
       songId: song02male
       title: overdrive
       concept: "\uCCAD\uB7C9"
-      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
+      albumCover: {fileID: 21300000, guid: 362e0e5f7fc809c4a991db2b396ec4b7, type: 3}
       audio:
         original: {fileID: 8300000, guid: 76a204452d740304d9966f128a8fab78, type: 3}
         inst: {fileID: 8300000, guid: cfb12a3f28104aa409984fb72b55b306, type: 3}
@@ -75,7 +75,7 @@ MonoBehaviour:
       songId: song02female
       title: Pink Gun
       concept: "\uC139\uC2DC"
-      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
+      albumCover: {fileID: 21300000, guid: b134c8cb02c9c1d4985371995b4f351d, type: 3}
       audio:
         original: {fileID: 8300000, guid: f8fde40899416cd42af9ac4e5a35bda4, type: 3}
         inst: {fileID: 8300000, guid: f6e37a1a6e9b83849ab97ae1f6410e18, type: 3}
@@ -87,7 +87,7 @@ MonoBehaviour:
       songId: song03male
       title: FEVER
       concept: R&B
-      albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
+      albumCover: {fileID: 21300000, guid: 930535b33f74dab4195bb3276d561e04, type: 3}
       audio:
         original: {fileID: 8300000, guid: 31bc9a02ce993494abb5501c2ca7f14d, type: 3}
         inst: {fileID: 8300000, guid: 6613a8c2164e6644f948974b93ffb473, type: 3}
@@ -98,7 +98,7 @@ MonoBehaviour:
       songId: song03female
       title: Sweet Sour Love
       concept: "\uCCAD\uB7C9"
-      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
+      albumCover: {fileID: 21300000, guid: d28cb8e9af4eb7b4b92b504b54e81c4c, type: 3}
       audio:
         original: {fileID: 8300000, guid: c1a8e041ac75c0741a0df9940f4959c0, type: 3}
         inst: {fileID: 8300000, guid: 85e64d59377bf2a41a77639cdc79fac2, type: 3}
@@ -110,7 +110,7 @@ MonoBehaviour:
       songId: song04male
       title: When End
       concept: "\uBC1C\uB77C\uB4DC"
-      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
+      albumCover: {fileID: 21300000, guid: 78577bc7fc5b55c459017dc48ac397e4, type: 3}
       audio:
         original: {fileID: 8300000, guid: 2bfaea50f0d40ee4ca59ed9c8528e2ab, type: 3}
         inst: {fileID: 8300000, guid: 399bbaac510d0ab45a9b54411df5d358, type: 3}
@@ -121,7 +121,7 @@ MonoBehaviour:
       songId: song04female
       title: SleepWalking
       concept: "\uBABD\uD658"
-      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
+      albumCover: {fileID: 21300000, guid: 27e415821cc2563468e3af922d7c395b, type: 3}
       audio:
         original: {fileID: 8300000, guid: 606a764729bbb6846aa00012b461a7d1, type: 3}
         inst: {fileID: 8300000, guid: 920d630aebeca4848a32358ecb81b558, type: 3}
@@ -133,7 +133,7 @@ MonoBehaviour:
       songId: song05male
       title: Algorithm
       concept: "\uCCAD\uB7C9\uBC34\uB4DC"
-      albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
+      albumCover: {fileID: 21300000, guid: 7a957d51fd0279748b5908d81ea8e66b, type: 3}
       audio:
         original: {fileID: 8300000, guid: 254ed9f754faa4841a2a2ae3b2840f69, type: 3}
         inst: {fileID: 8300000, guid: 33e606d375422c840adc883ae0857149, type: 3}
@@ -144,7 +144,7 @@ MonoBehaviour:
       songId: song05female
       title: "\uAE30\uB2E4\uB824\uC918"
       concept: "\uCCAD\uB7C9"
-      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
+      albumCover: {fileID: 21300000, guid: edc27f5b9a31cd245a98de5836ce4b0a, type: 3}
       audio:
         original: {fileID: 8300000, guid: cbbe28874d8309a488e666c3a8e03119, type: 3}
         inst: {fileID: 8300000, guid: dc185aa1fc14e9e418a00bcf6c4aa614, type: 3}
@@ -156,7 +156,7 @@ MonoBehaviour:
       songId: song06male
       title: King
       concept: "\uBC85\uCC28\uC624\uB984"
-      albumCover: {fileID: 21300000, guid: 06fc9b951111c904aa0951b5aa9fe16a, type: 3}
+      albumCover: {fileID: 21300000, guid: c941ff771fbb595418fbfb6256b1ec75, type: 3}
       audio:
         original: {fileID: 8300000, guid: 14a794f86a15d734abd8d1ad97202f34, type: 3}
         inst: {fileID: 8300000, guid: f9fd545925e3f3648990784dbd908b38, type: 3}
@@ -167,7 +167,7 @@ MonoBehaviour:
       songId: song06female
       title: Dreamers
       concept: "\uB4DC\uB9BC\uD31D"
-      albumCover: {fileID: 21300000, guid: 4375f60dc7b29ca4dab4d96f6346a6f6, type: 3}
+      albumCover: {fileID: 21300000, guid: 24094120045ffb746a9eca84dbd20e00, type: 3}
       audio:
         original: {fileID: 8300000, guid: 6532a0b4d2447da44af913cf227c6592, type: 3}
         inst: {fileID: 8300000, guid: 00e207fce556f74488d6e511649d9c65, type: 3}
