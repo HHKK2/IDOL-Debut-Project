@@ -187,7 +187,7 @@ public class TutorialSceneController : MonoBehaviour
                 break;
 
             case TutorialSteps.Debut:
-                // 대사 끝나면 그냥 대기 (연습 버튼 이미 눌린 상태)
+                ShowPlayGuidePopup();
                 break;
 
             case TutorialSteps.StartStage:
@@ -274,24 +274,9 @@ public class TutorialSceneController : MonoBehaviour
         UIManager.Instance.CloseHUDUI(GameConstants.UI.HUDName.CombackNoticeHUD);
         combackNoticeHUD = null;
 
-        ShowPlayGuidePopup();
-    }
-
-    void ShowPlayGuidePopup()
-    {
-        fullscreenPopup = UIManager.Instance.ShowPopupUI<Popup_Fullscreen>("Popup_Playguide");
-        fullscreenPopup.OnClickClose += OnPlayGuideClose;
-    }
-
-    void OnPlayGuideClose()
-    {
-        fullscreenPopup.OnClickClose -= OnPlayGuideClose;
-        
-        Destroy(fullscreenPopup.gameObject);
-        fullscreenPopup = null;
-        
         StartPracticeIntro();
-}
+    }
+
 
     #endregion
 
@@ -338,6 +323,21 @@ public class TutorialSceneController : MonoBehaviour
             waitingForClick = true;
             ShowNextLine();
         }
+    }
+
+    void ShowPlayGuidePopup()
+    {
+        fullscreenPopup = UIManager.Instance.ShowPopupUI<Popup_Fullscreen>("Popup_Playguide");
+        fullscreenPopup.OnClickClose += OnPlayGuideClose;
+    }
+
+    void OnPlayGuideClose()
+    {
+        fullscreenPopup.OnClickClose -= OnPlayGuideClose;
+        UIManager.Instance.ClosePopupUI();
+        fullscreenPopup = null;
+        
+        Debug.Log("[Tutorial] 플레이가이드 닫힘 - 연습 시작 가능");
     }
 
     void OnPracticeExitClicked()
