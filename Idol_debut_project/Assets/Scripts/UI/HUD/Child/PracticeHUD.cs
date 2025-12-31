@@ -191,6 +191,24 @@ public class PracticeHUD : UIHUD
         ExitButton.gameObject.SetActive(active);
     }
 
+    public TextMeshProUGUI GetLyricsText()
+    {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        return LyricsText;
+    }
+
+    public TextMeshProUGUI GetNextLyricsText()
+    {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+        return NextLyricsText;
+    }
+
 
 
     private void OnClickRightButton(PointerEventData eventData)
