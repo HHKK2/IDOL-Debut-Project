@@ -47,9 +47,13 @@ public class MouseEffect : AdolpSingleton<MouseEffect>
     {
         if (Input.GetMouseButton(0) && spawnsTime >= defaultTime)
         {
-            SoundManager.Instance.SFXPlay("ClickSound",audioSource.clip);
             StarCreate();
             spawnsTime = 0f;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            SoundManager.Instance.SFXPlay("ClickSound",audioSource.clip);
         }
         spawnsTime += Time.deltaTime;
     }
