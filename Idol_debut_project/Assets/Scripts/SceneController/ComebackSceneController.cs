@@ -238,6 +238,42 @@ public class ComebackSceneController : MonoBehaviour
 
         // 음악 재생 시작
         audioSource.Play();
+
+        // 노래방 한 줄 한 줄 연결
+        if (karaokePlayer == null)
+        {
+            // PracticeHUD의 자식에서 찾거나, 씬에서 직접 찾기
+            if (practiceHUD != null && practiceHUD.gameObject != null)
+            {
+                karaokePlayer = practiceHUD.gameObject.GetComponentInChildren<KaraokeLinePlayer>(true);
+            }
+            
+            // PracticeHUD에서 못 찾으면 씬에서 직접 찾기
+            if (karaokePlayer == null)
+            {
+                karaokePlayer = FindFirstObjectByType<KaraokeLinePlayer>(FindObjectsInactive.Include);
+            }
+        }
+
+        if (karaokePlayer != null)
+        {
+            TextAsset lyricJson = currentSong.karaokeJsonAsset;
+            if (lyricJson == null)
+            {
+                Debug.LogError("[ComebackScene] karaokeJsonAsset is null");
+            }
+            else
+            {
+                karaokePlayer.lyricsText = practiceHUD.GetLyricsText();
+                karaokePlayer.nextLyricsText = practiceHUD.GetNextLyricsText();
+                karaokePlayer.Init(audioSource, lyricJson);
+                Debug.Log("[ComebackScene] KaraokeLinePlayer 초기화 완료");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[ComebackScene] KaraokeLinePlayer를 찾을 수 없습니다.");
+        }
     }
 
     private void ExitPractice()
