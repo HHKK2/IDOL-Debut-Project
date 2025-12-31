@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PitchDetector : MonoBehaviour
 {
-    public int sampleRate = 480000;
+    public int sampleRate = 48000;
     public float fmin = 80.0f;
     public float fmax = 1000.0f;
     
@@ -18,7 +18,11 @@ public class PitchDetector : MonoBehaviour
         LastMidi = 0.0f;
         Confidence = 0.0f;
         
-        if (frame == null || frame.Length < 64) return;
+        if (frame == null || frame.Length < 64)
+        {
+            Debug.LogWarning($"[PitchDetector] Analyze 실패: frame이 null이거나 너무 짧음. frame={(frame == null ? "null" : frame.Length.ToString())}");
+            return;
+        }
 
         float f0;
         float conf;
@@ -57,7 +61,12 @@ public class PitchDetector : MonoBehaviour
         int minLag = Mathf.FloorToInt((float)sr / maxHz);
         int maxLag = Mathf.FloorToInt((float)sr / minHz);
 
-        if (maxLag >= x.Length - 1) return false;
+        if (maxLag >= x.Length - 1)
+        {
+            Debug.LogWarning($"[PitchDetector] maxLag >= x.Length-1: maxLag={maxLag}, x.Length={x.Length}, sr={sr}");
+            return false;
+        }
+        
         double energy = 0.0;
         int i;
         for (i = 0; i < x.Length; i++)
@@ -65,7 +74,11 @@ public class PitchDetector : MonoBehaviour
             energy += (double)(x[i] * x[i]);
         }
 
-        if (energy < 1e-6) return false;
+        if (energy < 1e-6)
+        {
+            Debug.LogWarning($"[PitchDetector] energy too low: {energy}");
+            return false;
+        }
 
         float best = -1.0f;
         int bestLag = -1;
@@ -87,12 +100,22 @@ public class PitchDetector : MonoBehaviour
             }
         }
 
-        if (bestLag <= 0) return false;
+        if (bestLag <= 0)
+        {
+            Debug.LogWarning($"[PitchDetector] bestLag <= 0: bestLag={bestLag}, minLag={minLag}, maxLag={maxLag}, sr={sr}");
+            return false;
+        }
 
         f0 = (float)sr / (float)bestLag;
         conf = Mathf.Clamp01(best);
-        if (conf < 0.10f) return false;
+        
+        if (conf < 0.10f)
+        {
+            Debug.LogWarning($"[PitchDetector] confidence too low: {conf:F4}, best={best:F4}, bestLag={bestLag}, f0={f0:F1}Hz");
+            return false;
+        }
 
+        Debug.Log($"[PitchDetector] ✅ 음높이 감지 성공: f0={f0:F1}Hz, conf={conf:F4}, bestLag={bestLag}, sr={sr}");
         return true;
     }
 }
