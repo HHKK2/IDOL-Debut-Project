@@ -35,7 +35,7 @@ public class ScoreChart : MonoBehaviour
     
     void Awake()
     {
-        LoadChart();
+        //LoadChart();
     }
 
     private void LoadChart()

@@ -89,6 +89,7 @@ public class VocalJudge : MonoBehaviour
     private float songTimeSec = 0.0f;
     void Start()
     {
+        Debug.Log($"[VocalJudge] START id={GetInstanceID()} name={gameObject.name} active={gameObject.activeInHierarchy}");
         ResetResult();
         maxSamplesPerWindow = Mathf.Max(1, Mathf.RoundToInt(audienceWindowSec / judgeIntervalSec));
     }
@@ -151,6 +152,12 @@ public class VocalJudge : MonoBehaviour
         {
             audienceTimer = 0f;
             var feeling = CalculateWindowFeeling();
+            if (logDebug)
+            {
+                Debug.Log($"[AudienceWindow] t={songTimeSec:F2}s feeling={feeling} " +
+                          $"windowSec={audienceWindowSec:F1} updateEvery={audienceUpdateIntervalSec:F1}s " +
+                          $"samples={windowSamples.Count}");
+            }
             OnAudienceFeelingUpdated?.Invoke(feeling);
         }
 
@@ -169,8 +176,32 @@ public class VocalJudge : MonoBehaviour
                 " score=" + Score
             );
         }
-    }
+        
+       
+        
+        // --- audience window timer는 "실시간"으로 돌린다 ---
+        audienceTimer += Time.deltaTime;
+        if (audienceTimer >= audienceUpdateIntervalSec)
+        {
+            audienceTimer = 0f;
 
+            var feeling = CalculateWindowFeeling();
+
+            Debug.Log(
+                $"[AudienceWindow] t={songTimeSec:F2}s feeling={feeling} " +
+                $"samples={windowSamples.Count} " +
+                $"P/G/B/M/S={CountKind(JudgeKind.Perfect)}/{CountKind(JudgeKind.Good)}/{CountKind(JudgeKind.Bad)}/{CountKind(JudgeKind.Miss)}/{CountKind(JudgeKind.SilentPenalty)}"
+            );
+
+            OnAudienceFeelingUpdated?.Invoke(feeling);
+        }
+    }
+    int CountKind(JudgeKind kind)
+    {
+        int c = 0;
+        foreach (var s in windowSamples) if (s == kind) c++;
+        return c;
+    }
     void Judge(ScoreChart.Note note)
     {
         TotalCount++;

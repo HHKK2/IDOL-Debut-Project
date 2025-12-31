@@ -529,9 +529,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1437883475298529471, guid: c2f53c6556b0e4ec9a7d3e77ecff7cce, type: 3}
+      propertyPath: logDebug
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4742196586170177721, guid: c2f53c6556b0e4ec9a7d3e77ecff7cce, type: 3}
       propertyPath: m_Name
       value: VocalSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742196586170177721, guid: c2f53c6556b0e4ec9a7d3e77ecff7cce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8727316166866297835, guid: c2f53c6556b0e4ec9a7d3e77ecff7cce, type: 3}
       propertyPath: m_LocalPosition.x

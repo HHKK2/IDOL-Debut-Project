@@ -377,6 +377,8 @@ public class ComebackSceneController : MonoBehaviour
 
             // OnFinished 이벤트 구독
             vocalJudge.OnFinished += OnVocalJudgeFinished;
+
+            vocalJudge.OnAudienceFeelingUpdated += OnAudienceFeelingUpdated;
         }
         else
         {
@@ -400,6 +402,13 @@ public class ComebackSceneController : MonoBehaviour
         }
     }
 
+    private void OnAudienceFeelingUpdated(AudianceData.EAudianceFeeling feeling)
+    {
+        if (stageHUD != null)
+        {
+            stageHUD.InitAudianceImage(feeling);
+        }
+    }
     private void UpdateStage()
     {
         // 카운트다운 중이면 timestamp 업데이트 안 함
@@ -450,10 +459,10 @@ public class ComebackSceneController : MonoBehaviour
             
 
             // 관객 반응 업데이트 (VocalJudge 결과 기반)
-            if (vocalJudge != null)
-            {
-                stageHUD.InitAudianceImage(vocalJudge.Feeling);
-            }
+            // if (vocalJudge != null)
+            // {
+            //     stageHUD.InitAudianceImage(vocalJudge.Feeling);
+            // }
         }
     }
 
@@ -675,6 +684,7 @@ public class ComebackSceneController : MonoBehaviour
         if (vocalJudge != null)
         {
             vocalJudge.OnFinished -= OnVocalJudgeFinished;
+            vocalJudge.OnAudienceFeelingUpdated -= OnAudienceFeelingUpdated;
             vocalJudge = null;
         }
     }
