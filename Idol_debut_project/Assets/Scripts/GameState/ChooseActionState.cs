@@ -28,6 +28,7 @@ public class ChooseActionState : IGameState
     private bool canDating;
     private bool canRest;
     private bool canFanService;
+    
 
     public ChooseActionState(GameStateMachine gsm)
     {
@@ -40,7 +41,7 @@ public class ChooseActionState : IGameState
     {
         Debug.Log("행동 선택 상태 진입");
 
-// 여기서만 HomeScene으로 이동
+    // 여기서만 HomeScene으로 이동
     GameSceneManager.Instance.ChangeScene(GameScenes.HomeScene);
 
         Debug.Log($"player null? {player == null}");
@@ -60,8 +61,9 @@ public class ChooseActionState : IGameState
             mental: player.GetMentalRatio(),          // 0~1로 변환된 값
             name: player.Name                        // InputHUD에서 받은 값
         );
+        
 
-
+        
         //상/하반기가 끝날텐데 컴백을 안 하셨다고요? 컴백을 하셔야겠네요.
 
         bool isLastMonth = (time.currentActionIndex == 4);
@@ -95,6 +97,8 @@ public class ChooseActionState : IGameState
         hud.ClickedDatingButton += OnDating;
         hud.ClickedRestButton += OnRest;
         hud.ClickedComebackButton += OnComeback;
+        // 세팅,나가기, 세이브버튼 활성화
+        hud.ActiveStaticButtons();
     }
 
     public void Update()
@@ -111,7 +115,8 @@ public class ChooseActionState : IGameState
         hud.ClickedDatingButton -= OnDating;
         hud.ClickedRestButton -= OnRest;
         hud.ClickedComebackButton -= OnComeback;
-
+        
+        
         //UI 비활성화 버튼 초기화
         hud.ResetActionButtons();
     }
@@ -146,6 +151,9 @@ public class ChooseActionState : IGameState
         if (!canComeBack) return;
         GameManager.Instance.StartAction(ActivityType.Comeback); //게임 매니저가 state 변경을 해줄 거임. 
     }
+    
+
+
 
 }
 

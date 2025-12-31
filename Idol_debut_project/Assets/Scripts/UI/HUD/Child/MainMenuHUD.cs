@@ -31,14 +31,16 @@ public class MainMenuHUD : UIHUD
         SettingButton,
         ExitButton,
         KingButton,
-        KingPopupXButton
+        KingPopupXButton,
+        SettingPopupXButton
     }
 
     enum GameObjects
     {
         ProfileBG, 
         BG,
-        KingPopupGameObject
+        KingPopupGameObject,
+        SettingPopupGameObject
     }
 
 
@@ -49,9 +51,6 @@ public class MainMenuHUD : UIHUD
     public Action ClickedDatingButton;
     public Action ClickedRestButton;
     public Action ClickedComebackButton;
-    public Action ClickedSaveButton;
-    public Action ClickedSettingButton;
-    public Action ClickedExitButton;
 
 
 
@@ -71,8 +70,13 @@ public class MainMenuHUD : UIHUD
     private Button PracticeButton;
     private Button KingButton;
     private Button KingPopupXButton;
+    private Button SaveButton;
+    private Button SettingButton; 
+    private Button ExitButton;
+    private Button SettingPopupXButton;
     
     private GameObject KingPopupGameObject;
+    private GameObject SettingPopupGameObject;
 
     private bool initialized = false;
 
@@ -123,17 +127,20 @@ public class MainMenuHUD : UIHUD
             ComebackButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/버튼_컴백_남");
         }
         BindEvent(ComebackButton, OnClickedComebackButton, GameEvents.UIEvent.Click);
-        GameObject SaveButton = Get<Button>((int)Buttons.SaveButton).gameObject;
-        BindEvent(SaveButton, OnClickedSaveButton, GameEvents.UIEvent.Click);
-        GameObject SettingButton = Get<Button>((int)Buttons.SettingButton).gameObject;
-        BindEvent(SettingButton, OnClickedSettingButton, GameEvents.UIEvent.Click);
-        GameObject ExitButton = Get<Button>((int)Buttons.ExitButton).gameObject;
-        BindEvent(ExitButton, OnClickedExitButton, GameEvents.UIEvent.Click);
+         SaveButton = Get<Button>((int)Buttons.SaveButton);
+        BindEvent(SaveButton.gameObject, OnClickedSaveButton, GameEvents.UIEvent.Click);
+         SettingButton = Get<Button>((int)Buttons.SettingButton);
+        BindEvent(SettingButton.gameObject, OnClickedSettingButton, GameEvents.UIEvent.Click);
+         ExitButton = Get<Button>((int)Buttons.ExitButton);
+        BindEvent(ExitButton.gameObject, OnClickedExitButton, GameEvents.UIEvent.Click);
         KingButton = Get<Button>((int)Buttons.KingButton);
         BindEvent(KingButton.gameObject,OnClickedKingButton ,GameEvents.UIEvent.Click);
         KingPopupXButton=Get<Button>((int)Buttons.KingPopupXButton);
         BindEvent(KingPopupXButton.gameObject,OnClickedKingPopupXButton,GameEvents.UIEvent.Click);
-
+        SettingPopupXButton=Get<Button>((int)Buttons.SettingPopupXButton);
+        BindEvent(SettingPopupXButton.gameObject,OnClickedSettingPopupXButton,GameEvents.UIEvent.Click);
+        
+        
         Bind<GameObject>(typeof(GameObjects));
         GameObject ProfileBG = Get<GameObject>((int)GameObjects.ProfileBG);
         GameObject BG = Get<GameObject>((int)GameObjects.BG);
@@ -148,6 +155,8 @@ public class MainMenuHUD : UIHUD
             BG.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/MainScreen/배경_메인화면_남");
         }
         KingPopupGameObject=Get<GameObject>((int)GameObjects.KingPopupGameObject);
+        SettingPopupGameObject = Get<GameObject>((int)GameObjects.SettingPopupGameObject);
+        
         
         initialized = true;
     }
@@ -156,10 +165,10 @@ public class MainMenuHUD : UIHUD
     {
         KingPopupGameObject.SetActive(false);
     }
-    
-    private void OnClickedKingButton(PointerEventData eventData)
+
+    private void OnClickedSettingPopupXButton(PointerEventData eventData)
     {
-        KingPopupGameObject.SetActive(true);
+        SettingPopupGameObject.SetActive(false);
     }
 
     private void OnClickedLiveButton(PointerEventData eventData)
@@ -189,17 +198,22 @@ public class MainMenuHUD : UIHUD
 
     private void OnClickedSaveButton(PointerEventData eventData)
     {
-        ClickedSaveButton?.Invoke();
+        SaveManager.Instance.SaveGame();
     }
-
+    
     private void OnClickedSettingButton(PointerEventData eventData)
     {
-        ClickedSettingButton?.Invoke();
+        SettingPopupGameObject.SetActive(true);
     }
 
     private void OnClickedExitButton(PointerEventData eventData)
     {
-        ClickedExitButton?.Invoke();
+        Application.Quit();
+    }
+    
+    private void OnClickedKingButton(PointerEventData eventData)
+    {
+        KingPopupGameObject.SetActive(true);
     }
 
     /// <summary>
@@ -288,4 +302,15 @@ public class MainMenuHUD : UIHUD
         RestButton.interactable = false;
         Get<Button>((int)Buttons.ComebackButton).interactable = false;
     }
+
+    /// <summary>
+    /// Setting, Save, Exit 버튼 활성화
+    /// </summary>
+    public void ActiveStaticButtons()
+    {
+        SettingButton.interactable = true;
+        SaveButton.interactable = true;
+        ExitButton.interactable = true;
+    }
+    
 }

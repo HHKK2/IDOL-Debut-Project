@@ -151,7 +151,7 @@ public class SoundManager : AdolpSingleton<SoundManager>
         AudioSource audioSource = go.AddComponent<AudioSource>();
         audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         audioSource.clip = clip;
-        audioSource.volume = 0.5f;
+        audioSource.volume = 0.3f;
         audioSource.Play();
 
         Destroy(go, clip.length);

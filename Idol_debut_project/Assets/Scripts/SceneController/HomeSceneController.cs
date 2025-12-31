@@ -1,9 +1,12 @@
+using System.Linq;
 using UnityEngine;
 
 public class HomeSceneController : MonoBehaviour
 {
     private void Start()
     {
+
+        
         var gm = GameManager.Instance;
         if (gm.IsLoadedGame)
         {

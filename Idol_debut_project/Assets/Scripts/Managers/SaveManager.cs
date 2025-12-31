@@ -16,6 +16,8 @@ public class SaveManager : AdolpSingleton<SaveManager>
 
     public void Save()
     {
+        Debug.Log($"Save Path: {SavePath}");
+        
         SaveData data = new SaveData();
 
         var player = GameManager.Instance.player;
