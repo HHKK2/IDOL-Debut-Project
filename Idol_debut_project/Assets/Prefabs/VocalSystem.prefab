@@ -115,10 +115,14 @@ MonoBehaviour:
   judgeIntervalSec: 0.25
   autoFinishWhenSongEnds: 1
   endGraceSec: 0.25
-  goodWeight: 0.7
+  penaltyScaleForFinal: 0.2
+  goodWeight: 1
   badWeight: 0.2
+  perfectRatio: 0.95
+  audienceWindowSec: 5
+  audienceUpdateIntervalSec: 5
+  audienceDebugAlways: 1
   missPenaltyWeight: 1
   silentPenaltyWeight: 1.5
   logDebug: 0
-  audienceWindowSec: 5
-  audienceUpdateIntervalSec: 5
+  judgementToleranceScale: 3.5

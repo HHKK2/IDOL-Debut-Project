@@ -91,7 +91,7 @@ public class VocalJudge : MonoBehaviour
     public bool logDebug = false;
     
     [Header("Judgement Tuning")]
-    [Range(0.5f, 3.0f)]
+    [Range(0.5f, 10.0f)]
     public float judgementToleranceScale = 4.0f; // 1.0=원래, 1.4=널널, 1.8=더 널널
 
     public int Score { get; private set; }
