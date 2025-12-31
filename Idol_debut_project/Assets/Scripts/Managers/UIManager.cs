@@ -15,7 +15,11 @@ public class UIManager: AdolpSingleton<UIManager>
 
 	public Stack<UIPopup> PopupStack
 	{
-		get{ return popupStack; }
+		get
+		{
+			CleanupNullReferences(popupStack);
+			return popupStack;
+		}
 	}
 	
 	List<UIHUD> hudList = new List<UIHUD>();
@@ -23,7 +27,11 @@ public class UIManager: AdolpSingleton<UIManager>
 	
 	public List<UIHUD> HUDList
 	{
-		get{ return hudList; }
+		get
+		{
+			hudList.RemoveAll(h => h == null || h.gameObject == null);
+			return hudList;
+		}
 	}
 
 	
@@ -31,7 +39,11 @@ public class UIManager: AdolpSingleton<UIManager>
 
 	public List<UISystem> SystemList
 	{
-		get{ return systemList; }
+		get
+		{
+			systemList.RemoveAll(s => s == null || s.gameObject == null);
+			return systemList;
+		}
 	}
 
 
@@ -243,6 +255,8 @@ public class UIManager: AdolpSingleton<UIManager>
     /// </summary>
     public void CloseSystemUI(string systemName)
     {
+	    systemList.RemoveAll(s => s == null || s.gameObject == null);
+	    
 	    if (systemList.Count == 0)
 		    return;
 
@@ -284,5 +298,27 @@ public class UIManager: AdolpSingleton<UIManager>
     {
 	    while (systemList.Count > 0)
 		    CloseSystemUI();
+    }
+    
+    private void CleanupNullReferences<T>(Stack<T> stack) where T : MonoBehaviour
+    {
+	    if (stack.Count == 0)
+		    return;
+    
+	    List<T> tempList = new List<T>();
+    
+	    while (stack.Count > 0)
+	    {
+		    T item = stack.Pop();
+		    if (item != null && item.gameObject != null)
+		    {
+			    tempList.Add(item);
+		    }
+	    }
+    
+	    for (int i = tempList.Count - 1; i >= 0; i--)
+	    {
+		    stack.Push(tempList[i]);
+	    }
     }
 }

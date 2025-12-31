@@ -18,7 +18,7 @@ public class SoundManager : AdolpSingleton<SoundManager>
     [SerializeField] private AudioMixer mixer;
     [Header("each bg source have to be same as scene/hud name")]
     [SerializeField]private AudioSource[] bgList;
-    [Tooltip("if you choose hud, it turn bgm according to hud[0]")]
+    [Tooltip("if you choose hud, it turn bgm according to most upper hud")]
     [SerializeField] private ETurnOnBGMaccordingTo turnOnBGMaccordingTo;
     
     private AudioSource bgSound;
@@ -151,7 +151,7 @@ public class SoundManager : AdolpSingleton<SoundManager>
         AudioSource audioSource = go.AddComponent<AudioSource>();
         audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         audioSource.clip = clip;
-        audioSource.volume = 0.7f;
+        audioSource.volume = 0.5f;
         audioSource.Play();
 
         Destroy(go, clip.length);
