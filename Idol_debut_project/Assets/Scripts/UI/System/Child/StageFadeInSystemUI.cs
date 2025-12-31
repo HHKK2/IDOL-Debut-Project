@@ -71,7 +71,7 @@ public class StageFadeInSystemUI : UISystem
     private IEnumerator FadeInCoroutine()
     {
         yield return StartCoroutine(FadeIn());
-        
+        if (this == null || gameObject == null) yield break;
         UIManager.Instance.CloseSystemUI(GameConstants.UI.SystemName.StageFadeInSystemUI);
     }
     

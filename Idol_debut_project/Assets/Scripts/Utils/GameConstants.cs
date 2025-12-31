@@ -38,6 +38,9 @@ public static class GameConstants
             public const string StageHUD = "StageHUD";
             public const string ConfirmHUD = "ConfirmHUD";
             public const string PracticeHUD = "PracticeHUD";
+            public const string PracticeResultHUD = "PracticeResultHUD";
+            public const string StageResultHUD = "StageResultHUD";
+            public const string TwitterHUD = "TwitterHUD";
             
         }
         public static class SystemName

@@ -258,8 +258,10 @@ public class UIManager: AdolpSingleton<UIManager>
 
     void CloseSystemUI()
     {
-	    if (systemList.Count == 0)
-		    return;
+		if (systemList.Count == 0)
+			return;
+    	
+		systemList.RemoveAll(s => s == null || s.gameObject == null);
 
 	    UISystem system = systemList[systemList.Count - 1];
 	    systemList.RemoveAt(systemList.Count - 1);

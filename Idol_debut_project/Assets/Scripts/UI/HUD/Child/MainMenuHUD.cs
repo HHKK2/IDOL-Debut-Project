@@ -255,6 +255,7 @@ public class MainMenuHUD : UIHUD
         DatingButton.interactable = false;
         RestButton.interactable = false;
         PracticeButton.interactable = false;
+        Get<Button>((int)Buttons.ComebackButton).interactable = true;
     }
 
     /// <summary>
@@ -271,6 +272,7 @@ public class MainMenuHUD : UIHUD
         DatingButton.interactable = true;
         RestButton.interactable = true;
         PracticeButton.interactable = true;
+        Get<Button>((int)Buttons.ComebackButton).interactable = true;
     }
 
     // 튜토리얼 용도: 연습 버튼 이외 버튼 비활성화

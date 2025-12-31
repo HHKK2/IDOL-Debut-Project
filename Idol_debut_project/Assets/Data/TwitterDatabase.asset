@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a7e42d97b76046438572005b4e9dcac, type: 3}
   m_Name: TwitterDatabase
   m_EditorClassIdentifier: Assembly-CSharp::TwitterDatabaseSO
-  twitterDataArray: []
+  twitterJson: {fileID: 4900000, guid: cfd0af77a2ecab74c8938fab97f77e5e, type: 3}

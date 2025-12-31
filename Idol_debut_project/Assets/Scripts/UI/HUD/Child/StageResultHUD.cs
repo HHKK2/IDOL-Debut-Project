@@ -64,7 +64,10 @@ public class StageResultHUD : UIHUD
         GoHomeButton = Get<Button>((int)Buttons.GoHomeButton);
         BindEvent(GoHomeButton.gameObject, OnClicked_GoHomeButton, GameEvents.UIEvent.Click);
 
-    
+        GoHomeButton.onClick.AddListener(() => {
+        Debug.Log("GoHomeButton onClick!");
+        OnClickGoHomeButton?.Invoke();
+    });
         
         initialized = true;
     }

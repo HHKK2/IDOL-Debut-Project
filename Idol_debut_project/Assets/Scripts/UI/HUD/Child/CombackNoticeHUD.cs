@@ -79,15 +79,27 @@ public class CombackNoticeHUD : UIHUD
 
     /// <param name="albumImagePath">Resources 폴더 내의 상대 경로 (확장자 제외)
     /// 예: "Sprites/AlbumCovers/MySong" (Assets/Resources/Sprites/AlbumCovers/MySong.png 일 경우)</param>
-    public void Init(string albumImagePath,string conceptName ,string songName)
+    public void Init(string albumImagePath, string conceptName, string songName)
+    {
+        if (!initialized)
+        {
+            EnsureInitialized();
+        }
+
+        AlbumImage.sprite = Resources.Load<Sprite>(albumImagePath);
+        DialogBoxText.text = "이번 컴백 곡은 " + conceptName + " 컨셉의 '" + songName + "'이다.";
+    }
+    
+
+    public void InitWithSprite(Sprite albumCover, string conceptName, string songName)
     {
         if (!initialized)
         {
             EnsureInitialized();
         }
         
-        AlbumImage.sprite = Resources.Load<Sprite>(albumImagePath);
-        DialogBoxText.text = "이번 컴백 곡은 "+conceptName+" 컨셉의 '"+songName+"'이다."; 
+        AlbumImage.sprite = albumCover;
+        DialogBoxText.text = "이번 컴백 곡은 " + conceptName + " 컨셉의 '" + songName + "'이다.";
     }
-    
+        
 }
