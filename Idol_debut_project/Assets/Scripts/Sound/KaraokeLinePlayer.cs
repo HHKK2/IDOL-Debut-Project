@@ -63,14 +63,10 @@ public class KaraokeLinePlayer : MonoBehaviour
         {
             case "P":
             {
-                var syll = GetSyllableAtTime(line, t);
-                int highlightIndex = syll != null ? syll.index : -1;
-                lyricsText.text = BuildColoredText(
-                    line.text,
-                    highlightIndex,
-                    baseWhite,
-                    playerColor
-                );
+                // [수정됨] 복잡한 한 글자 하이라이팅 로직 삭제
+                // [수정됨] 전체 라인을 playerColor(보라색)로 감싸서 출력
+                // WrapWholeLineWithColor는 띄어쓰기를 건드리지 않으므로 띄어쓰기 문제도 자동 해결됨
+                lyricsText.text = WrapWholeLineWithColor(line.text, playerColor);
                 break;
             }
             case "M":
@@ -84,6 +80,7 @@ public class KaraokeLinePlayer : MonoBehaviour
                 break;
         }
 
+        // ... (아래 nextLyricsText 관련 코드는 그대로 두시면 됩니다) ...
         if (nextLyricsText != null && !ReferenceEquals(line, lastLine))
         {
             lastLine = line;
