@@ -7,6 +7,7 @@ using UnityEngine.UI;
 /// </summary>
 public class MouseEffect : AdolpSingleton<MouseEffect>
 {
+    [SerializeField] private AudioSource audioSource;
     public GameObject starEffectPrefab;
     public int canvasSortOrder = 9999;
     private float spawnsTime = 0f;
@@ -46,6 +47,7 @@ public class MouseEffect : AdolpSingleton<MouseEffect>
     {
         if (Input.GetMouseButton(0) && spawnsTime >= defaultTime)
         {
+            SoundManager.Instance.SFXPlay("ClickSound",audioSource.clip);
             StarCreate();
             spawnsTime = 0f;
         }
