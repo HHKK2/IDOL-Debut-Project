@@ -17,7 +17,7 @@ public class VocalJudge : MonoBehaviour
     public AudioSource songAudioSource;
 
     [Header("Judge Rate")]
-    public float judgeIntervalSec = 0.25f; // 0.25초마다 판정
+    public float judgeIntervalSec = 0.05f; // 0.05초마다 판정
     private float judgeTimer = 0.0f;
 
     [Header("Result")] 
@@ -27,17 +27,18 @@ public class VocalJudge : MonoBehaviour
     
     [Header("Final Score Tuning")]
     [Range(0f, 2f)]
-    public float penaltyScaleForFinal = 0.7f; // 1.0이면 페널티 빡셈, 0.6이면 덜 빡셈
+    public float penaltyScaleForFinal = 0.2f; // 1.0이면 페널티 빡셈, 0.6이면 덜 빡셈
 
     [Header("Score Normalization")] 
     [Range(0f, 1f)] public float goodWeight = 1.0f;
 
     [Range(0f, 1f)] public float badWeight = 0.20f;
-    
+
+    [Range(0.3f, 1.0f)] public float perfectRatio = 0.75f;
     
 
-    public float missPenaltyWeight = 0.4f;
-    public float silentPenaltyWeight = 0.5f;
+    public float missPenaltyWeight = 0.2f;
+    public float silentPenaltyWeight = 0.3f;
     public int PitchScore100 { get; private set; }
     public int Penalty100 { get; private set; }
     public int FinalScore100 { get; private set; }
@@ -101,6 +102,11 @@ public class VocalJudge : MonoBehaviour
     {
         Debug.Log($"[VocalJudge] START id={GetInstanceID()} name={gameObject.name} active={gameObject.activeInHierarchy}");
         ResetResult();
+        RecalcAudienceWindow();
+    }
+
+    void RecalcAudienceWindow()
+    {
         maxSamplesPerWindow = Mathf.Max(1, Mathf.RoundToInt(audienceWindowSec / judgeIntervalSec));
         
         // PitchDetector의 sampleRate를 AudioInput과 동기화
@@ -201,7 +207,7 @@ public class VocalJudge : MonoBehaviour
                      $"Perfect: {PerfectCount}, Good: {GoodCount}, Bad: {BadCount}, Miss: {MissCount}");
         }
 
-        audienceTimer += judgeIntervalSec;
+        audienceTimer += Time.deltaTime;
         if (audienceTimer >= audienceUpdateIntervalSec)
         {
             audienceTimer = 0f;
@@ -209,7 +215,7 @@ public class VocalJudge : MonoBehaviour
             var feeling = CalculateWindowFeeling();
             Feeling = feeling;
             
-            if (feelingBefore != feeling)
+            if (true)
             {
                 Debug.Log($"[VocalJudge] 🎭 Feeling 업데이트: {feelingBefore} → {feeling} | windowSamples.Count={windowSamples.Count}");
             }
@@ -305,14 +311,14 @@ public class VocalJudge : MonoBehaviour
         float actualMidi = pitchDetector.LastMidi;
 
         float cents = Mathf.Abs(actualMidi - expectedMidi) * 100.0f;
-        int basetol = note.tol_cents > 0 ? note.tol_cents : 80;
+        int basetol = note.tol_cents > 0 ? note.tol_cents : 120;
 
         float tolScale = judgementToleranceScale;
         float tol = basetol * tolScale;
 
         Debug.Log($"[Judge] 음높이 비교: 기대={expectedMidi:F2}, 실제={actualMidi:F2}, 차이={cents:F2}센트, 허용={tol}센트");
 
-        if (cents <= tol*0.5f)
+        if (cents <= tol*perfectRatio)
         {
             LastJudgement = "Perfect";
             Score += 20;
@@ -390,6 +396,8 @@ public class VocalJudge : MonoBehaviour
         PitchScore100 = 0;
         Penalty100 = 0;
         FinalScore100 = 0;
+
+        Feeling = AudianceData.EAudianceFeeling.SoSo;
     }
 
     public event Action<AudianceData.EAudianceFeeling> OnAudienceFeelingUpdated;
@@ -440,7 +448,7 @@ public class VocalJudge : MonoBehaviour
         if (trials <= 0)
         {
             Debug.Log("[CalculateWindowFeeling] 판정 데이터 없음 → Bad");
-            return AudianceFeelingUtil.FromScore100(0);
+            return AudianceData.EAudianceFeeling.SoSo;
         }
 
         float raw = (wPerfect * 1.0f) + (wGood * goodWeight) + (wBad * badWeight);
