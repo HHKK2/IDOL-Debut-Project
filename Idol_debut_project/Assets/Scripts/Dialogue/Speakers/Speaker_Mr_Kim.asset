@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190a0671b5ca740d0a5a1b007b6abd6e, type: 3}
   m_Name: Speaker_Mr_Kim
   m_EditorClassIdentifier: Assembly-CSharp::Speaker
-  speakerName: "\uAE40\uC2E4\uC7A5"
+  speakerName: 
   characterImage: {fileID: 21300000, guid: 098fa0504e8484f73937b6fb376f5c25, type: 3}
   position: 0
