@@ -43,6 +43,8 @@ public class ComebackSceneController : MonoBehaviour
     private VocalJudge vocalJudge;
     private VocalResult vocalResult;
     private Coroutine countdownCoroutine;
+    private Coroutine resultDelayCoroutine;
+    private bool isResultShown = false;
 
     //연습 관련
     private bool isPracticePlaying = false;
@@ -363,6 +365,8 @@ public class ComebackSceneController : MonoBehaviour
         songTimestamp = 0f;
         isStagePlaying = true;
         isWaitingForCountdown = true;
+        isResultShown = false;
+        vocalResult = null;
 
         // 카운트다운이 끝날 때까지 기다린 후 음악 재생 (StageFadeInSystemUI의 delayTime은 3초)
         countdownCoroutine = StartCoroutine(WaitForCountdownAndStartMusic());
@@ -371,14 +375,20 @@ public class ComebackSceneController : MonoBehaviour
         vocalJudge = stageHUD != null ? stageHUD.GetComponentInChildren<VocalJudge>(true) : null;
         if (vocalJudge != null)
         {
+            // 결과 초기화
+            vocalJudge.ResetResult();
+
             // audioSource 연결
             vocalJudge.songAudioSource = audioSource;
             vocalJudge.useAudioSourceTime = true;
+            vocalJudge.autoFinishWhenSongEnds = true;
 
             // OnFinished 이벤트 구독
             vocalJudge.OnFinished += OnVocalJudgeFinished;
 
             vocalJudge.OnAudienceFeelingUpdated += OnAudienceFeelingUpdated;
+
+            Debug.Log("[ComebackScene] VocalJudge 초기화 완료");
         }
         else
         {
@@ -468,8 +478,72 @@ public class ComebackSceneController : MonoBehaviour
 
     private void OnStageFinished()
     {
+        Debug.Log("[ComebackScene] OnStageFinished 호출됨");
         isStagePlaying = false;
         isWaitingForCountdown = false;
+
+        // VocalJudge가 있으면 자동으로 Finish()가 호출될 때까지 기다림
+        // (autoFinishWhenSongEnds가 true이면 노래가 끝나면 자동으로 Finish() 호출)
+        // 노래는 일단 정지하지 않고, VocalJudge가 Finish()를 호출할 때까지 기다림
+        // 만약 VocalJudge가 없거나 결과가 오지 않으면 지연 후 표시
+
+        // 기존 코루틴 정지
+        if (resultDelayCoroutine != null)
+        {
+            StopCoroutine(resultDelayCoroutine);
+            resultDelayCoroutine = null;
+        }
+
+        // VocalJudge가 있으면 결과를 기다리고, 없으면 바로 지연 후 표시
+        if (vocalJudge != null)
+        {
+            Debug.Log("[ComebackScene] VocalJudge가 있음. 결과를 기다립니다...");
+            // VocalJudge의 autoFinishWhenSongEnds가 true이면 자동으로 Finish()가 호출됨
+            // 하지만 혹시 모를 경우를 대비해 최대 대기 시간 설정
+            resultDelayCoroutine = StartCoroutine(ShowResultAfterDelay());
+        }
+        else
+        {
+            Debug.Log("[ComebackScene] VocalJudge가 없음. 지연 후 결과 표시");
+            resultDelayCoroutine = StartCoroutine(ShowResultAfterDelay());
+        }
+    }
+
+    private void OnVocalJudgeFinished(VocalResult result)
+    {
+        Debug.Log($"[ComebackScene] OnVocalJudgeFinished 호출됨! finalScore100={result?.finalScore100}, score={result?.score}");
+        vocalResult = result;
+        // 결과가 준비되면 바로 표시 (지연 코루틴이 있으면 취소)
+        if (resultDelayCoroutine != null)
+        {
+            StopCoroutine(resultDelayCoroutine);
+            resultDelayCoroutine = null;
+        }
+        ShowStageResult(result);
+    }
+
+    private System.Collections.IEnumerator ShowResultAfterDelay()
+    {
+        const float delaySeconds = 1.5f;
+        yield return new WaitForSeconds(delaySeconds);
+
+        // VocalJudge 결과가 있으면 그것을 사용, 없으면 null로 표시
+        Debug.Log($"[ComebackScene] ShowResultAfterDelay 완료. vocalResult={vocalResult?.finalScore100 ?? -1}");
+        ShowStageResult(vocalResult);
+        resultDelayCoroutine = null;
+    }
+
+    private void ShowStageResult(VocalResult result)
+    {
+        // 중복 호출 방지
+        if (isResultShown)
+        {
+            Debug.Log("[ComebackScene] ShowStageResult 중복 호출 방지");
+            return;
+        }
+        isResultShown = true;
+
+        Debug.Log($"[ComebackScene] ShowStageResult 호출됨. result={result != null}, finalScore100={result?.finalScore100 ?? -1}");
 
         // 노래 정지
         if (audioSource != null && audioSource.isPlaying)
@@ -477,23 +551,6 @@ public class ComebackSceneController : MonoBehaviour
             audioSource.Stop();
         }
 
-        // VocalJudge가 있으면 결과를 기다림 (OnVocalJudgeFinished에서 처리)
-        // VocalJudge가 없으면 바로 결과 화면 표시
-        if (vocalJudge == null)
-        {
-            ShowStageResult(null);
-        }
-        // VocalJudge가 있으면 OnVocalJudgeFinished에서 처리됨
-    }
-
-    private void OnVocalJudgeFinished(VocalResult result)
-    {
-        vocalResult = result;
-        ShowStageResult(result);
-    }
-
-    private void ShowStageResult(VocalResult result)
-    {
         // StageHUD 닫기
         if (stageHUD != null)
         {
@@ -522,6 +579,7 @@ public class ComebackSceneController : MonoBehaviour
             // 평판이 양수인지 여부 (점수가 50 이상이면 양수)
             bool isReputationPositive = result.finalScore100 >= 50;
 
+            Debug.Log($"[ComebackScene] 결과 표시: score={scoreText}, rank={rankImagePath}, feeling={feeling}");
             resultHUD.Init(rankImagePath, scoreText, albumNth.ToString(), currentSong.title, feeling, isReputationPositive);
         }
         else
@@ -532,6 +590,7 @@ public class ComebackSceneController : MonoBehaviour
             AudianceData.EAudianceFeeling feeling = AudianceData.EAudianceFeeling.Bad;
             bool isReputationPositive = false;
 
+            Debug.Log($"[ComebackScene] 결과 없음. 기본값 표시: score={scoreText}, rank={rankImagePath}");
             resultHUD.Init(rankImagePath, scoreText, albumNth.ToString(), currentSong.title, feeling, isReputationPositive);
         }
     }
@@ -667,6 +726,12 @@ public class ComebackSceneController : MonoBehaviour
         {
             StopCoroutine(countdownCoroutine);
             countdownCoroutine = null;
+        }
+
+        if (resultDelayCoroutine != null)
+        {
+            StopCoroutine(resultDelayCoroutine);
+            resultDelayCoroutine = null;
         }
 
         // AudioSource 정리
